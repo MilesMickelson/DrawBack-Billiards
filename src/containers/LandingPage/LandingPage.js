@@ -16,7 +16,6 @@ import {
   LayoutWrapperTopbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
-  Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
 
@@ -66,10 +65,8 @@ export const LandingPageComponent = props => {
           <TopbarContainer />
         </LayoutWrapperTopbar>
         <LayoutWrapperMain>
-          <div className={css.heroContainer}>
-            <SectionHero className={css.hero} history={history} location={location} />
-          </div>
-          <ul className={css.sections}>
+        <SectionHero history={ history } location={ location } />
+          {/* <ul className={css.sections}>
             <li className={css.section}>
               <div className={css.sectionContentFirstChild}>
                 <SectionLocations />
@@ -83,7 +80,7 @@ export const LandingPageComponent = props => {
                 />
               </div>
             </li>
-          </ul>
+          </ul> */}
         </LayoutWrapperMain>
         <LayoutWrapperFooter />
       </LayoutSingleColumn>
