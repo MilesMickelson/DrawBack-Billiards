@@ -16,6 +16,8 @@ import {
   SectionHero,
   MainTopCategories,
   Newest,
+  RecentlyViewed,
+  StaffPicks,
   LayoutWrapperMain,
   LayoutWrapperFooter,
 } from '../../components';
@@ -67,6 +69,8 @@ export const LandingPageComponent = props => {
         <SectionHero history={ history } location={ location } />
         <MainTopCategories />
         <Newest />
+        <RecentlyViewed />
+        <StaffPicks />
         <LayoutWrapperMain />
         {/* <SectionHowItWorks
           currentUserListing={currentUserListing}

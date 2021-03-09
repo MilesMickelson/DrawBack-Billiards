@@ -51,7 +51,9 @@ export { default as UserDisplayName } from './UserDisplayName/UserDisplayName';
 export { default as ValidationError } from './ValidationError/ValidationError';
 
 export { default as TopCategoryBar } from './TopCategoryBar/catbar';
-export { default as Newest } from './MainPageCategories/newest';
+export { default as Newest } from './MainPageCategories/newestListings';
+export { default as RecentlyViewed } from './MainPageCategories/recentlyViewed';
+export { default as StaffPicks } from './MainPageCategories/staffPicks';
 export { default as MainTopCategories } from './MainTopCategories/TopCategories';
 
 /**
