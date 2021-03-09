@@ -50,6 +50,9 @@ export { default as TimeRange } from './TimeRange/TimeRange';
 export { default as UserDisplayName } from './UserDisplayName/UserDisplayName';
 export { default as ValidationError } from './ValidationError/ValidationError';
 
+export { default as TopCategoryBar } from './TopCategoryBar/catbar';
+export { default as Newest } from './MainPageCategorys/newest';
+
 /**
  * Composite components
  * These components include other components

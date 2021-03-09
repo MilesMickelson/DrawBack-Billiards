@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, string } from 'prop-types';
-import classNames from 'classnames';
+import ClassNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { OwnListingLink } from '../../components';
@@ -10,7 +10,7 @@ import css from './SectionHowItWorks.module.css';
 const SectionHowItWorks = props => {
   const { rootClassName, className, currentUserListing, currentUserListingFetched } = props;
 
-  const classes = classNames(rootClassName || css.root, className);
+  const classes = ClassNames(rootClassName || css.root, className);
   return (
     <div className={classes}>
       <div className={css.title}>

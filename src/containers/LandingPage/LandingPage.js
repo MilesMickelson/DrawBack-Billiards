@@ -12,7 +12,8 @@ import {
   SectionHero,
   SectionHowItWorks,
   SectionLocations,
-  LayoutSingleColumn,
+  TopCategoryBar,
+  Newest,
   LayoutWrapperTopbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
@@ -60,30 +61,16 @@ export const LandingPageComponent = props => {
         image: [schemaImage],
       }}
     >
-      <LayoutSingleColumn>
-        <LayoutWrapperTopbar>
-          <TopbarContainer />
-        </LayoutWrapperTopbar>
-        <LayoutWrapperMain>
+        <LayoutWrapperTopbar />
+        <TopCategoryBar />
         <SectionHero history={ history } location={ location } />
-          {/* <ul className={css.sections}>
-            <li className={css.section}>
-              <div className={css.sectionContentFirstChild}>
-                <SectionLocations />
-              </div>
-            </li>
-            <li className={css.section}>
-              <div className={css.sectionContent}>
-                <SectionHowItWorks
-                  currentUserListing={currentUserListing}
-                  currentUserListingFetched={currentUserListingFetched}
-                />
-              </div>
-            </li>
-          </ul> */}
-        </LayoutWrapperMain>
+        <Newest />
+        <LayoutWrapperMain />
+        {/* <SectionHowItWorks
+          currentUserListing={currentUserListing}
+          currentUserListingFetched={currentUserListingFetched}
+        /> */}
         <LayoutWrapperFooter />
-      </LayoutSingleColumn>
     </Page>
   );
 };
