@@ -218,8 +218,6 @@ const LayoutWrapperTopbar = props => {
     </div>
   );
 };
-  
-
 
 LayoutWrapperTopbar.defaultProps = {
   className: null,

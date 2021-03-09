@@ -112,16 +112,13 @@ class TopbarComponent extends Component {
     const { onLogout, history } = this.props;
     onLogout().then(() => {
       const path = pathByRouteName('LandingPage', routeConfiguration());
-
-      // In production we ensure that data is really lost,
-      // but in development mode we use stored values for debugging
+      // In production we ensure that data is really lost, but in development mode we use stored values for debugging.
       if (config.dev) {
         history.push(path);
       } else if (typeof window !== 'undefined') {
         window.location = path;
       }
-
-      console.log('logged out'); // eslint-disable-line
+      console.log('logged out');
     });
   }
 

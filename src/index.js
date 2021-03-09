@@ -62,17 +62,14 @@ const render = (store, shouldHydrate) => {
 
 const setupAnalyticsHandlers = () => {
   let handlers = [];
-
   // Log analytics page views and events in dev mode
   if (config.dev) {
     handlers.push(new LoggingAnalyticsHandler());
   }
-
   // Add Google Analytics handler if tracker ID is found
   if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
     handlers.push(new GoogleAnalyticsHandler(window.ga));
   }
-
   return handlers;
 };
 
@@ -80,10 +77,7 @@ const setupAnalyticsHandlers = () => {
 if (typeof window !== 'undefined') {
   // set up logger with Sentry DSN client key and environment
   log.setup();
-
   const baseUrl = config.sdk.baseUrl ? { baseUrl: config.sdk.baseUrl } : {};
-
-  // eslint-disable-next-line no-underscore-dangle
   const preloadedState = window.__PRELOADED_STATE__ || '{}';
   const initialState = JSON.parse(preloadedState, sdkTypes.reviver);
   const sdk = createInstance({
@@ -95,10 +89,8 @@ if (typeof window !== 'undefined') {
   });
   const analyticsHandlers = setupAnalyticsHandlers();
   const store = configureStore(initialState, sdk, analyticsHandlers);
-
   require('./util/polyfills');
   render(store, !!window.__PRELOADED_STATE__);
-
   if (config.dev) {
     // Expose stuff for the browser REPL
     window.app = {
@@ -115,7 +107,6 @@ if (typeof window !== 'undefined') {
 // Show warning if CSP is not enabled
 const CSP = process.env.REACT_APP_CSP;
 const cspEnabled = CSP === 'block' || CSP === 'report';
-
 if (CSP === 'report' && process.env.REACT_APP_ENV === 'production') {
   console.warn(
     'Your production environment should use CSP with "block" mode. Read more from: https://www.sharetribe.com/docs/ftw-security/how-to-set-up-csp-for-ftw/'
@@ -126,7 +117,6 @@ if (CSP === 'report' && process.env.REACT_APP_ENV === 'production') {
   );
 }
 
-// Export the function for server side rendering.
 export default renderApp;
 
 // exporting matchPathname and configureStore for server side rendering.
