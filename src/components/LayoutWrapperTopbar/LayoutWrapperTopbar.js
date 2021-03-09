@@ -1,174 +1,225 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  fade,
+  makeStyles,
+} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import { Divider } from '@material-ui/core';
+
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchIcon from '@material-ui/icons/Search';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import ExploreIcon from '@material-ui/icons/Explore';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import AllInboxIcon from '@material-ui/icons/AllInbox';
-import FeedbackIcon from '@material-ui/icons/Feedback';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import StoreIcon from '@material-ui/icons/Store';
-import SettingsIcon from '@material-ui/icons/Settings';
 
-import css from './LayoutWrapperTopbar.module.css';
-
-function TabPanel(props) {
-  const {
-    children, value, index, ...other
-  } = props;
-
-  return (
-    <div
-      role='tabpanel'
-      hidden={ value !== index }
-      id={ `scrollable-force-tabpanel-${index}` }
-      aria-labelledby={ `scrollable-force-tab-${index}` }
-      { ...other }
-    >
-      {value === index && (
-        <Box p={ 3 }>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
-  };
-}
+import MainDrawer from '../../hooks/main-drawer';
+import AccountDrawer from '../../hooks/account-drawer';
 
 const useStyles = makeStyles((theme) => ({
-  tabWrap: {
-    maxWidth: 1260,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(3),
+    marginLeft: theme.spacing(3),
+    flexGrow: 1,
   },
-  tabLink: {
-    color: theme.palette.primary.dark,
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: theme.fullWidth,
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  tempSpacer: {
-    height: 500,
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: theme.fullWidth,
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+    minWidth: 300,
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  sellButton: {
+    height: '75%',
+    color: '#ffffff',
+    borderColor: '#ffffff',
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginRight: 15,
+    fontWeight: 'bold',
+  },
+  badge: {
+    color: theme.palette.red,
   },
 }));
 
 const LayoutWrapperTopbar = props => {
-  const { className, rootClassName, children } = props;
   // const classes = classNames(rootClassName || css.root, className);
-  const [value, setValue] = React.useState(0);
-  const jss = useStyles();
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  // const { className, rootClassName, children } = props;
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const notificationMenu = (
+    <Menu
+      anchorEl={ anchorEl }
+      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
+      id={ menuId }
+      keepMounted
+      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
+      open={ isMenuOpen }
+      onClose={ handleMenuClose }
+    >
+      <MenuItem onClick={ handleMenuClose }>Offers</MenuItem>
+      <MenuItem onClick={ handleMenuClose }>Messages</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={ mobileMoreAnchorEl }
+      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
+      id={ mobileMenuId }
+      keepMounted
+      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
+      open={ isMobileMenuOpen }
+      onClose={ handleMobileMenuClose }
+    >
+      <MenuItem onClick={ handleProfileMenuOpen }>
+        <IconButton
+          aria-label='account of current user'
+          aria-controls='primary-search-account-menu'
+          aria-haspopup='true'
+          color='inherit'
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+      <Divider />
+      <Divider />
+    </Menu>
+  );
+
   return (
-    <>
-      <AppBar position='static' color='default'>
-        <div className={ jss.tabWrap }>
-          <Tabs
-            variant='standard'
-            indicatorColor='primary'
-            textColor='primary'
-            value={ value }
-            onChange={ handleChange }
-          >
-            <Tab
-              label='Dashboard'
-              icon={ <DashboardIcon color='primary' /> }
-              {...a11yProps(0)}
-              className={ jss.tabLink }
-            />
-            <Tab
-              label='Buying'
-              className={ jss.tabLink }
-              icon={ <ShoppingCartIcon color='primary' /> }
-              {...a11yProps(1)}
-            />
-            <Tab
-              label='Selling'
-              className={ jss.tabLink }
-              icon={ <LocalOfferIcon color='primary' /> }
-              {...a11yProps(2)}
-            />
-            <Tab
-              label='Messages'
-              className={ jss.tabLink }
-              icon={ <AllInboxIcon color='primary' /> }
-              {...a11yProps(3)}
-            />
-            <Tab
-              label='Feedback'
-              className={ jss.tabLink }
-              icon={ <FeedbackIcon color='primary' /> }
-              {...a11yProps(4)}
-            />
-            <Tab
-              label='Earnings'
-              className={ jss.tabLink }
-              icon={ <MonetizationOnIcon color='primary' /> }
-              {...a11yProps(5)}
-            />
-            <Tab
-              label='Shop Settings'
-              className={ jss.tabLink }
-              icon={ <StoreIcon color='primary' /> }
-              {...a11yProps(6)}
-            />
-            <Tab
-              label='My Account'
-              className={ jss.tabLink }
-              icon={ <SettingsIcon color='primary' /> }
-              {...a11yProps(7)}
-            />
-          </Tabs>
-        </div>
-      </AppBar>
-      <main className='nine-sixty-max'>
-        <TabPanel value={ value } index={ 0 }>
-          {/* <Dashboard /> */}
-          <div className={ jss.tempSpacer }>Dashboard</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 1 }>
-          <div className={ jss.tempSpacer }>Buying</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 2 }>
-          <div className={ jss.tempSpacer }>Selling</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 3 }>
-          <div className={ jss.tempSpacer }>Messages</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 4 }>
-          <div className={ jss.tempSpacer }>Feedback</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 5 }>
-          <div className={ jss.tempSpacer }>Earnings</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 6 }>
-          <div className={ jss.tempSpacer }>Shop Settings</div>
-        </TabPanel>
-        <TabPanel value={ value } index={ 7 }>
-          <div className={ jss.tempSpacer }>My Account</div>
-        </TabPanel>
-      </main>
-    </>
+    <div className='blue-bg-wrap'>
+      <div className='appbar-wrap'>
+        <AppBar position='static' elevation={ 0 }>
+          <Toolbar id='back-to-top-anchor'>
+            <MainDrawer />
+            <Typography variant='h1' nowrap='true'>
+              DrawBack Billiards
+            </Typography>
+            <div className={ classes.search }>
+              <div className={ classes.searchIcon }>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={ {
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                } }
+                inputProps={ { 'aria-label': 'search' } }
+              />
+            </div>
+            <div className={ classes.grow } />
+            <div className={ classes.sectionDesktop }>
+              <Button variant='outlined' className={ classes.sellButton }>
+                Sell
+              </Button>
+              <IconButton aria-label='My feed' color='inherit'>
+                <ExploreIcon />
+              </IconButton>
+              <IconButton aria-label='favorites' color='inherit'>
+                <TrackChangesIcon />
+              </IconButton>
+              <IconButton aria-label='shopping cart' color='inherit'>
+                <ShoppingCartIcon />
+              </IconButton>
+              <IconButton aria-label='notifications icon' color='inherit'>
+                <Badge badgeContent={ 7 } color='secondary'>
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <AccountDrawer />
+            </div>
+            <div className={ classes.sectionMobile }>
+              <IconButton
+                aria-label='show more'
+                aria-controls={ mobileMenuId }
+                aria-haspopup='true'
+                onClick={ handleMobileMenuOpen }
+                color='inherit'
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+      </div>
+      <div id='blue-appbar2' />
+    </div>
   );
 };
+  
+
 
 LayoutWrapperTopbar.defaultProps = {
   className: null,
