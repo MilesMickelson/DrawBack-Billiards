@@ -51,7 +51,8 @@ export { default as UserDisplayName } from './UserDisplayName/UserDisplayName';
 export { default as ValidationError } from './ValidationError/ValidationError';
 
 export { default as TopCategoryBar } from './TopCategoryBar/catbar';
-export { default as Newest } from './MainPageCategorys/newest';
+export { default as Newest } from './MainPageCategories/newest';
+export { default as MainTopCategories } from './MainTopCategories/TopCategories';
 
 /**
  * Composite components

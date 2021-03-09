@@ -198,6 +198,32 @@ a {
 
 /*#endregion Structural*/
 
-/*#region ClassNames*/
+/*#region Styling ClassNames*/
 
-/*#endregion ClassNames*/
+.article-image {
+  margin: 0;
+  width: 305px;
+}
+
+.collections-wrap {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  @include flex-row-center-between;
+}
+
+.list-heading {
+	color: $white;
+	font-size: calc(.5rem + .5vmin);
+	font-weight: bold;
+}
+
+.flex-grow {
+	flex-grow: 1;
+}
+
+.center {
+	text-align: center;
+}
+
+/*#endregion Styling ClassNames*/

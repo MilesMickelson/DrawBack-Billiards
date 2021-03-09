@@ -7,14 +7,15 @@ import { injectIntl, intlShape } from '../../util/reactIntl';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { propTypes } from '../../util/types';
 import config from '../../config';
+// SectionHowItWorks,
+// SectionLocations,
 import {
   Page,
-  SectionHero,
-  SectionHowItWorks,
-  SectionLocations,
-  TopCategoryBar,
-  Newest,
   LayoutWrapperTopbar,
+  TopCategoryBar,
+  SectionHero,
+  MainTopCategories,
+  Newest,
   LayoutWrapperMain,
   LayoutWrapperFooter,
 } from '../../components';
@@ -64,6 +65,7 @@ export const LandingPageComponent = props => {
         <LayoutWrapperTopbar />
         <TopCategoryBar />
         <SectionHero history={ history } location={ location } />
+        <MainTopCategories />
         <Newest />
         <LayoutWrapperMain />
         {/* <SectionHowItWorks
