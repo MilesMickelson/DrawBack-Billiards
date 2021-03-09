@@ -135,6 +135,14 @@ $orange: #FF7840;
 
 /*#region MarkUp*/
 
+body {
+  /* http://szafranek.net/blog/2009/02/22/font-smoothing-explained/ */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  background-color: var(--matterColorBright);
+}
+
 ul {
 	margin: 0 0 0 10px;
 	padding-left: 10px;

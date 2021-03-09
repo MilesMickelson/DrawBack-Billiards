@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   footerBg: {
     backgroundColor: theme.palette.primary.dark,
     paddingBottom: theme.spacing(1),
+    marginTop: 15,
   },
   appbarContainer: {
     width: theme.fullWidth,
