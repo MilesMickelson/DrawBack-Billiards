@@ -59,31 +59,18 @@ const app = express();
 
 const errorPage = fs.readFileSync(path.join(buildPath, '500.html'), 'utf-8');
 
-// load sitemap and robots file structure
-// and write those into files
+// ? Load sitemap and robots file structure and write those into files
 sitemap(sitemapStructure()).toFile();
 
-// Setup error logger
+// ?Setup error logger
 log.setup();
-// Add logger request handler. In case Sentry is set up
-// request information is added to error context when sent
-// to Sentry.
+
+// ? Add logger request handler. In case Sentry is set up request information is added to error context when sent to Sentry.
 app.use(log.requestHandler());
-
-// The helmet middleware sets various HTTP headers to improve security.
-// See: https://www.npmjs.com/package/helmet
-// Helmet 4 doesn't disable CSP by default so we need to do that explicitly.
-// If csp is enabled we will add that separately.
-
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  })
-);
+app.use(helmet({contentSecurityPolicy: false }));
 
 if (cspEnabled) {
-  // When a CSP directive is violated, the browser posts a JSON body
-  // to the defined report URL and we need to parse this body.
+  // ? When a CSP directive is violated, the browser posts a JSON body to the defined report URL and we need to parse this body.
   app.use(
     bodyParser.json({
       type: ['json', 'application/csp-report'],
