@@ -18,6 +18,9 @@ import {
   Newest,
   RecentlyViewed,
   StaffPicks,
+  Articles,
+  Collections,
+  Guides,
   LayoutWrapperMain,
   LayoutWrapperFooter,
 } from '../../components';
@@ -69,8 +72,11 @@ export const LandingPageComponent = props => {
         <SectionHero history={ history } location={ location } />
         <MainTopCategories />
         <Newest />
+        <Guides />
         <RecentlyViewed />
+        <Articles />
         <StaffPicks />
+        <Collections />
         <LayoutWrapperMain />
         {/* <SectionHowItWorks
           currentUserListing={currentUserListing}

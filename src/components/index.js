@@ -51,10 +51,13 @@ export { default as UserDisplayName } from './UserDisplayName/UserDisplayName';
 export { default as ValidationError } from './ValidationError/ValidationError';
 
 export { default as TopCategoryBar } from './TopCategoryBar/catbar';
+export { default as MainTopCategories } from './MainPageCategories/TopCategories';
 export { default as Newest } from './MainPageCategories/newestListings';
 export { default as RecentlyViewed } from './MainPageCategories/recentlyViewed';
 export { default as StaffPicks } from './MainPageCategories/staffPicks';
-export { default as MainTopCategories } from './MainTopCategories/TopCategories';
+export { default as Articles } from './MainPageCategories/articles';
+export { default as Collections } from './MainPageCategories/collections';
+export { default as Guides } from './MainPageCategories/guides';
 
 /**
  * Composite components
