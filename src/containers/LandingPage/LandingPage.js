@@ -71,11 +71,11 @@ export const LandingPageComponent = props => {
         <TopCategoryBar />
         <SectionHero history={ history } location={ location } />
         <MainTopCategories />
-        <Newest />
-        <Guides />
         <RecentlyViewed />
-        <Articles />
+        <Guides />
         <StaffPicks />
+        <Articles />
+        <Newest />
         <Collections />
         <LayoutWrapperMain />
         {/* <SectionHowItWorks
