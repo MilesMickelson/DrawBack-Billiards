@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
-
 // react-dates needs to be initialized before using any react-dates component
 // https://github.com/airbnb/react-dates#initialize
 // NOTE: Initializing it here will initialize it also for app.test.js
@@ -17,9 +16,14 @@ import configureStore from './store';
 import routeConfiguration from './routeConfiguration';
 import Routes from './Routes';
 import config from './config';
-
 // Flex template application uses English translations as default.
 import defaultMessages from './translations/en.json';
+import {
+  makeStyles,
+  ThemeProvider,
+} from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from './styles/theme';
 
 // If you want to change the language, change the imports to match the wanted locale:
 //   1) Change the language in the config.js file!
@@ -82,7 +86,17 @@ const setupLocale = () => {
   moment.locale(config.locale);
 };
 
+const useStyles = makeStyles(() => ({
+  primaryContainer: {
+    height: '100%',
+    width: '100%',
+    maxWidth: '100%',
+    margin: '0',
+  },
+}));
+
 export const ClientApp = props => {
+  const classes = useStyles();
   const { store } = props;
   setupLocale();
   return (
@@ -90,7 +104,12 @@ export const ClientApp = props => {
       <Provider store={store}>
         <HelmetProvider>
           <BrowserRouter>
-            <Routes routes={routeConfiguration()} />
+            <ThemeProvider theme={ theme }>
+              <div className={ classes.primaryContainer }>
+                <CssBaseline />
+                <Routes routes={routeConfiguration()} />
+              </div>
+            </ThemeProvider>
           </BrowserRouter>
         </HelmetProvider>
       </Provider>

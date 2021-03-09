@@ -1,0 +1,146 @@
+@import 'global';
+
+/*#region Banner*/
+
+#banner {
+  width: 100%;
+  max-width: 960px;
+  min-width: 560px;
+  opacity: 0.39;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #404040;
+  filter: brightness(90%);
+};
+
+#searches-wrap {
+  width: 100%;
+  max-width: 960px;
+  height: 220px;
+}
+
+/*#endregion Banner*/
+
+/*#region AppBar*/
+
+.blue-bg-wrap {
+  background-color: $blue;
+}
+
+.appbar-wrap {
+  @include flex-row-center-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+#blue-appbar2 {
+  height: 6px;
+  background-image: linear-gradient(to bottom, $blue 0%, $white 100%);
+  width: 100%;
+}
+
+/*#endregion AppBar*/
+
+/*#region DashBoard*/
+
+.pro-badges-wrap {
+  display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.dash-wrap {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: flex-start;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.badges-wrap {
+  @include flex-row-center-around;
+}
+
+.overview-wrap {
+  @include flex-row-center;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.buttons-wrap1 {
+  @include flex-col-center-around;
+}
+
+.badge-wrap {
+  width: 60px;
+  height: 60px;
+  border: 2px inset $blueLight;
+  border-radius: 50%;
+  margin: 5px auto 10px auto;
+  @include flex-row-center;
+}
+
+/*#endregion DashBoard*/
+
+/*#region ItemListing*/
+
+.item-pic {
+  width: 100%;
+}
+
+/*#endregion ItemListing*/
+
+/*#region Footer*/
+
+#drawBack {
+  font-family: DrawBack-Elegant, cursive;
+  font-weight: bold;
+  color: $white;
+  word-break: keep-all;
+	font-size: calc(1.7rem + 1.7vmin);
+	margin: 8px 0 0 8px;
+}
+
+.phone-email {
+  color: $white;
+	font-size: calc(.3rem + .3vmin);
+  text-decoration: underline;
+}
+
+.iconRowWrap {
+  vertical-align: middle;
+}
+
+.icon-row-item {
+  max-width: 225px;
+}
+
+#footer-break {
+  height: 1px;
+  width: 100%;
+  max-width: 1160px;
+  background-color: $white;
+  margin: 0 auto;
+}
+
+#blue-bar {
+  height: 10px;
+  background-image: linear-gradient(to bottom, $white 0%, $blueDark 100%);
+  width: 100%;
+  margin-top: 1.5%;
+}
+
+#apple-button {
+  margin-right: 30px;
+}
+
+#company-header {
+  margin-top: 15px;
+  margin-left: -20px;
+}
+
+/*#endregion Footer*/

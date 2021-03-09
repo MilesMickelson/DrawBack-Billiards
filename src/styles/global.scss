@@ -1,0 +1,203 @@
+/*#region Colors*/
+
+$black: #000000;
+$black2: #0d0d0d;
+$black3: #1a1a1a;
+$black4: #262626;
+$black5: #333333;
+$black6: #404040;
+$black7: #4d4d4d;
+$black8: #595959;
+$black9: #666666;
+$white6: #bfbfbf;
+$white5: #cccccc;
+$white4: #d9d9d9;
+$white3: #e6e6e6;
+$white2: #f2f2f2;
+$white: #ffffff;
+//MaterialUI Palette
+$blue: #007faa;
+$blueLight: #54aedc;
+$blueDark: #00537b;
+$darkMystery: #1C2545;
+$turqouise: #008191;
+$turqouiseLight: #4fb1c1;
+$turqouiseDark: #005463;
+$turqouiseDarker: #09495E;
+$red: #AB1139;
+$royalBlue: #092DAB;
+$orange: #FF7840;
+
+/*#endregion Colors*/
+
+/*#region Fonts*/
+
+@font-face {
+  font-family: 'DrawBack-Elegant';
+  src: local('DrawBack-Elegant'), url(../assets/DrawBack-Elegant.ttf) format('truetype');
+  font-style: normal;
+	font-display: swap;
+}
+
+/*#endregion Fonts*/
+
+/*#region FlexBox*/
+
+@mixin flex-row-center {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flex-col-center {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flex-row-center-around {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+@mixin flex-col-center-around {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+@mixin flex-row-center-between {
+  display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin flex-col-center-between {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin flex-row-center-evenly {
+  display: flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+@mixin flex-col-center-evenly {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.flex-row-center {
+	@include flex-row-center;
+}
+
+.flex-col-center {
+	@include flex-col-center;
+}
+
+.flex-row-center-around {
+	@include flex-row-center-around;
+}
+
+.flex-col-center-around {
+	@include flex-col-center-around;
+}
+
+.flex-row-center-between {
+	@include flex-row-center-between;
+}
+
+.flex-col-center-between {
+	@include flex-col-center-between;
+}
+
+.flex-row-center-evenly {
+	@include flex-row-center-evenly;
+}
+
+.flex-col-center-evenly {
+	@include flex-col-center-evenly;
+}
+
+/*#endregion FlexBox*/
+
+/*#region MarkUp*/
+
+ul {
+	margin: 0 0 0 10px;
+	padding-left: 10px;
+}
+
+hr {
+  width: 100%;
+  display: block;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+li {
+	margin-top: 2px;
+}
+
+label {
+	color: $blueDark;
+}
+
+a {
+	color: $blueDark;
+	font-weight: bold;
+  text-decoration: underline;
+	font-size: calc(10px + 1vmin);
+}
+
+/*#endregion MarkUp*/
+
+/*#region Structural*/
+
+.nine-sixty-max {
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto 0 auto;
+}
+
+@mixin nine-sixty-max {
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto 0 auto;
+}
+
+.twelve-sixty-max {
+	width: 100%;
+	max-width: 1260px;
+	margin: 1% auto 0;
+}
+
+.twelve-sixty-max-top {
+	width: 100%;
+	max-width: 1260px;
+	margin: 0 auto;
+}
+
+@mixin twelve-sixty-max {
+	width: 100%;
+	max-width: 1260px;
+	margin: 1% auto 0;
+}
+
+/*#endregion Structural*/
+
+/*#region ClassNames*/
+
+/*#endregion ClassNames*/
