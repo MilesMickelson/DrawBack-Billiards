@@ -1,6 +1,5 @@
 /**
- * Independent components
- * These components do not include any other components
+ * Independent components - Do not include any other components
  *
  * This order mitigates problems that might arise when trying to import components
  * that have circular dependencies to other components.
@@ -169,12 +168,12 @@ export { default as EditListingPhotosPanel } from './EditListingPhotosPanel/Edit
 export { default as EditListingPoliciesPanel } from './EditListingPoliciesPanel/EditListingPoliciesPanel';
 export { default as EditListingPricingPanel } from './EditListingPricingPanel/EditListingPricingPanel';
 export { default as EditListingWizard } from './EditListingWizard/EditListingWizard';
-export { default as Footer } from './Footer/Footer';
+export { default as Footer } from '../ShareTribe-Ex-Temps/Footer/Footer';
 export { default as SectionHero } from './SectionHero/SectionHero';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';
 export { default as SectionThumbnailLinks } from './SectionThumbnailLinks/SectionThumbnailLinks';
-export { default as Topbar } from '../ST-Comps-Ref/Topbar/Topbar';
+export { default as Topbar } from '../ShareTribe-Ex-Temps/Topbar/Topbar';
 export { default as TopbarDesktop } from './TopbarDesktop/TopbarDesktop';
 export { default as TopbarMobileMenu } from './TopbarMobileMenu/TopbarMobileMenu';
 export { default as TransactionPanel } from './TransactionPanel/TransactionPanel';
