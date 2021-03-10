@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import SignupForm from './SignupForm';
+import SignupForm from './signupformTemplate';
 
 export const Empty = {
   component: SignupForm,

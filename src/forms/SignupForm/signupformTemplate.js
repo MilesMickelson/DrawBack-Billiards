@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { compose } from 'redux';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Form as FinalForm } from 'react-final-form';
+import { compose } from 'redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { Form as FinalForm } from 'react-final-form';
+import classNames from 'classnames';
 import * as validators from '../../util/validators';
-// import { makeStyles } from '@material-ui/core/styles';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
 
 import css from './SignupForm.module.css';
 
 const KEY_CODE_ENTER = 13;
-
-const useStyles = makeStyles((theme) => ({
-    inputRoot: {
-      color: 'inherit',
-    },
-  }));
 
 const SignupFormComponent = props => (
   <FinalForm
@@ -114,6 +107,7 @@ const SignupFormComponent = props => (
       });
       const lastNameRequired = validators.required(lastNameRequiredMessage);
 
+      const classes = classNames(rootClassName || css.root, className);
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
 
@@ -125,6 +119,7 @@ const SignupFormComponent = props => (
       };
       const termsLink = (
         <span
+          className={css.termsLink}
           onClick={onOpenTermsOfService}
           role="button"
           tabIndex="0"
@@ -135,7 +130,7 @@ const SignupFormComponent = props => (
       );
 
       return (
-        <Form onSubmit={ handleSubmit }>
+        <Form className={classes} onSubmit={handleSubmit}>
           <div>
             <FieldTextInput
               type="email"
@@ -146,8 +141,9 @@ const SignupFormComponent = props => (
               placeholder={emailPlaceholder}
               validate={validators.composeValidators(emailRequired, emailValid)}
             />
-            <div>
+            <div className={css.name}>
               <FieldTextInput
+                className={css.firstNameRoot}
                 type="text"
                 id={formId ? `${formId}.fname` : 'fname'}
                 name="fname"
@@ -157,6 +153,7 @@ const SignupFormComponent = props => (
                 validate={firstNameRequired}
               />
               <FieldTextInput
+                className={css.lastNameRoot}
                 type="text"
                 id={formId ? `${formId}.lname` : 'lname'}
                 name="lname"
@@ -167,6 +164,7 @@ const SignupFormComponent = props => (
               />
             </div>
             <FieldTextInput
+              className={css.password}
               type="password"
               id={formId ? `${formId}.password` : 'password'}
               name="password"
@@ -176,9 +174,10 @@ const SignupFormComponent = props => (
               validate={passwordValidators}
             />
           </div>
-          <div>
-            <p>
-              <span>
+
+          <div className={css.bottomWrapper}>
+            <p className={css.bottomWrapperText}>
+              <span className={css.termsText}>
                 <FormattedMessage
                   id="SignupForm.termsAndConditionsAcceptText"
                   values={{ termsLink }}
@@ -212,10 +211,3 @@ const SignupForm = compose(injectIntl)(SignupFormComponent);
 SignupForm.displayName = 'SignupForm';
 
 export default SignupForm;
-
-// const MatUIAuthPage = () => {
-//   const classes = useStyles();
-//   return(
-//     <div className={ classes.inputRoot }>Hellllllllllo</div>
-//   )
-// };
