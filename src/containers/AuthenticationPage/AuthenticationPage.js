@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-
+import Cookies from 'js-cookie';
+import ClassNames from 'classnames';
+import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName } from '../../util/routes';
 import { apiBaseUrl } from '../../util/api';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-import config from '../../config';
 import { propTypes } from '../../util/types';
 import { ensureCurrentUser } from '../../util/data';
 import {
@@ -41,10 +40,30 @@ import { login, authenticationInProgress, signup, signupWithIdp } from '../../du
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { sendVerificationEmail } from '../../ducks/user.duck';
 import { manageDisableScrolling } from '../../ducks/UI.duck';
-
-import css from './AuthenticationPage.module.css';
 import { FacebookLogo, GoogleLogo } from './socialLoginLogos';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  inputRoot: {
+    color: 'inherit',
+  },
+}));
+
+const MatUIAuthPage = () => {
+  const classes = useStyles();
+  return(
+    <div className={ classes.inputRoot }>Hellllllllllo</div>
+  )
+};
+
+// const AuthenticationPageComponent = () => {
+//   const [tosModalOpen, setTosModalOpen] = useState(false);
+//   const [authError, setAuthError] = useState(Cookies.get('st-autherror')
+//   ? JSON.parse(Cookies.get('st-autherror').replace('j:', ''))
+//   : null);
+//   const [authInfo, setAuthInfo] = useState(Cookies.get('st-authinfo')
+//   ? JSON.parse(Cookies.get('st-authinfo').replace('j:', ''))
+//   : null);
 export class AuthenticationPageComponent extends Component {
   constructor(props) {
     super(props);
@@ -58,13 +77,11 @@ export class AuthenticationPageComponent extends Component {
         : null,
     };
   }
-
   componentDidMount() {
     // Remove the autherror cookie once the content is saved to state
     // because we don't want to show the error message e.g. after page refresh
     Cookies.remove('st-autherror');
   }
-
   render() {
     const {
       authInProgress,
@@ -85,23 +102,16 @@ export class AuthenticationPageComponent extends Component {
       onResendVerificationEmail,
       onManageDisableScrolling,
     } = this.props;
-
     const isConfirm = tab === 'confirm';
     const isLogin = tab === 'login';
     const locationFrom = location.state && location.state.from ? location.state.from : null;
     const authinfoFrom =
       this.state.authInfo && this.state.authInfo.from ? this.state.authInfo.from : null;
     const from = locationFrom ? locationFrom : authinfoFrom ? authinfoFrom : null;
-
     const user = ensureCurrentUser(currentUser);
     const currentUserLoaded = !!user.id;
-
-    // We only want to show the email verification dialog in the signup
-    // tab if the user isn't being redirected somewhere else
-    // (i.e. `from` is present). We must also check the `emailVerified`
-    // flag only when the current user is fully loaded.
+    // We only want to show the email verification dialog in the signup tab if the user isn't being redirected somewhere else (i.e. `from` is present). We must also check the `emailVerified` flag only when the current user is fully loaded.
     const showEmailVerification = !isLogin && currentUserLoaded && !user.attributes.emailVerified;
-
     // Already authenticated, redirect away from auth page
     if (isAuthenticated && from) {
       return <Redirect to={from} />;
@@ -110,13 +120,11 @@ export class AuthenticationPageComponent extends Component {
     }
 
     const loginErrorMessage = (
-      <div className={css.error}>
-        <FormattedMessage id="AuthenticationPage.loginFailed" />
-      </div>
+      <FormattedMessage id="AuthenticationPage.loginFailed" />
     );
 
     const signupErrorMessage = (
-      <div className={css.error}>
+      <div>
         {isSignupEmailTakenError(signupError) ? (
           <FormattedMessage id="AuthenticationPage.signupFailedEmailAlreadyTaken" />
         ) : (
@@ -126,7 +134,7 @@ export class AuthenticationPageComponent extends Component {
     );
 
     const confirmErrorMessage = confirmError ? (
-      <div className={css.error}>
+      <div>
         {isSignupEmailTakenError(confirmError) ? (
           <FormattedMessage id="AuthenticationPage.signupFailedEmailAlreadyTaken" />
         ) : (
@@ -146,7 +154,7 @@ export class AuthenticationPageComponent extends Component {
     const tabs = [
       {
         text: (
-          <h1 className={css.tab}>
+          <h1>
             <FormattedMessage id="AuthenticationPage.signupLinkText" />
           </h1>
         ),
@@ -158,7 +166,7 @@ export class AuthenticationPageComponent extends Component {
       },
       {
         text: (
-          <h1 className={css.tab}>
+          <h1>
             <FormattedMessage id="AuthenticationPage.loginLinkText" />
           </h1>
         ),
@@ -180,9 +188,7 @@ export class AuthenticationPageComponent extends Component {
       const { idpToken, email, firstName, lastName, idpId } = this.state.authInfo;
       const { email: newEmail, firstName: newFirstName, lastName: newLastName, ...rest } = values;
 
-      // Pass email, fistName or lastName to Flex API only if user has edited them
-      // sand they can't be fetched directly from idp provider (e.g. Facebook)
-
+      // Pass email, fistName or lastName to Flex API only if user has edited them and they can't be fetched directly from idp provider (e.g. Facebook)
       const authParams = {
         ...(newEmail !== email && { email: newEmail }),
         ...(newFirstName !== firstName && { firstName: newFirstName }),
@@ -237,17 +243,15 @@ export class AuthenticationPageComponent extends Component {
     // Form for confirming information frm IdP (e.g. Facebook)
     // before new user is created to Flex
     const confirmForm = (
-      <div className={css.content}>
-        <h1 className={css.signupWithIdpTitle}>
+      <div>
+        <h1>
           <FormattedMessage id="AuthenticationPage.confirmSignupWithIdpTitle" values={{ idp }} />
         </h1>
-
-        <p className={css.confirmInfoText}>
+        <p>
           <FormattedMessage id="AuthenticationPage.confirmSignupInfoText" />
         </p>
         {confirmErrorMessage}
         <ConfirmSignupForm
-          className={css.form}
           onSubmit={handleSubmitConfirm}
           inProgress={authInProgress}
           onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
@@ -274,26 +278,24 @@ export class AuthenticationPageComponent extends Component {
       <FormattedMessage id="AuthenticationPage.signupWithGoogle" />
     );
     const socialLoginButtonsMaybe = showSocialLogins ? (
-      <div className={css.idpButtons}>
-        <div className={css.socialButtonsOr}>
-          <span className={css.socialButtonsOrText}>
+      <div>
+        <div>
+          <span>
             <FormattedMessage id="AuthenticationPage.or" />
           </span>
         </div>
-
         {showFacebookLogin ? (
-          <div className={css.socialButtonWrapper}>
+          <div>
             <SocialLoginButton onClick={() => authWithFacebook()}>
-              <span className={css.buttonIcon}>{FacebookLogo}</span>
+              <span>{FacebookLogo}</span>
               {facebookButtonText}
             </SocialLoginButton>
           </div>
         ) : null}
-
         {showGoogleLogin ? (
-          <div className={css.socialButtonWrapper}>
+          <div>
             <SocialLoginButton onClick={() => authWithGoogle()}>
-              <span className={css.buttonIcon}>{GoogleLogo}</span>
+              <span>{GoogleLogo}</span>
               {googleButtonText}
             </SocialLoginButton>
           </div>
@@ -303,21 +305,18 @@ export class AuthenticationPageComponent extends Component {
 
     // Tabs for SignupForm and LoginForm
     const authenticationForms = (
-      <div className={css.content}>
-        <LinkTabNavHorizontal className={css.tabs} tabs={tabs} />
+      <div>
+        <LinkTabNavHorizontal tabs={tabs} />
         {loginOrSignupError}
-
         {isLogin ? (
-          <LoginForm className={css.loginForm} onSubmit={submitLogin} inProgress={authInProgress} />
+          <LoginForm onSubmit={submitLogin} inProgress={authInProgress} />
         ) : (
           <SignupForm
-            className={css.signupForm}
             onSubmit={handleSubmitSignup}
             inProgress={authInProgress}
             onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
           />
         )}
-
         {socialLoginButtonsMaybe}
       </div>
     );
@@ -325,56 +324,52 @@ export class AuthenticationPageComponent extends Component {
     const formContent = isConfirm ? confirmForm : authenticationForms;
 
     const name = user.attributes.profile.firstName;
-    const email = <span className={css.email}>{user.attributes.email}</span>;
-
+    const email = <span>{user.attributes.email}</span>;
     const resendEmailLink = (
-      <InlineTextButton rootClassName={css.modalHelperLink} onClick={onResendVerificationEmail}>
+      <InlineTextButton onClick={onResendVerificationEmail}>
         <FormattedMessage id="AuthenticationPage.resendEmailLinkText" />
       </InlineTextButton>
     );
     const fixEmailLink = (
-      <NamedLink className={css.modalHelperLink} name="ContactDetailsPage">
+      <NamedLink name="ContactDetailsPage">
         <FormattedMessage id="AuthenticationPage.fixEmailLinkText" />
       </NamedLink>
     );
-
     const resendErrorTranslationId = isTooManyEmailVerificationRequestsError(
       sendVerificationEmailError
     )
       ? 'AuthenticationPage.resendFailedTooManyRequests'
       : 'AuthenticationPage.resendFailed';
     const resendErrorMessage = sendVerificationEmailError ? (
-      <p className={css.error}>
+      <p>
         <FormattedMessage id={resendErrorTranslationId} />
       </p>
     ) : null;
-
     const emailVerificationContent = (
-      <div className={css.content}>
-        <NamedLink className={css.verifyClose} name="ProfileSettingsPage">
-          <span className={css.closeText}>
+      <div>
+        <NamedLink name="ProfileSettingsPage">
+          <span>
             <FormattedMessage id="AuthenticationPage.verifyEmailClose" />
           </span>
-          <IconClose rootClassName={css.closeIcon} />
+          <IconClose />
         </NamedLink>
-        <IconEmailSent className={css.modalIcon} />
-        <h1 className={css.modalTitle}>
+        <IconEmailSent />
+        <h1>
           <FormattedMessage id="AuthenticationPage.verifyEmailTitle" values={{ name }} />
         </h1>
-        <p className={css.modalMessage}>
+        <p>
           <FormattedMessage id="AuthenticationPage.verifyEmailText" values={{ email }} />
         </p>
         {resendErrorMessage}
-
-        <div className={css.bottomWrapper}>
-          <p className={css.modalHelperText}>
+        <div>
+          <p>
             {sendVerificationEmailInProgress ? (
               <FormattedMessage id="AuthenticationPage.sendingEmail" />
             ) : (
               <FormattedMessage id="AuthenticationPage.resendEmail" values={{ resendEmailLink }} />
             )}
           </p>
-          <p className={css.modalHelperText}>
+          <p>
             <FormattedMessage id="AuthenticationPage.fixEmail" values={{ fixEmailLink }} />
           </p>
         </div>
@@ -386,9 +381,9 @@ export class AuthenticationPageComponent extends Component {
       ? intl.formatMessage({ id: 'AuthenticationPage.schemaTitleLogin' }, { siteTitle })
       : intl.formatMessage({ id: 'AuthenticationPage.schemaTitleSignup' }, { siteTitle });
 
-    const topbarClasses = classNames({
-      [css.hideOnMobile]: showEmailVerification,
-    });
+    // const topbarClasses = classNames({
+    //   [classes.hideOnMobile]: showEmailVerification,
+    // });
 
     return (
       <Page
@@ -400,12 +395,10 @@ export class AuthenticationPageComponent extends Component {
           name: schemaTitle,
         }}
       >
-        <LayoutSingleColumn>
-          <LayoutWrapperTopbar>
-            <TopbarContainer className={topbarClasses} />
-          </LayoutWrapperTopbar>
-          <LayoutWrapperMain className={css.layoutWrapperMain}>
-            <div className={css.root}>
+          <LayoutWrapperTopbar />
+          <MatUIAuthPage />
+          <LayoutWrapperMain>
+            <div>
               {showEmailVerification ? emailVerificationContent : formContent}
             </div>
             <Modal
@@ -415,18 +408,15 @@ export class AuthenticationPageComponent extends Component {
               usePortal
               onManageDisableScrolling={onManageDisableScrolling}
             >
-              <div className={css.termsWrapper}>
-                <h2 className={css.termsHeading}>
+              <div>
+                <h2>
                   <FormattedMessage id="AuthenticationPage.termsHeading" />
                 </h2>
                 <TermsOfService />
               </div>
             </Modal>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
-        </LayoutSingleColumn>
+          <LayoutWrapperFooter />
       </Page>
     );
   }

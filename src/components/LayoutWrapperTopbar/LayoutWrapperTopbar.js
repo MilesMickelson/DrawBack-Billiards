@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { 
+  useState, 
+  useEffect } 
+from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import ClassNames from 'classnames';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import {
   fade,
   makeStyles,
@@ -24,6 +28,10 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
+import {
+  NamedLink,
+} from '../../components';
+import { TopbarSearchForm } from '../../forms';
 import MainDrawer from '../../hooks/main-drawer';
 import AccountDrawer from '../../hooks/account-drawer';
 
@@ -92,26 +100,90 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LayoutWrapperTopbar = props => {
-  // const classes = classNames(rootClassName || css.root, className);
-  // const { className, rootClassName, children } = props;
+  const {
+    currentUserListing,
+    currentUserListingFetched,
+    isAuthenticated,
+  } = props;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleLogout = () => {
+    const { onLogout, history } = this.props;
+    onLogout().then(() => {
+      const path = pathByRouteName('LandingPage', routeConfiguration());
+      // In production we ensure that data is really lost, but in development mode we use stored values for debugging.
+      if (config.dev) {
+        history.push(path);
+      } else if (typeof window !== 'undefined') {
+        window.location = path;
+      }
+      console.log('logged out');
+    });
+  };
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const authenticatedOnClientSide = mounted && isAuthenticated;
+  const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
+
+  // const signupLink = isAuthenticatedOrJustHydrated ? null : (
+  //   <div name="SignupPage">
+  //     <span>
+  //       <div id="TopbarDesktop.signup" />
+  //     </span>
+  //   </div>
+  // );
+
+  const loginLink = isAuthenticatedOrJustHydrated ? null : (
+    <NamedLink name="SignupPage">
+      <Button id="TopbarDesktop.signup">
+      <FormattedMessage id="TopbarDesktop.signup" />
+      </Button>
+    </NamedLink>
+  );
+
+  // const listingLink =
+  //   authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
+  //     <div
+  //       listing={currentUserListing}
+  //       children={
+  //         <span>
+  //           <div id="TopbarDesktop.viewListing" />
+  //         </span>
+  //       }
+  //     />
+  //   ) : null;
+
+  const CreateListing =
+    isAuthenticatedOrJustHydrated && !(currentUserListingFetched && !currentUserListing) ? null : (
+      <Button variant='outlined' className={ classes.sellButton }>
+        Sell
+      </Button>
+    );
 
   const menuId = 'primary-search-account-menu';
   const notificationMenu = (
@@ -180,9 +252,7 @@ const LayoutWrapperTopbar = props => {
             </div>
             <div className={ classes.grow } />
             <div className={ classes.sectionDesktop }>
-              <Button variant='outlined' className={ classes.sellButton }>
-                Sell
-              </Button>
+              {CreateListing}
               <IconButton aria-label='My feed' color='inherit'>
                 <ExploreIcon />
               </IconButton>
@@ -197,6 +267,7 @@ const LayoutWrapperTopbar = props => {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
+              {loginLink}
               <AccountDrawer />
             </div>
             <div className={ classes.sectionMobile }>
@@ -220,8 +291,14 @@ const LayoutWrapperTopbar = props => {
 };
 
 LayoutWrapperTopbar.defaultProps = {
-  className: null,
   rootClassName: null,
+  className: null,
+  currentUser: null,
+  currentPage: null,
+  notificationCount: 0,
+  initialSearchFormValues: {},
+  currentUserListing: null,
+  currentUserListingFetched: false,
 };
 
 const { node, string } = PropTypes;
