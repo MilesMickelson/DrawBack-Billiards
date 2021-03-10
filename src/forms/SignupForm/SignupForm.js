@@ -8,15 +8,22 @@ import * as validators from '../../util/validators';
 // import { makeStyles } from '@material-ui/core/styles';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
 
-import css from './SignupForm.module.css';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const KEY_CODE_ENTER = 13;
 
 const useStyles = makeStyles((theme) => ({
-    inputRoot: {
-      color: 'inherit',
-    },
-  }));
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '25ch',
+  },
+}));
 
 const SignupFormComponent = props => (
   <FinalForm
@@ -133,57 +140,83 @@ const SignupFormComponent = props => (
           <FormattedMessage id="SignupForm.termsAndConditionsLinkText" />
         </span>
       );
+      
+      const classes = useStyles();
 
       return (
         <Form onSubmit={ handleSubmit }>
-          <div>
-            <FieldTextInput
-              type="email"
-              id={formId ? `${formId}.email` : 'email'}
-              name="email"
-              autoComplete="email"
-              label={emailLabel}
-              placeholder={emailPlaceholder}
-              validate={validators.composeValidators(emailRequired, emailValid)}
-            />
-            <div>
-              <FieldTextInput
-                type="text"
-                id={formId ? `${formId}.fname` : 'fname'}
-                name="fname"
-                autoComplete="given-name"
-                label={firstNameLabel}
-                placeholder={firstNamePlaceholder}
-                validate={firstNameRequired}
-              />
-              <FieldTextInput
-                type="text"
-                id={formId ? `${formId}.lname` : 'lname'}
-                name="lname"
-                autoComplete="family-name"
-                label={lastNameLabel}
-                placeholder={lastNamePlaceholder}
-                validate={lastNameRequired}
-              />
-            </div>
-            <FieldTextInput
-              type="password"
-              id={formId ? `${formId}.password` : 'password'}
-              name="password"
-              autoComplete="new-password"
-              label={passwordLabel}
-              placeholder={passwordPlaceholder}
-              validate={passwordValidators}
-            />
-          </div>
+          <TextField
+            name="fname"
+            id={formId ? `${formId}.fname` : 'fname'}
+            validate={ firstNameRequired }
+            placeholder="First Name"
+            autoComplete="given-name"
+            margin="normal"
+            variant="outlined"
+            style={{ margin: 8 }}
+            InputLabelProps={{ shrink: true }}
+            // fullWidth
+            // label="Label"
+            // label={firstNameLabel}
+            // placeholder={firstNamePlaceholder}
+            // helperText="Full width!"
+          />
+          <TextField
+            name="lname"
+            id={formId ? `${formId}.lname` : 'lname'}
+            validate={ lastNameRequired }
+            placeholder="Last Name"
+            autoComplete="family-name"
+            margin="normal"
+            variant="outlined"
+            style={ { margin: 8 } }
+            InputLabelProps={ { shrink: true } }
+            // fullWidth
+            // label="Label"
+            // label={firstNameLabel}
+            // placeholder={firstNamePlaceholder}
+            // helperText="Full width!"
+          />
+          <TextField
+            name="email"
+            type="email"
+            id={ formId ? `${formId}.email` : 'email' }
+            validate={ validators.composeValidators(emailRequired, emailValid) }
+            placeholder="Email"
+            autoComplete="email"
+            margin="normal"
+            variant="outlined"
+            style={ { margin: 8 } }
+            InputLabelProps={ { shrink: true } }
+            // fullWidth
+            // label="Label"
+            // label={firstNameLabel}
+            // placeholder={firstNamePlaceholder}
+            // helperText="Full width!"
+          />
+          <TextField
+            name="password"
+            type="password"
+            id={ formId ? `${formId}.password` : 'password' }
+            validate={ passwordValidators }
+            placeholder="Password"
+            autoComplete="new-password"
+            margin="normal"
+            variant="outlined"
+            style={ { margin: 8 } }
+            InputLabelProps={ { shrink: true } }
+            // fullWidth
+            // label="Label"
+            // label={firstNameLabel}
+            // placeholder={firstNamePlaceholder}
+            // helperText="Full width!"
+          />
           <div>
             <p>
-              <span>
-                <FormattedMessage
-                  id="SignupForm.termsAndConditionsAcceptText"
-                  values={{ termsLink }}
-                />
-              </span>
+              <FormattedMessage
+                id="SignupForm.termsAndConditionsAcceptText"
+                values={{ termsLink }}
+              />
             </p>
             <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
               <FormattedMessage id="SignupForm.signUp" />
@@ -212,10 +245,3 @@ const SignupForm = compose(injectIntl)(SignupFormComponent);
 SignupForm.displayName = 'SignupForm';
 
 export default SignupForm;
-
-// const MatUIAuthPage = () => {
-//   const classes = useStyles();
-//   return(
-//     <div className={ classes.inputRoot }>Hellllllllllo</div>
-//   )
-// };
