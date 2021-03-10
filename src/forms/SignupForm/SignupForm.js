@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Form as FinalForm } from 'react-final-form';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
@@ -125,7 +124,6 @@ const SignupFormComponent = props => (
       const submitDisabled = invalid || submitInProgress;
 
       const handleTermsKeyUp = e => {
-        // Allow click action with keyboard like with normal links
         if (e.keyCode === KEY_CODE_ENTER) {
           onOpenTermsOfService();
         }
@@ -145,71 +143,47 @@ const SignupFormComponent = props => (
 
       return (
         <Form onSubmit={ handleSubmit }>
+          <div className='nine-sixty-max'>
           <TextField
             name="fname"
             id={formId ? `${formId}.fname` : 'fname'}
             validate={ firstNameRequired }
-            placeholder="First Name"
+            label="First Name"
             autoComplete="given-name"
             margin="normal"
             variant="outlined"
-            style={{ margin: 8 }}
-            InputLabelProps={{ shrink: true }}
-            // fullWidth
-            // label="Label"
-            // label={firstNameLabel}
-            // placeholder={firstNamePlaceholder}
-            // helperText="Full width!"
           />
           <TextField
             name="lname"
             id={formId ? `${formId}.lname` : 'lname'}
             validate={ lastNameRequired }
-            placeholder="Last Name"
+            label="Last Name"
             autoComplete="family-name"
             margin="normal"
             variant="outlined"
             style={ { margin: 8 } }
-            InputLabelProps={ { shrink: true } }
-            // fullWidth
-            // label="Label"
-            // label={firstNameLabel}
-            // placeholder={firstNamePlaceholder}
-            // helperText="Full width!"
           />
           <TextField
             name="email"
             type="email"
             id={ formId ? `${formId}.email` : 'email' }
             validate={ validators.composeValidators(emailRequired, emailValid) }
-            placeholder="Email"
+            label="Email"
             autoComplete="email"
             margin="normal"
             variant="outlined"
             style={ { margin: 8 } }
-            InputLabelProps={ { shrink: true } }
-            // fullWidth
-            // label="Label"
-            // label={firstNameLabel}
-            // placeholder={firstNamePlaceholder}
-            // helperText="Full width!"
           />
           <TextField
             name="password"
             type="password"
             id={ formId ? `${formId}.password` : 'password' }
             validate={ passwordValidators }
-            placeholder="Password"
+            label="Password"
             autoComplete="new-password"
             margin="normal"
             variant="outlined"
             style={ { margin: 8 } }
-            InputLabelProps={ { shrink: true } }
-            // fullWidth
-            // label="Label"
-            // label={firstNameLabel}
-            // placeholder={firstNamePlaceholder}
-            // helperText="Full width!"
           />
           <div>
             <p>
@@ -221,6 +195,7 @@ const SignupFormComponent = props => (
             <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
               <FormattedMessage id="SignupForm.signUp" />
             </PrimaryButton>
+          </div>
           </div>
         </Form>
       );
@@ -234,9 +209,7 @@ const { bool, func } = PropTypes;
 
 SignupFormComponent.propTypes = {
   inProgress: bool,
-
   onOpenTermsOfService: func.isRequired,
-
   // from injectIntl
   intl: intlShape.isRequired,
 };
