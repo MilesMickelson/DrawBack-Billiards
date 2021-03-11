@@ -16,12 +16,17 @@ import { injectIntl, intlShape } from '../../util/reactIntl';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GTranslateIcon from '@material-ui/icons/GTranslate';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { GoogleLogo } from '../../containers/AuthenticationPage/socialLoginLogos';
 
 const KEY_CODE_ENTER = 13;
 
@@ -100,6 +105,14 @@ const SignupFormComponent = props => (
             Then schedule a lesson with a certified pool instructor, or even a real professional player; only on...
           </Typography>
           <Typography variant='h2'>DrawBack Billiards</Typography>
+          <div className='flex-row-center'>
+            <IconButton>
+              <GTranslateIcon />
+            </IconButton>
+            <IconButton>
+              <FacebookIcon />
+            </IconButton>
+          </div>
           <FieldTextInput
             name='fname'
             id={formId ? `${formId}.fname` : 'fname'}

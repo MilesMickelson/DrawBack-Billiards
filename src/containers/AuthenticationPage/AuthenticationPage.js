@@ -360,11 +360,6 @@ const AuthenticationPageComponent = (props) => {
       }}
     >
         <LayoutWrapperTopbar />
-        {/* <MatUIAuthPage
-          showEmailVerification={ showEmailVerification }
-          emailVerificationContent={ emailVerificationContent }
-          formContent={ formContent }
-        /> */}
         <div>
           {showEmailVerification ? emailVerificationContent : formContent}
         </div>
@@ -375,12 +370,7 @@ const AuthenticationPageComponent = (props) => {
           usePortal
           onManageDisableScrolling={ onManageDisableScrolling }
         >
-          <div>
-            <h2>
-              <FormattedMessage id="AuthenticationPage.termsHeading" />
-            </h2>
-            <TermsOfService />
-          </div>
+          <TermsOfService />
         </Modal>
         <LayoutWrapperFooter />
     </Page>
