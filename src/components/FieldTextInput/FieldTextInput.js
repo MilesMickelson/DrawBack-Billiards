@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, {
+  Component,
+} from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
-import classNames from 'classnames';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
-import { ValidationError, ExpandingTextarea } from '../../components';
-
-import css from './FieldTextInput.module.css';
+import { ValidationError } from '../../components';
 
 const CONTENT_MAX_LENGTH = 5000;
 
 class FieldTextInputComponent extends Component {
   render() {
-    /* eslint-disable no-unused-vars */
     const {
       rootClassName,
       className,
@@ -29,7 +27,6 @@ class FieldTextInputComponent extends Component {
       inputRef,
       ...rest
     } = this.props;
-    /* eslint-enable no-unused-vars */
 
     if (label && !id) {
       throw new Error('id required when a label is given');
@@ -53,17 +50,9 @@ class FieldTextInputComponent extends Component {
     // Use inputRef if it is passed as prop.
     const refMaybe = inputRef ? { ref: inputRef } : {};
 
-    const inputClasses =
-      inputRootClass ||
-      classNames(css.input, {
-        [css.inputSuccess]: valid,
-        [css.inputError]: hasError,
-        [css.textarea]: isTextarea,
-      });
     const maxLength = CONTENT_MAX_LENGTH;
     const inputProps = isTextarea
       ? {
-          className: inputClasses,
           id,
           rows: 1,
           maxLength,
@@ -73,7 +62,6 @@ class FieldTextInputComponent extends Component {
         }
       : isUncontrolled
       ? {
-          className: inputClasses,
           id,
           type,
           defaultValue,
@@ -81,7 +69,7 @@ class FieldTextInputComponent extends Component {
           ...inputWithoutValue,
           ...rest,
         }
-      : { className: inputClasses, id, type, ...refMaybe, ...input, ...rest };
+      : { className: id, type, ...refMaybe, ...input, ...rest };
 
     return (
       <div>
@@ -110,11 +98,8 @@ FieldTextInputComponent.propTypes = {
   className: string,
   inputRootClass: string,
   onUnmount: func,
-  // Error message that can be manually passed to input field,
-  // overrides default validation message
+  // Error message, can be manually passed to input field overriding default message
   customErrorText: string,
-  // Label is optional, but if it is given, an id is also required so
-  // the label can reference the input in the `for` attribute
   id: string,
   label: string,
   // Uncontrolled input uses defaultValue prop, but doesn't pass value from form to the field.
@@ -131,6 +116,17 @@ FieldTextInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
+// const FieldTextInput = (props) => {
+//   useEffect(() => {
+//     return () => {
+//       console.log(props.current);
+//     };
+//   }, [props.current]);
+//   return (
+//     <Field component={FieldTextInputComponent} {...this.props} />
+//   );
+// };
+
 class FieldTextInput extends Component {
   componentWillUnmount() {
     // Unmounting happens too late if it is done inside Field component
@@ -142,7 +138,7 @@ class FieldTextInput extends Component {
   }
 
   render() {
-    return <Field component={FieldTextInputComponent} {...this.props} />;
+    return <Field component={ FieldTextInputComponent } {...this.props} />;
   }
 }
 
