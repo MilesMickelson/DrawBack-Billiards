@@ -377,8 +377,7 @@ const AuthenticationPageComponent = (props) => {
         >
           <div>
             <h2>
-              {/* <FormattedMessage id="AuthenticationPage.termsHeading" /> */}
-              <div>Helllooo</div>
+              <FormattedMessage id="AuthenticationPage.termsHeading" />
             </h2>
             <TermsOfService />
           </div>

@@ -26,13 +26,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 const KEY_CODE_ENTER = 13;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginTop: 45,
   },
 }));
 
@@ -97,40 +92,54 @@ const SignupFormComponent = props => (
       const classes = useStyles();
       return (
         <Form onSubmit={ handleSubmit }>
-          <div className='nine-sixty-max flex-row-center-evenly'>
+          <div className='nine-sixty-max flex-col-center'>
+          <Typography variant='body1'>
+            Create an account to buy, sell, trade, and custom order all the billiards equipment you'll ever need.
+          </Typography>
+          <Typography variant='body1'>
+            Then schedule a lesson with a certified pool instructor, or even a real professional player; only on...
+          </Typography>
+          <Typography variant='h2'>DrawBack Billiards</Typography>
           <FieldTextInput
             name='fname'
             id={formId ? `${formId}.fname` : 'fname'}
             validate={ firstNameRequired }
-            label='First Name'
+            placeholder='First Name'
             autoComplete='given-name'
             variant='outlined'
+            color='primary'
           />
           <FieldTextInput
             name='lname'
             id={formId ? `${formId}.lname` : 'lname'}
             validate={ lastNameRequired }
+            placeholder='Last Name'
             label='Last Name'
             autoComplete='family-name'
             variant='outlined'
+            color='primary'
           />
           <FieldTextInput
             name='email'
             type='email'
             id={ formId ? `${formId}.email` : 'email' }
             validate={ validators.composeValidators(emailRequired, emailValid) }
+            placeholder='Email'
             label='Email'
             autoComplete='email'
             variant='outlined'
+            color='primary'
           />
           <FieldTextInput
             name='password'
             type='password'
             id={ formId ? `${formId}.password` : 'password' }
             validate={ passwordValidators }
+            placeholder='Password'
             label='Password'
             autoComplete='new-password'
             variant='outlined'
+            color='primary'
           />
           <Typography variant='body1'>
             By signing up you agree to the&nbsp;
