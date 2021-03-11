@@ -143,47 +143,40 @@ const SignupFormComponent = props => (
 
       return (
         <Form onSubmit={ handleSubmit }>
-          <div className='nine-sixty-max'>
-          <TextField
+          <div className='nine-sixty-max flex-row-center-evenly'>
+          <FieldTextInput
             name="fname"
             id={formId ? `${formId}.fname` : 'fname'}
             validate={ firstNameRequired }
             label="First Name"
             autoComplete="given-name"
-            margin="normal"
             variant="outlined"
           />
-          <TextField
+          <FieldTextInput
             name="lname"
             id={formId ? `${formId}.lname` : 'lname'}
             validate={ lastNameRequired }
             label="Last Name"
             autoComplete="family-name"
-            margin="normal"
             variant="outlined"
-            style={ { margin: 8 } }
           />
-          <TextField
+          <FieldTextInput
             name="email"
             type="email"
             id={ formId ? `${formId}.email` : 'email' }
             validate={ validators.composeValidators(emailRequired, emailValid) }
             label="Email"
             autoComplete="email"
-            margin="normal"
             variant="outlined"
-            style={ { margin: 8 } }
           />
-          <TextField
+          <FieldTextInput
             name="password"
             type="password"
             id={ formId ? `${formId}.password` : 'password' }
             validate={ passwordValidators }
             label="Password"
             autoComplete="new-password"
-            margin="normal"
             variant="outlined"
-            style={ { margin: 8 } }
           />
           <div>
             <p>
