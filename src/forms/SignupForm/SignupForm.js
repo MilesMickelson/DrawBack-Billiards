@@ -1,14 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect
+} from 'react';
 import { compose } from 'redux';
+
 import PropTypes from 'prop-types';
 import { Form as FinalForm } from 'react-final-form';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+
+import {
+  Form,
+  FieldTextInput
+} from '../../components';
 import * as validators from '../../util/validators';
-// import { makeStyles } from '@material-ui/core/styles';
-import { Form, PrimaryButton, FieldTextInput } from '../../components';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const KEY_CODE_ENTER = 13;
 
@@ -20,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '25ch',
   },
 }));
 
@@ -40,12 +52,6 @@ const SignupFormComponent = props => (
       } = fieldRenderProps;
 
       // email
-      const emailLabel = intl.formatMessage({
-        id: 'SignupForm.emailLabel',
-      });
-      const emailPlaceholder = intl.formatMessage({
-        id: 'SignupForm.emailPlaceholder',
-      });
       const emailRequiredMessage = intl.formatMessage({
         id: 'SignupForm.emailRequired',
       });
@@ -56,30 +62,16 @@ const SignupFormComponent = props => (
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
 
       // password
-      const passwordLabel = intl.formatMessage({
-        id: 'SignupForm.passwordLabel',
-      });
-      const passwordPlaceholder = intl.formatMessage({
-        id: 'SignupForm.passwordPlaceholder',
-      });
       const passwordRequiredMessage = intl.formatMessage({
         id: 'SignupForm.passwordRequired',
       });
       const passwordMinLengthMessage = intl.formatMessage(
-        {
-          id: 'SignupForm.passwordTooShort',
-        },
-        {
-          minLength: validators.PASSWORD_MIN_LENGTH,
-        }
+        { id: 'SignupForm.passwordTooShort' },
+        { minLength: validators.PASSWORD_MIN_LENGTH }
       );
       const passwordMaxLengthMessage = intl.formatMessage(
-        {
-          id: 'SignupForm.passwordTooLong',
-        },
-        {
-          maxLength: validators.PASSWORD_MAX_LENGTH,
-        }
+        { id: 'SignupForm.passwordTooLong' },
+        { maxLength: validators.PASSWORD_MAX_LENGTH }
       );
       const passwordMinLength = validators.minLength(
         passwordMinLengthMessage,
@@ -97,24 +89,12 @@ const SignupFormComponent = props => (
       );
 
       // firstName
-      const firstNameLabel = intl.formatMessage({
-        id: 'SignupForm.firstNameLabel',
-      });
-      const firstNamePlaceholder = intl.formatMessage({
-        id: 'SignupForm.firstNamePlaceholder',
-      });
       const firstNameRequiredMessage = intl.formatMessage({
         id: 'SignupForm.firstNameRequired',
       });
       const firstNameRequired = validators.required(firstNameRequiredMessage);
 
       // lastName
-      const lastNameLabel = intl.formatMessage({
-        id: 'SignupForm.lastNameLabel',
-      });
-      const lastNamePlaceholder = intl.formatMessage({
-        id: 'SignupForm.lastNamePlaceholder',
-      });
       const lastNameRequiredMessage = intl.formatMessage({
         id: 'SignupForm.lastNameRequired',
       });
@@ -129,14 +109,14 @@ const SignupFormComponent = props => (
         }
       };
       const termsLink = (
-        <span
-          onClick={onOpenTermsOfService}
-          role="button"
-          tabIndex="0"
-          onKeyUp={handleTermsKeyUp}
+        <Link
+          onClick={ onOpenTermsOfService }
+          role='button'
+          tabIndex='0'
+          onKeyUp={ handleTermsKeyUp }
         >
-          <FormattedMessage id="SignupForm.termsAndConditionsLinkText" />
-        </span>
+          <FormattedMessage id='SignupForm.termsAndConditionsLinkText' />
+        </Link>
       );
       
       const classes = useStyles();
@@ -145,50 +125,45 @@ const SignupFormComponent = props => (
         <Form onSubmit={ handleSubmit }>
           <div className='nine-sixty-max flex-row-center-evenly'>
           <FieldTextInput
-            name="fname"
+            name='fname'
             id={formId ? `${formId}.fname` : 'fname'}
             validate={ firstNameRequired }
-            label="First Name"
-            autoComplete="given-name"
-            variant="outlined"
+            label='First Name'
+            autoComplete='given-name'
+            variant='outlined'
           />
           <FieldTextInput
-            name="lname"
+            name='lname'
             id={formId ? `${formId}.lname` : 'lname'}
             validate={ lastNameRequired }
-            label="Last Name"
-            autoComplete="family-name"
-            variant="outlined"
+            label='Last Name'
+            autoComplete='family-name'
+            variant='outlined'
           />
           <FieldTextInput
-            name="email"
-            type="email"
+            name='email'
+            type='email'
             id={ formId ? `${formId}.email` : 'email' }
             validate={ validators.composeValidators(emailRequired, emailValid) }
-            label="Email"
-            autoComplete="email"
-            variant="outlined"
+            label='Email'
+            autoComplete='email'
+            variant='outlined'
           />
           <FieldTextInput
-            name="password"
-            type="password"
+            name='password'
+            type='password'
             id={ formId ? `${formId}.password` : 'password' }
             validate={ passwordValidators }
-            label="Password"
-            autoComplete="new-password"
-            variant="outlined"
+            label='Password'
+            autoComplete='new-password'
+            variant='outlined'
           />
-          <div>
-            <p>
-              <FormattedMessage
-                id="SignupForm.termsAndConditionsAcceptText"
-                values={{ termsLink }}
-              />
-            </p>
-            <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
-              <FormattedMessage id="SignupForm.signUp" />
-            </PrimaryButton>
-          </div>
+          <Typography variant='body1'>
+            <FormattedMessage id='SignupForm.termsAndConditionsAcceptText' values={{ termsLink }} />
+          </Typography>
+          <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
+            Sign Up
+          </Button>
           </div>
         </Form>
       );
