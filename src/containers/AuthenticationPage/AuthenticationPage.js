@@ -129,11 +129,6 @@ const AuthenticationPageComponent = (props) => {
 
   const tabs = [
     {
-      text: (
-        <h1>
-          <FormattedMessage id="AuthenticationPage.signupLinkText" />
-        </h1>
-      ),
       selected: !isLogin,
       linkProps: {
         name: 'SignupPage',
@@ -141,11 +136,6 @@ const AuthenticationPageComponent = (props) => {
       },
     },
     {
-      text: (
-        <h1>
-          <FormattedMessage id="AuthenticationPage.loginLinkText" />
-        </h1>
-      ),
       selected: isLogin,
       linkProps: {
         name: 'LoginPage',
@@ -279,7 +269,7 @@ const AuthenticationPageComponent = (props) => {
   const authenticationForms = (
     <div>
       <LinkTabNavHorizontal tabs={tabs} />
-      {loginOrSignupError}
+      {/* {loginOrSignupError} */}
       {isLogin ? (
         <LoginForm onSubmit={submitLogin} inProgress={authInProgress} />
       ) : (
@@ -361,8 +351,8 @@ const AuthenticationPageComponent = (props) => {
   // </div>
   return (
     <Page
-      title={schemaTitle}
-      scrollingDisabled={scrollingDisabled}
+      title={ schemaTitle }
+      scrollingDisabled={ scrollingDisabled }
       schema={{
         '@context': 'http://schema.org',
         '@type': 'WebPage',
@@ -387,7 +377,8 @@ const AuthenticationPageComponent = (props) => {
         >
           <div>
             <h2>
-              <FormattedMessage id="AuthenticationPage.termsHeading" />
+              {/* <FormattedMessage id="AuthenticationPage.termsHeading" /> */}
+              <div>Helllooo</div>
             </h2>
             <TermsOfService />
           </div>

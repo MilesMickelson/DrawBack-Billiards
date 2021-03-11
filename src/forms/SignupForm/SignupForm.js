@@ -12,7 +12,7 @@ import {
   FieldTextInput
 } from '../../components';
 import * as validators from '../../util/validators';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -51,20 +51,16 @@ const SignupFormComponent = props => (
         onOpenTermsOfService,
       } = fieldRenderProps;
 
-      // email
-      const emailRequiredMessage = intl.formatMessage({
-        id: 'SignupForm.emailRequired',
-      });
+      const firstNameRequiredMessage = intl.formatMessage({id: 'SignupForm.firstNameRequired'});
+      const lastNameRequiredMessage = intl.formatMessage({id: 'SignupForm.lastNameRequired'});
+      const emailRequiredMessage = intl.formatMessage({ id: 'SignupForm.emailRequired'});
+      const emailInvalidMessage = intl.formatMessage({id: 'SignupForm.emailInvalid'});
+      const firstNameRequired = validators.required(firstNameRequiredMessage);
+      const lastNameRequired = validators.required(lastNameRequiredMessage);
       const emailRequired = validators.required(emailRequiredMessage);
-      const emailInvalidMessage = intl.formatMessage({
-        id: 'SignupForm.emailInvalid',
-      });
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
 
-      // password
-      const passwordRequiredMessage = intl.formatMessage({
-        id: 'SignupForm.passwordRequired',
-      });
+      const passwordRequiredMessage = intl.formatMessage({id: 'SignupForm.passwordRequired'});
       const passwordMinLengthMessage = intl.formatMessage(
         { id: 'SignupForm.passwordTooShort' },
         { minLength: validators.PASSWORD_MIN_LENGTH }
@@ -88,19 +84,8 @@ const SignupFormComponent = props => (
         passwordMaxLength
       );
 
-      // firstName
-      const firstNameRequiredMessage = intl.formatMessage({
-        id: 'SignupForm.firstNameRequired',
-      });
-      const firstNameRequired = validators.required(firstNameRequiredMessage);
-
-      // lastName
-      const lastNameRequiredMessage = intl.formatMessage({
-        id: 'SignupForm.lastNameRequired',
-      });
-      const lastNameRequired = validators.required(lastNameRequiredMessage);
-
       const submitInProgress = inProgress;
+      // Todo MaterialUI button disable prop needs to be changed in order to use this!
       const submitDisabled = invalid || submitInProgress;
 
       const handleTermsKeyUp = e => {
@@ -108,19 +93,8 @@ const SignupFormComponent = props => (
           onOpenTermsOfService();
         }
       };
-      const termsLink = (
-        <Link
-          onClick={ onOpenTermsOfService }
-          role='button'
-          tabIndex='0'
-          onKeyUp={ handleTermsKeyUp }
-        >
-          <FormattedMessage id='SignupForm.termsAndConditionsLinkText' />
-        </Link>
-      );
       
       const classes = useStyles();
-
       return (
         <Form onSubmit={ handleSubmit }>
           <div className='nine-sixty-max flex-row-center-evenly'>
@@ -159,7 +133,15 @@ const SignupFormComponent = props => (
             variant='outlined'
           />
           <Typography variant='body1'>
-            <FormattedMessage id='SignupForm.termsAndConditionsAcceptText' values={{ termsLink }} />
+            By signing up you agree to the&nbsp;
+            <Link
+              onClick={ onOpenTermsOfService }
+              role='button'
+              tabIndex='0'
+              onKeyUp={ handleTermsKeyUp }
+            >
+              Terms and Conditions          
+            </Link>
           </Typography>
           <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
             Sign Up
