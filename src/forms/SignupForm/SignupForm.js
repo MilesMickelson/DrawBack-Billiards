@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Form as FinalForm } from 'react-final-form';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +14,8 @@ import GTranslateIcon from '@material-ui/icons/GTranslate';
 
 import {
   Form,
-  FieldTextInput
+  FieldTextInput,
+  PrimaryButton
 } from '../../components';
 import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
@@ -158,9 +158,9 @@ const SignupFormComponent = props => (
               Terms and Conditions          
             </Link>
           </Typography>
-          <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
+          <PrimaryButton type='submit' inProgress={submitInProgress}>
             Sign up
-          </Button>
+          </PrimaryButton>
           </div>
         </Form>
       );
