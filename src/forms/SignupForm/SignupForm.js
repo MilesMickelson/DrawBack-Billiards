@@ -1,11 +1,17 @@
-import React, {
-  useState,
-  useEffect
-} from 'react';
+import React from 'react';
 import { compose } from 'redux';
 
 import PropTypes from 'prop-types';
 import { Form as FinalForm } from 'react-final-form';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GTranslateIcon from '@material-ui/icons/GTranslate';
 
 import {
   Form,
@@ -14,19 +20,6 @@ import {
 import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-
-import FacebookIcon from '@material-ui/icons/Facebook';
-import GTranslateIcon from '@material-ui/icons/GTranslate';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { GoogleLogo } from '../../containers/AuthenticationPage/socialLoginLogos';
 
 const KEY_CODE_ENTER = 13;
 
@@ -88,7 +81,7 @@ const SignupFormComponent = props => (
       // Todo MaterialUI button disable prop needs to be changed in order to use this!
       const submitDisabled = invalid || submitInProgress;
 
-      const handleTermsKeyUp = e => {
+      const handleEnterKey = e => {
         if (e.keyCode === KEY_CODE_ENTER) {
           onOpenTermsOfService();
         }
@@ -160,14 +153,28 @@ const SignupFormComponent = props => (
               onClick={ onOpenTermsOfService }
               role='button'
               tabIndex='0'
-              onKeyUp={ handleTermsKeyUp }
+              onKeyUp={ handleEnterKey }
             >
               Terms and Conditions          
             </Link>
           </Typography>
-          <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
-            Sign Up
-          </Button>
+          <div className='flex-row-center'>
+            <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
+              Sign up
+            </Button>
+            <Typography variant='h5'>&nbsp;or&nbsp;</Typography>
+            <Link
+              // onClick={ onOpenLogin }
+              role='button'
+              tabIndex='0'
+              onKeyUp={ handleEnterKey }
+            >
+            {/* <Link href='https://localhost:3000/login'> */}
+            <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
+              Log in
+            </Button>
+            </Link>
+          </div>
           </div>
         </Form>
       );
