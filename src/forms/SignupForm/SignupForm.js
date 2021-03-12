@@ -158,23 +158,9 @@ const SignupFormComponent = props => (
               Terms and Conditions          
             </Link>
           </Typography>
-          <div className='flex-row-center'>
-            <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
-              Sign up
-            </Button>
-            <Typography variant='h5'>&nbsp;or&nbsp;</Typography>
-            <Link
-              // onClick={ onOpenLogin }
-              role='button'
-              tabIndex='0'
-              onKeyUp={ handleEnterKey }
-            >
-            {/* <Link href='https://localhost:3000/login'> */}
-            <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
-              Log in
-            </Button>
-            </Link>
-          </div>
+          <Button type='submit' variant='contained' color='primary' inProgress={submitInProgress}>
+            Sign up
+          </Button>
           </div>
         </Form>
       );

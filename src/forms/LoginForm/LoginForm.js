@@ -14,17 +14,49 @@ import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const KEY_CODE_ENTER = 13;
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    marginTop: 45,
-  },
-}));
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        DrawBack Billiards
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const LoginFormComponent = props => (
   <FinalForm
@@ -54,36 +86,72 @@ const LoginFormComponent = props => (
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
 
+      const classes = useStyles();
       return (
         <Form onSubmit={handleSubmit}>
-          <div className='nine-sixty-max flex-col-center'>
-          <Typography variant='body1'>Welcome back to</Typography>
-          <Typography variant='h2'>DrawBack Billiards</Typography>
-          <hr />
-          <Typography variant='subtitle1'>Sign in</Typography>
-          <FieldTextInput
-            name='email'
-            type='email'
-            id={ formId ? `${formId}.email` : 'email' }
-            placeholder='Email'
-            label='Email'
-            autoComplete='email'
-            variant='outlined'
-            color='primary'
-          />
-          <FieldTextInput
-            name='password'
-            type='password'
-            id={ formId ? `${formId}.password` : 'password' }
-            placeholder='Password'
-            label='Password'
-            autoComplete='new-password'
-            variant='outlined'
-            color='primary'
-          />
-          <Link name="PasswordRecoveryPage">
-            Reset Password
-          </Link>
+          <div className='flex-col-center five-sixty-max'>
+            <Typography variant='h2'>Welcome back to DrawBack Billiards</Typography>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography variant='h4'>
+              Sign in
+            </Typography>
+            <FieldTextInput
+              name='email'
+              type='email'
+              id={ formId ? `${formId}.email` : 'email' }
+              placeholder='Email'
+              autoComplete='email'
+              variant='outlined'
+              color='primary'
+              margin="normal"
+              autoFocus
+              required
+              fullWidth
+            />
+            <FieldTextInput
+              name='password'
+              type='password'
+              id={ formId ? `${formId}.password` : 'password' }
+              placeholder='Password'
+              autoComplete='new-password'
+              variant='outlined'
+              color='primary'
+              required
+              fullWidth
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2" name="PasswordRecoveryPage">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="http://localhost:3000/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+          {/*
+
           <Link
             // onClick={ onOpenLogin }
             // onKeyUp={ handleEnterKey }
@@ -94,7 +162,7 @@ const LoginFormComponent = props => (
               Log in
             </Button>
           </Link>
-          </div>
+          */}
         </Form>
       );
     }}
