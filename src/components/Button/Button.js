@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  Component,
+  useState,
+  useEffect
+} from 'react';
 
 import { bool, node, string } from 'prop-types';
 
@@ -9,29 +13,28 @@ import { IconSpinner, IconCheckmark } from '../../components';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-const ButtonWrap = (props) => {
-  const [mounted, setMounted] = useState(false);
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { mounted: false };
-  // }
-  // componentDidMount() {
-  //   this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
-  // }
-  // useEffect(() => {
-  //   setMounted({ mounted: true });
-  // });
-  const {
-    children,
-    className,
-    spinnerClassName,
-    checkmarkClassName,
-    inProgress,
-    ready,
-    disabled,
-    enforcePagePreloadFor,
-    ...rest
-  } = props;
+class ButtonWrap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { mounted: false };
+  }
+  componentDidMount() {
+    this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
+  }
+
+  render() {
+    const {
+      children,
+      className,
+      rootClassName,
+      spinnerClassName,
+      checkmarkClassName,
+      inProgress,
+      ready,
+      disabled,
+      enforcePagePreloadFor,
+      ...rest
+    } = this.props;
 
   let content;
   if (inProgress) {
@@ -59,12 +62,13 @@ const ButtonWrap = (props) => {
   // All buttons are disabled until the component is mounted. This
   // prevents e.g. being able to submit forms to the backend before
   // the client side is handling the submit.
-  const buttonDisabled = mounted ? disabled : true;
+  const buttonDisabled = this.mounted ? disabled : true;
 
-  return (
-    <ButtonBase disabled={ buttonDisabled } { ...onOverButtonMaybe } { ...rest } />
-  );
+  return <ButtonBase disabled={ buttonDisabled } { ...onOverButtonMaybe } { ...rest } />;
+  };
 };
+
+export default ButtonWrap;
 
 ButtonWrap.defaultProps = {
   className: null,
@@ -88,30 +92,32 @@ ButtonWrap.propTypes = {
   children: node,
 };
 
-export default Button;
 
 export const PrimaryButton = props => {
-  // const classes = classNames(props.rootClassName || css.primaryButtonRoot, css.primaryButton);
   return (
-    <ButtonWrap>
-      <Button type='submit' color='primary' variant='contained' fullWidth />
+    <ButtonWrap { ...props }>
+      <Button
+        fullWidth
+        color='primary'
+        variant='contained'
+      ></Button>
     </ButtonWrap>
   )
 };
 PrimaryButton.displayName = 'PrimaryButton';
 
 export const SecondaryButton = props => {
-  return <UiButton {...props} />;
+  return <Button {...props} />
 };
 SecondaryButton.displayName = 'SecondaryButton';
 
 export const InlineTextButton = props => {
-  return <UiButton {...props} />;
+  return <Button {...props} />;
 };
 InlineTextButton.displayName = 'InlineTextButton';
 
 export const SocialLoginButton = props => {
-  return <UiButton {...props} />;
+  return <Button {...props} />;
 };
 
 SocialLoginButton.displayName = 'SocialLoginButton';

@@ -14,12 +14,11 @@ import {
   Form,
   FieldTextInput,
   NamedLink,
-  PrimaryButton
 } from '../../components';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -128,11 +127,14 @@ const LoginFormComponent = props => (
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <PrimaryButton
+            <Button
+              fullWidth
+              color='primary'
+              variant='contained'
               className={ classes.submit }
             >
               Sign In
-            </PrimaryButton>
+            </Button>
             <Grid container>
               <Grid item xs>
                 <NamedLink name="PasswordRecoveryPage">

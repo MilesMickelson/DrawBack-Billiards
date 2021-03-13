@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { IconCheckmark } from '../../components';
-import Button, { PrimaryButton, SecondaryButton, InlineTextButton } from './Button';
-
-import css from './ButtonExample.module.css';
 
 const preventDefault = e => {
   e.preventDefault();
@@ -34,9 +31,9 @@ class InteractiveButton extends Component {
     };
 
     return (
-      <Button {...this.state} onClick={handleClick}>
+      <button {...this.state} onClick={handleClick}>
         Click me
-      </Button>
+      </button>
     );
   }
 }
@@ -48,85 +45,85 @@ const ButtonsComponent = () => {
       <InteractiveButton />
 
       <h3>Button with a translation:</h3>
-      <Button>
+      <button>
         <span>Clique moi</span>
-      </Button>
+      </button>
 
       <h3>Button with an icon and a text:</h3>
-      <Button>
+      <button>
         <IconCheckmark rootClassName={css.customIcon} />
         <span>Custom text</span>
-      </Button>
+      </button>
 
       <h3>Default button:</h3>
-      <Button>Click me</Button>
+      <button>Click me</button>
 
       <h3>Default button disabled:</h3>
-      <Button disabled>Click me</Button>
+      <button disabled>Click me</button>
 
       <h3>Default button in progress:</h3>
-      <Button inProgress>Click me</Button>
+      <button inProgress>Click me</button>
 
       <h3>Default button ready:</h3>
-      <Button ready>Click me</Button>
+      <button ready>Click me</button>
 
       <h3>Default button disabled and in progress:</h3>
-      <Button disabled inProgress>
+      <button disabled inProgress>
         Click me
-      </Button>
+      </button>
 
       <h3>Default button disabled and ready:</h3>
-      <Button disabled ready>
+      <button disabled ready>
         Click me
-      </Button>
+      </button>
 
       <h3>Primary button:</h3>
-      <PrimaryButton>Click me</PrimaryButton>
+      <Primarybutton>Click me</Primarybutton>
 
       <h3>Primary button disabled:</h3>
-      <PrimaryButton disabled>Click me</PrimaryButton>
+      <Primarybutton disabled>Click me</Primarybutton>
 
       <h3>Primary button in progress:</h3>
-      <PrimaryButton inProgress>Click me</PrimaryButton>
+      <Primarybutton inProgress>Click me</Primarybutton>
 
       <h3>Primary button ready:</h3>
-      <PrimaryButton ready>Click me</PrimaryButton>
+      <Primarybutton ready>Click me</Primarybutton>
 
       <h3>Primary button disabled and in progress:</h3>
-      <PrimaryButton disabled inProgress>
+      <Primarybutton disabled inProgress>
         Click me
-      </PrimaryButton>
+      </Primarybutton>
 
       <h3>Primary button disabled and ready:</h3>
-      <PrimaryButton disabled ready>
+      <Primarybutton disabled ready>
         Click me
-      </PrimaryButton>
+      </Primarybutton>
 
       <h3>Secondary button:</h3>
-      <SecondaryButton>Click me</SecondaryButton>
+      <Secondarybutton>Click me</Secondarybutton>
 
       <h3>Secondary button disabled:</h3>
-      <SecondaryButton disabled>Click me</SecondaryButton>
+      <Secondarybutton disabled>Click me</Secondarybutton>
 
       <h3>Secondary button in progress:</h3>
-      <SecondaryButton inProgress>Click me</SecondaryButton>
+      <Secondarybutton inProgress>Click me</Secondarybutton>
 
       <h3>Secondary button ready:</h3>
-      <SecondaryButton ready>Click me</SecondaryButton>
+      <Secondarybutton ready>Click me</Secondarybutton>
 
       <h3>Secondary button disabled and in progress:</h3>
-      <SecondaryButton disabled inProgress>
+      <Secondarybutton disabled inProgress>
         Click me
-      </SecondaryButton>
+      </Secondarybutton>
 
       <h3>Secondary button disabled and ready:</h3>
-      <SecondaryButton disabled ready>
+      <Secondarybutton disabled ready>
         Click me
-      </SecondaryButton>
+      </Secondarybutton>
 
       <h3>Inline text button:</h3>
       <p>
-        Lorem ipsum <InlineTextButton>button that looks like link</InlineTextButton> dolor sit amet
+        Lorem ipsum <InlineTextbutton>button that looks like link</InlineTextbutton> dolor sit amet
       </p>
       <p>
         Lorem ipsum{' '}
@@ -137,27 +134,27 @@ const ButtonsComponent = () => {
       </p>
 
       <h3>Link that looks like a default button:</h3>
-      <a className={css.buttonLink} href={hashLink} onClick={preventDefault}>
+      <a href={hashLink} onClick={preventDefault}>
         Click me
       </a>
 
       <h3>Translated link that looks like a default button:</h3>
-      <a className={css.buttonLink} href={hashLink} onClick={preventDefault}>
+      <a href={hashLink} onClick={preventDefault}>
         <span>Clique moi</span>
       </a>
 
       <h3>Link that looks like a primary button:</h3>
-      <a className={css.buttonLinkPrimary} href={hashLink} onClick={preventDefault}>
+      <a href={hashLink} onClick={preventDefault}>
         Click me
       </a>
 
       <h3>Link that looks like a secondary button:</h3>
-      <a className={css.buttonLinkSecondary} href={hashLink} onClick={preventDefault}>
+      <a href={hashLink} onClick={preventDefault}>
         Click me
       </a>
 
-      <h3>Button with custom styles:</h3>
-      <Button rootClassName={css.customButton}>Click me</Button>
+      <h3>button with custom styles:</h3>
+      <button>Click me</button>
     </div>
   );
 };
