@@ -1,15 +1,13 @@
-import React, {
-  Component,
-  useState,
-  useEffect,
-} from 'react';
+import React, { Component } from 'react';
+
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
 
-import InputLabel from '@material-ui/core/InputLabel';
+import { ValidationError } from '../../components';
+
+// import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
-import { ValidationError } from '../../components';
 
 const CONTENT_MAX_LENGTH = 5000;
 

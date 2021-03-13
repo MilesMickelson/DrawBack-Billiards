@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Form as FinalForm } from 'react-final-form';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +16,7 @@ import GTranslateIcon from '@material-ui/icons/GTranslate';
 import {
   Form,
   FieldTextInput,
-  PrimaryButton
+  // PrimaryButton
 } from '../../components';
 import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
@@ -86,81 +87,86 @@ const SignupFormComponent = props => (
           onOpenTermsOfService();
         }
       };
-      
-      const classes = useStyles();
+
       return (
         <Form onSubmit={ handleSubmit }>
           <div className='nine-sixty-max flex-col-center'>
-          <Typography variant='body1'>
-            Create an account to buy, sell, trade, and custom order all the billiards equipment you'll ever need.
-          </Typography>
-          <Typography variant='body1'>
-            Then schedule a lesson with a certified pool instructor, or even a real professional player; only on...
-          </Typography>
-          <Typography variant='h2'>DrawBack Billiards</Typography>
-          <div className='flex-row-center'>
-            <IconButton>
-              <GTranslateIcon />
-            </IconButton>
-            <IconButton>
-              <FacebookIcon />
-            </IconButton>
-          </div>
-          <FieldTextInput
-            name='fname'
-            id={formId ? `${formId}.fname` : 'fname'}
-            validate={ firstNameRequired }
-            placeholder='First Name'
-            autoComplete='given-name'
-            variant='outlined'
-            color='primary'
-          />
-          <FieldTextInput
-            name='lname'
-            id={formId ? `${formId}.lname` : 'lname'}
-            validate={ lastNameRequired }
-            placeholder='Last Name'
-            label='Last Name'
-            autoComplete='family-name'
-            variant='outlined'
-            color='primary'
-          />
-          <FieldTextInput
-            name='email'
-            type='email'
-            id={ formId ? `${formId}.email` : 'email' }
-            validate={ validators.composeValidators(emailRequired, emailValid) }
-            placeholder='Email'
-            label='Email'
-            autoComplete='email'
-            variant='outlined'
-            color='primary'
-          />
-          <FieldTextInput
-            name='password'
-            type='password'
-            id={ formId ? `${formId}.password` : 'password' }
-            validate={ passwordValidators }
-            placeholder='Password'
-            label='Password'
-            autoComplete='new-password'
-            variant='outlined'
-            color='primary'
-          />
-          <Typography variant='body1'>
-            By signing up you agree to the&nbsp;
-            <Link
-              onClick={ onOpenTermsOfService }
-              role='button'
-              tabIndex='0'
-              onKeyUp={ handleEnterKey }
-            >
-              Terms and Conditions          
-            </Link>
-          </Typography>
-          <PrimaryButton type='submit' inProgress={submitInProgress}>
-            Sign up
-          </PrimaryButton>
+            <Typography variant='body1'>
+              Create an account to buy, sell, trade, and custom order all the billiards equipment you'll ever need.
+            </Typography>
+            <Typography variant='body1'>
+              Then schedule a lesson with a certified pool instructor, or even a real professional player; only on...
+            </Typography>
+            <Typography variant='h2'>Welcome to DrawBack&nbsp;Billiards</Typography>
+            <div className='flex-row-center five-sixty-max'>
+              <IconButton>
+                <GTranslateIcon />
+              </IconButton>
+              <IconButton>
+                <FacebookIcon />
+              </IconButton>          
+              <FieldTextInput
+                name='fname'
+                id={formId ? `${formId}.fname` : 'fname'}
+                validate={ firstNameRequired }
+                placeholder='First Name'
+                autoComplete='given-name'
+                variant='outlined'
+                color='primary'
+              />
+              <FieldTextInput
+                name='lname'
+                id={formId ? `${formId}.lname` : 'lname'}
+                validate={ lastNameRequired }
+                placeholder='Last Name'
+                label='Last Name'
+                autoComplete='family-name'
+                variant='outlined'
+                color='primary'
+              />
+              <FieldTextInput
+                name='email'
+                type='email'
+                id={ formId ? `${formId}.email` : 'email' }
+                validate={ validators.composeValidators(emailRequired, emailValid) }
+                placeholder='Email'
+                label='Email'
+                autoComplete='email'
+                variant='outlined'
+                color='primary'
+              />
+              <FieldTextInput
+                name='password'
+                type='password'
+                id={ formId ? `${formId}.password` : 'password' }
+                validate={ passwordValidators }
+                placeholder='Password'
+                label='Password'
+                autoComplete='new-password'
+                variant='outlined'
+                color='primary'
+              />
+              <Typography variant='body1'>
+                By signing up you agree to the&nbsp;
+                <Link
+                  onClick={ onOpenTermsOfService }
+                  role='button'
+                  tabIndex='0'
+                  onKeyUp={ handleEnterKey }
+                >
+                  Terms and Conditions          
+                </Link>
+              </Typography>
+              <Button
+                fullWidth
+                type='submit'
+                color='primary'
+                variant='contained'
+                inProgress={ submitInProgress }
+              >
+                Rack em' up!
+              </Button>
+            </div>
           </div>
         </Form>
       );

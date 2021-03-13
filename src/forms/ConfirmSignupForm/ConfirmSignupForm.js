@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
-import classNames from 'classnames';
 import * as validators from '../../util/validators';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
 
@@ -28,13 +27,6 @@ const ConfirmSignupFormComponent = props => (
         idp,
       } = formRenderProps;
 
-      // email
-      const emailLabel = intl.formatMessage({
-        id: 'ConfirmSignupForm.emailLabel',
-      });
-      const emailPlaceholder = intl.formatMessage({
-        id: 'ConfirmSignupForm.emailPlaceholder',
-      });
       const emailRequiredMessage = intl.formatMessage({
         id: 'ConfirmSignupForm.emailRequired',
       });
@@ -44,31 +36,16 @@ const ConfirmSignupFormComponent = props => (
       });
       const emailValid = validators.emailFormatValid(emailInvalidMessage);
 
-      // firstName
-      const firstNameLabel = intl.formatMessage({
-        id: 'ConfirmSignupForm.firstNameLabel',
-      });
-      const firstNamePlaceholder = intl.formatMessage({
-        id: 'ConfirmSignupForm.firstNamePlaceholder',
-      });
       const firstNameRequiredMessage = intl.formatMessage({
         id: 'ConfirmSignupForm.firstNameRequired',
       });
       const firstNameRequired = validators.required(firstNameRequiredMessage);
 
-      // lastName
-      const lastNameLabel = intl.formatMessage({
-        id: 'ConfirmSignupForm.lastNameLabel',
-      });
-      const lastNamePlaceholder = intl.formatMessage({
-        id: 'ConfirmSignupForm.lastNamePlaceholder',
-      });
       const lastNameRequiredMessage = intl.formatMessage({
         id: 'ConfirmSignupForm.lastNameRequired',
       });
       const lastNameRequired = validators.required(lastNameRequiredMessage);
 
-      const classes = classNames(rootClassName || css.root, className);
       const submitInProgress = inProgress;
       const submitDisabled = invalid || submitInProgress;
 
@@ -80,21 +57,18 @@ const ConfirmSignupFormComponent = props => (
       };
       const termsLink = (
         <span
-          className={css.termsLink}
-          onClick={onOpenTermsOfService}
+          onClick={ onOpenTermsOfService }
           role="button"
           tabIndex="0"
-          onKeyUp={handleTermsKeyUp}
+          onKeyUp={ handleTermsKeyUp }
         >
           <FormattedMessage id="ConfirmSignupForm.termsAndConditionsLinkText" />
         </span>
       );
-
       // If authInfo is not available we should not show the ConfirmForm
       if (!authInfo) {
         return;
       }
-
       // Initial values from idp provider
       const { email, firstName, lastName } = authInfo;
 
@@ -136,7 +110,6 @@ const ConfirmSignupFormComponent = props => (
               />
             </div>
           </div>
-
           <div className={css.bottomWrapper}>
             <p className={css.bottomWrapperText}>
               <span className={css.termsText}>
@@ -162,9 +135,7 @@ const { bool, func } = PropTypes;
 
 ConfirmSignupFormComponent.propTypes = {
   inProgress: bool,
-
   onOpenTermsOfService: func.isRequired,
-
   // from injectIntl
   intl: intlShape.isRequired,
 };

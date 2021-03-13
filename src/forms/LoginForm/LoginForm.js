@@ -92,7 +92,7 @@ const LoginFormComponent = props => (
       return (
         <Form onSubmit={ handleSubmit }>
           <div className='flex-col-center five-sixty-max'>
-            <Typography variant='h2'>Welcome to DrawBack Billiards</Typography>
+            <Typography variant='h2'>Welcome Back</Typography>
             <Avatar className={ classes.avatar }>
               <LockOutlinedIcon />
             </Avatar>
