@@ -1,10 +1,9 @@
 import React, { 
   useState, 
-  useEffect } 
-from 'react';
+  useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import {
   fade,
   makeStyles,
