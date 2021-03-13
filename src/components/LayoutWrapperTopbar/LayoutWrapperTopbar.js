@@ -149,33 +149,33 @@ const LayoutWrapperTopbar = props => {
   const authenticatedOnClientSide = mounted && isAuthenticated;
   const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
 
-  // const signupLink = isAuthenticatedOrJustHydrated ? null : (
-  //   <div name="SignupPage">
-  //     <span>
-  //       <div id="TopbarDesktop.signup" />
-  //     </span>
-  //   </div>
-  // );
+  const signupLink = isAuthenticatedOrJustHydrated ? null : (
+    <div name="SignupPage">
+      <span>
+        <div id="TopbarDesktop.signup" />
+      </span>
+    </div>
+  );
 
   const loginLink = isAuthenticatedOrJustHydrated ? null : (
     <NamedLink name="SignupPage">
       <Button id="TopbarDesktop.signup">
-      <FormattedMessage id="TopbarDesktop.signup" />
+      Sign up
       </Button>
     </NamedLink>
   );
 
-  // const listingLink =
-  //   authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
-  //     <div
-  //       listing={currentUserListing}
-  //       children={
-  //         <span>
-  //           <div id="TopbarDesktop.viewListing" />
-  //         </span>
-  //       }
-  //     />
-  //   ) : null;
+  const listingLink =
+    authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
+      <div
+        listing={currentUserListing}
+        children={
+          <span>
+            <div id="TopbarDesktop.viewListing" />
+          </span>
+        }
+      />
+    ) : null;
 
   const CreateListing =
     isAuthenticatedOrJustHydrated && !(currentUserListingFetched && !currentUserListing) ? null : (
@@ -200,6 +200,7 @@ const LayoutWrapperTopbar = props => {
     </Menu>
   );
 
+  // ! Mobile Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
