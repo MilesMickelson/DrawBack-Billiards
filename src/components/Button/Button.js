@@ -9,7 +9,7 @@ import { IconSpinner, IconCheckmark } from '../../components';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
-const ButtonWrap = () => {
+const ButtonWrap = (props) => {
   const [mounted, setMounted] = useState(false);
   // constructor(props) {
   //   super(props);
@@ -18,9 +18,9 @@ const ButtonWrap = () => {
   // componentDidMount() {
   //   this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
   // }
-  useEffect(() => {
-    setMounted({ mounted: true });
-  });
+  // useEffect(() => {
+  //   setMounted({ mounted: true });
+  // });
   const {
     children,
     className,
@@ -31,7 +31,7 @@ const ButtonWrap = () => {
     disabled,
     enforcePagePreloadFor,
     ...rest
-  } = this.props;
+  } = props;
 
   let content;
   if (inProgress) {
@@ -61,7 +61,9 @@ const ButtonWrap = () => {
   // the client side is handling the submit.
   const buttonDisabled = mounted ? disabled : true;
 
-  return <ButtonBase disabled={ buttonDisabled } { ...onOverButtonMaybe } { ...rest } />;
+  return (
+    <ButtonBase disabled={ buttonDisabled } { ...onOverButtonMaybe } { ...rest } />
+  );
 };
 
 ButtonWrap.defaultProps = {
@@ -79,12 +81,10 @@ ButtonWrap.propTypes = {
   className: string,
   spinnerClassName: string,
   checkmarkClassName: string,
-
   inProgress: bool,
   ready: bool,
   disabled: bool,
   enforcePagePreloadFor: string,
-
   children: node,
 };
 
@@ -93,11 +93,10 @@ export default Button;
 export const PrimaryButton = props => {
   // const classes = classNames(props.rootClassName || css.primaryButtonRoot, css.primaryButton);
   return (
-    <ButtonWrap {...props}>
-      <Button color='primary' variant='contained' />
+    <ButtonWrap>
+      <Button type='submit' color='primary' variant='contained' fullWidth />
     </ButtonWrap>
-    
-    )
+  )
 };
 PrimaryButton.displayName = 'PrimaryButton';
 

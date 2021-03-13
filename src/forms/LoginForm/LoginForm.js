@@ -1,5 +1,3 @@
-
-
 import React, {
   useState,
   useEffect
@@ -9,15 +7,18 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Form as FinalForm } from 'react-final-form';
 
-import { Form, FieldTextInput, NamedLink } from '../../components';
 import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
+import {
+  Form,
+  FieldTextInput,
+  NamedLink,
+  PrimaryButton
+} from '../../components';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -25,7 +26,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -88,10 +88,10 @@ const LoginFormComponent = props => (
 
       const classes = useStyles();
       return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={ handleSubmit }>
           <div className='flex-col-center five-sixty-max'>
             <Typography variant='h2'>Welcome to DrawBack Billiards</Typography>
-            <Avatar className={classes.avatar}>
+            <Avatar className={ classes.avatar }>
               <LockOutlinedIcon />
             </Avatar>
             <Typography variant='h4'>
@@ -125,15 +125,11 @@ const LoginFormComponent = props => (
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
+            <PrimaryButton
+              className={ classes.submit }
             >
               Sign In
-            </Button>
+            </PrimaryButton>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2" name="PasswordRecoveryPage">

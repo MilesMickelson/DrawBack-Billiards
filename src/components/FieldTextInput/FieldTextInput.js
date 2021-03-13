@@ -1,5 +1,7 @@
 import React, {
   Component,
+  useState,
+  useEffect,
 } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
@@ -11,75 +13,97 @@ import { ValidationError } from '../../components';
 
 const CONTENT_MAX_LENGTH = 5000;
 
-class FieldTextInputComponent extends Component {
-  render() {
-    const {
-      rootClassName,
-      className,
-      inputRootClass,
-      customErrorText,
-      id,
-      label,
-      input,
-      meta,
-      onUnmount,
-      isUncontrolled,
-      inputRef,
-      ...rest
-    } = this.props;
+const FieldTextInputComponent = (props) => {
+  const {
+    rootClassName,
+    className,
+    inputRootClass,
+    customErrorText,
+    id,
+    label,
+    input,
+    meta,
+    onUnmount,
+    isUncontrolled,
+    inputRef,
+    ...rest
+  } = props;
 
-    if (label && !id) {
-      throw new Error('id required when a label is given');
-    }
-
-    const { valid, invalid, touched, error } = meta;
-    const isTextarea = input.type === 'textarea';
-
-    const errorText = customErrorText || error;
-
-    // Error message and input error styles are only shown if the
-    // field has been touched and the validation has failed.
-    const hasError = !!customErrorText || !!(touched && invalid && error);
-
-    const fieldMeta = { touched: hasError, error: errorText };
-
-    // Textarea doesn't need type.
-    const { type, ...inputWithoutType } = input;
-    // Uncontrolled input uses defaultValue instead of value.
-    const { value: defaultValue, ...inputWithoutValue } = input;
-    // Use inputRef if it is passed as prop.
-    const refMaybe = inputRef ? { ref: inputRef } : {};
-
-    const maxLength = CONTENT_MAX_LENGTH;
-    const inputProps = isTextarea
-      ? {
-          id,
-          rows: 1,
-          maxLength,
-          ...refMaybe,
-          ...inputWithoutType,
-          ...rest,
-        }
-      : isUncontrolled
-      ? {
-          id,
-          type,
-          defaultValue,
-          ...refMaybe,
-          ...inputWithoutValue,
-          ...rest,
-        }
-      : { className: id, type, ...refMaybe, ...input, ...rest };
-
-    return (
-      <div>
-        {/* {label ? <InputLabel htmlFor={id}>{label}</InputLabel> : null} */}
-        {isTextarea ? <TextField {...inputProps} /> : <TextField{...inputProps} />}
-        <ValidationError fieldMeta={fieldMeta} />
-      </div>
-    );
+  if (label && !id) {
+    throw new Error('id required when a label is given');
   }
-}
+
+  const { valid, invalid, touched, error } = meta;
+  const isTextarea = input.type === 'textarea';
+
+  const errorText = customErrorText || error;
+
+  // Error message and input error styles are only shown if the
+  // field has been touched and the validation has failed.
+  const hasError = !!customErrorText || !!(touched && invalid && error);
+
+  const fieldMeta = { touched: hasError, error: errorText };
+
+  // Textarea doesn't need type.
+  const { type, ...inputWithoutType } = input;
+  // Uncontrolled input uses defaultValue instead of value.
+  const { value: defaultValue, ...inputWithoutValue } = input;
+  // Use inputRef if it is passed as prop.
+  const refMaybe = inputRef ? { ref: inputRef } : {};
+
+  const maxLength = CONTENT_MAX_LENGTH;
+  const inputProps = isTextarea
+    ? {
+        id,
+        rows: 1,
+        maxLength,
+        ...refMaybe,
+        ...inputWithoutType,
+        ...rest,
+      }
+    : isUncontrolled
+    ? {
+        id,
+        type,
+        defaultValue,
+        ...refMaybe,
+        ...inputWithoutValue,
+        ...rest,
+      }
+    : { className: id, type, ...refMaybe, ...input, ...rest };
+
+  return (
+    <>
+      {/* {label ? <InputLabel htmlFor={id}>{label}</InputLabel> : null} */}
+      {
+        isTextarea ? 
+        <TextField
+          { ...inputProps }
+          multiline
+          fullWidth
+          variant='outlined'
+          color='primary'
+          margin='normal'
+          InputLabelProps={{
+            shrink: true
+          }}
+        /> 
+      : 
+        <TextField
+          {...inputProps}
+          fullWidth
+          variant='outlined'
+          color='primary'
+          margin='normal'
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+      }
+      <ValidationError fieldMeta={fieldMeta} />
+    </>
+  );
+};
 
 FieldTextInputComponent.defaultProps = {
   rootClassName: null,
@@ -116,17 +140,6 @@ FieldTextInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
-// const FieldTextInput = (props) => {
-//   useEffect(() => {
-//     return () => {
-//       console.log(props.current);
-//     };
-//   }, [props.current]);
-//   return (
-//     <Field component={FieldTextInputComponent} {...this.props} />
-//   );
-// };
-
 class FieldTextInput extends Component {
   componentWillUnmount() {
     // Unmounting happens too late if it is done inside Field component
@@ -138,7 +151,7 @@ class FieldTextInput extends Component {
   }
 
   render() {
-    return <Field component={ FieldTextInputComponent } {...this.props} />;
+    return <Field component={FieldTextInputComponent} {...this.props} />;
   }
 }
 
