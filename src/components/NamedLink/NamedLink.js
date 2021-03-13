@@ -18,11 +18,15 @@
  * the one in the generated pathname of the link.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName, findRouteByRouteName } from '../../util/routes';
+
+import Link from '@material-ui/core/Link';
 
 export const NamedLinkComponent = props => {
   const { name, params, title } = props;
@@ -41,7 +45,6 @@ export const NamedLinkComponent = props => {
   const pathname = pathByRouteName(name, routes, params);
   const { match } = props;
   const active = match.url && match.url === pathname;
-
   // <a> element props
   const { className, style, activeClassName } = props;
   const aElemProps = {
@@ -69,7 +72,6 @@ NamedLinkComponent.defaultProps = {
   title: null,
   match: {},
 };
-
 // This ensures a nice display name in snapshots etc.
 NamedLinkComponent.displayName = 'NamedLink';
 
@@ -81,13 +83,11 @@ NamedLinkComponent.propTypes = {
   // Link component props
   to: shape({ search: string, hash: string, state: object }),
   children: any,
-
   // generic props for the underlying <a> element
   className: string,
   style: object,
   activeClassName: string,
   title: string,
-
   // from withRouter
   match: object,
 };

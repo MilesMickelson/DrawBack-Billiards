@@ -9,6 +9,7 @@ import { Form as FinalForm } from 'react-final-form';
 
 import * as validators from '../../util/validators';
 import { injectIntl, intlShape } from '../../util/reactIntl';
+
 import {
   Form,
   FieldTextInput,
@@ -49,9 +50,11 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <NamedLink
+        name='TermsOfServicePage'
+      >
         DrawBack Billiards
-      </Link>{' '}
+      </NamedLink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -132,14 +135,14 @@ const LoginFormComponent = props => (
             </PrimaryButton>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2" name="PasswordRecoveryPage">
+                <NamedLink name="PasswordRecoveryPage">
                   Forgot password?
-                </Link>
+                </NamedLink>
               </Grid>
               <Grid item>
-                <Link href="http://localhost:3000/signup" variant="body2">
+                <NamedLink name="SignupPage">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </NamedLink>
               </Grid>
             </Grid>
           </div>
