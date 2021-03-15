@@ -267,11 +267,9 @@ export class ListingPageComponent extends Component {
 
     if (showListingError && showListingError.status === 404) {
       // 404 listing not found
-
       return <NotFoundPage />;
     } else if (showListingError) {
       // Other error in fetching listing
-
       const errorTitle = intl.formatMessage({
         id: 'ListingPage.errorLoadingListingTitle',
       });

@@ -3,11 +3,8 @@ import config from '../../config';
 import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage, TopbarContainer } from '../../containers';
 import {
-  LayoutSingleColumn,
   LayoutWrapperTopbar,
-  LayoutWrapperMain,
   LayoutWrapperFooter,
-  Footer,
   ExternalLink,
 } from '../../components';
 
@@ -29,27 +26,17 @@ const AboutPage = () => {
         name: 'About page',
       }}
     >
-      <LayoutSingleColumn>
-        <LayoutWrapperTopbar>
-          <TopbarContainer />
-        </LayoutWrapperTopbar>
-
-        <LayoutWrapperMain className={css.staticPageWrapper}>
+      <LayoutWrapperTopbar />
           <h1 className={css.pageTitle}>Find new depths in your yoga practice</h1>
           <img className={css.coverImage} src={image} alt="My first ice cream." />
-
           <div className={css.contentWrapper}>
             <div className={css.contentSide}>
               <p>Yoga was listed by UNESCO as an intangible cultural heritage.</p>
             </div>
-
             <div className={css.contentMain}>
               <h2>
-                Each yoga practitioner is an individual, and each one of us needs different care.
-                Working together with an experienced yoga teacher offers the possibility to rise
-                our practise to a whole new level.
+                Each yoga practitioner is an individual, and each one of us needs different care. Working together with an experienced yoga teacher offers the possibility to rise our practise to a whole new level.
               </h2>
-
               <p>
                 Whether it is the alignment of asanas or being able to set the focus of the class,
                 we all have our own struggles and goals. Some of these cannot be addressed in a
@@ -58,14 +45,12 @@ const AboutPage = () => {
               </p>
 
               <h3 className={css.subtitle}>Are you a yoga teacher?</h3>
-
               <p>
                 Yogatime offers you a platform through which you can reach thousands of yoga
                 practitioners. Offering private yoga classes through Yogatime offers you a
                 possibility to grow your customer base and earn some extra income on top of your
                 regular classes.
               </p>
-
               <h3 id="contact" className={css.subtitle}>
                 Create your own marketplace like Yogatime
               </h3>
@@ -83,12 +68,7 @@ const AboutPage = () => {
               </p>
             </div>
           </div>
-        </LayoutWrapperMain>
-
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
-      </LayoutSingleColumn>
+        <LayoutWrapperFooter />
     </StaticPage>
   );
 };
