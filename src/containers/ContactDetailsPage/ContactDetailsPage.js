@@ -10,7 +10,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   Page,
@@ -76,7 +76,7 @@ export const ContactDetailsPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-          <TopbarDesktop
+          <Topbar
             currentPage="ContactDetailsPage"
             // desktopClassName={css.desktopTopbar}
             // mobileClassName={css.mobileTopbar}

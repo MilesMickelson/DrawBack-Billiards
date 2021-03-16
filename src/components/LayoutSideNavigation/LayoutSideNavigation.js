@@ -62,7 +62,7 @@ const LayoutSideNavigation = props => {
 
   return (
     <div className={classes}>
-      {preparedChildren.TopbarDesktop}
+      {/* {preparedChildren.TopbarDesktop} */}
       <div className={containerClasses}>
         {preparedChildren.layoutWrapperSideNav}
         {preparedChildren.layoutWrapperMain}

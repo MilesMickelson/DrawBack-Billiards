@@ -12,7 +12,7 @@ import { ensureCurrentUser } from '../../util/data';
 import {
   Page,
   LayoutSingleColumn,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -75,7 +75,7 @@ export const EmailVerificationPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
       <LayoutSingleColumn>
-        <TopbarDesktop />
+        <Topbar />
         <LayoutWrapperMain className={css.layoutWrapperMain}>
           <div className={css.root}>
             <div className={css.content}>

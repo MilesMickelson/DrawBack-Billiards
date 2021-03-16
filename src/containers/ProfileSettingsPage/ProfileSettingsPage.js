@@ -10,7 +10,7 @@ import {
   Page,
   UserNav,
   LayoutSingleColumn,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -92,7 +92,7 @@ export class ProfileSettingsPageComponent extends Component {
     return (
       <Page className={css.root} title={title} scrollingDisabled={scrollingDisabled}>
         <LayoutSingleColumn>
-          <TopbarDesktop currentPage="ProfileSettingsPage" />
+          <Topbar currentPage="ProfileSettingsPage" />
           <UserNav selectedPageName="ProfileSettingsPage" listing={currentUserListing} />
           <LayoutWrapperMain>
             <div className={css.content}>

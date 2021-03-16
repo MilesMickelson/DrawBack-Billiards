@@ -13,7 +13,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   AvatarLarge,
@@ -214,7 +214,7 @@ export class ProfilePageComponent extends Component {
         }}
       >
         <LayoutSideNavigation>
-          <TopbarDesktop currentPage="ProfilePage" />
+          <Topbar currentPage="ProfilePage" />
           <LayoutWrapperSideNav className={css.aside}>{asideContent}</LayoutWrapperSideNav>
           <LayoutWrapperMain>{content}</LayoutWrapperMain>
           <LayoutWrapperFooter>

@@ -30,7 +30,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   IconSpinner,
@@ -386,7 +386,7 @@ export const InboxPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-        <TopbarDesktop
+        <Topbar
           className={css.topbar}
           mobileRootClassName={css.mobileTopbar}
           desktopClassName={css.desktopTopbar}

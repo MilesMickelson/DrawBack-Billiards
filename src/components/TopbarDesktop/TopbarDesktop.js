@@ -100,131 +100,30 @@ const useStyles = makeStyles((theme) => ({
 
 const TopbarDesktop = (props) => {
   const {
+    anchorEl,
+    isMenuOpen,
+    CreateListing,
+    handleMenuClose,
+    handleMobileMenuOpen,
+    className,
+    currentUser,
+    currentPage,
+    rootClassName,
+    currentUserHasListings,
     currentUserListing,
     currentUserListingFetched,
+    notificationCount,
+    intl,
     isAuthenticated,
+    mobileMenuId,
+    onLogout,
+    onSearchSubmit,
+    initialSearchFormValues,
+    ListingLink,
+    SignupLink,
+    LoginLink
   } = props;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-
-  const handleLogout = () => {
-    const { onLogout, history } = this.props;
-    onLogout().then(() => {
-      const path = pathByRouteName('LandingPage', routeConfiguration());
-      // In production we ensure that data is really lost, but in development mode we use stored values for debugging.
-      if (config.dev) {
-        history.push(path);
-      } else if (typeof window !== 'undefined') {
-        window.location = path;
-      }
-      console.log('logged out');
-    });
-  };
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const authenticatedOnClientSide = mounted && isAuthenticated;
-  const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
-
-  const signupLink = isAuthenticatedOrJustHydrated ? null : (
-    <div name="SignupPage">
-      <span>
-        <div id="TopbarDesktop.signup" />
-      </span>
-    </div>
-  );
-
-  const loginLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="SignupPage">
-      <Button id="TopbarDesktop.signup">
-      Sign up
-      </Button>
-    </NamedLink>
-  );
-
-  const listingLink =
-    authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
-      <div
-        listing={currentUserListing}
-        children={
-          <span>
-            <div id="TopbarDesktop.viewListing" />
-          </span>
-        }
-      />
-    ) : null;
-
-  const CreateListing =
-    isAuthenticatedOrJustHydrated && !(currentUserListingFetched && !currentUserListing) ? null : (
-      <Button variant='outlined' className={ classes.sellButton }>
-        Sell
-      </Button>
-    );
-
-  const menuId = 'primary-search-account-menu';
-  const notificationMenu = (
-    <Menu
-      anchorEl={ anchorEl }
-      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
-      id={ menuId }
-      keepMounted
-      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
-      open={ isMenuOpen }
-      onClose={ handleMenuClose }
-    >
-      <MenuItem onClick={ handleMenuClose }>Offers</MenuItem>
-      <MenuItem onClick={ handleMenuClose }>Messages</MenuItem>
-    </Menu>
-  );
-
-  // ! Mobile Menu
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={ mobileMoreAnchorEl }
-      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
-      id={ mobileMenuId }
-      keepMounted
-      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
-      open={ isMobileMenuOpen }
-      onClose={ handleMobileMenuClose }
-    >
-      <MenuItem onClick={ handleProfileMenuOpen }>
-        <IconButton
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <Divider />
-      <Divider />
-    </Menu>
-  );
 
   return (
     <div className='blue-bg-wrap'>
@@ -260,12 +159,15 @@ const TopbarDesktop = (props) => {
               <IconButton aria-label='shopping cart' color='inherit'>
                 <ShoppingCartIcon />
               </IconButton>
-              <IconButton aria-label='notifications icon' color='inherit'>
+              <IconButton
+                aria-label='notifications icon'
+                color='inherit'
+              >
                 <Badge badgeContent={ 7 } color='secondary'>
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              {loginLink}
+              {LoginLink}
               <AccountDrawer />
             </div>
             <div className={ classes.sectionMobile }>
@@ -281,7 +183,6 @@ const TopbarDesktop = (props) => {
             </div>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
       </div>
       <div id='blue-appbar2' />
     </div>

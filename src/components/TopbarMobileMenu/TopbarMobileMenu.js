@@ -1,7 +1,3 @@
-/**
- *  TopbarMobileMenu prints the menu content for authenticated user or
- * shows login actions for those who are not authenticated.
- */
 import React from 'react';
 import { bool, func, number, string } from 'prop-types';
 import { FormattedMessage } from '../../util/reactIntl';
@@ -10,8 +6,6 @@ import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
 import { propTypes } from '../../util/types';
 import { ensureCurrentUser } from '../../util/data';
 import {
-  AvatarLarge,
-  InlineTextButton,
   NamedLink,
   NotificationBadge,
   OwnListingLink,
@@ -22,32 +16,37 @@ import css from './TopbarMobileMenu.module.css';
 const TopbarMobileMenu = props => {
   const {
     isAuthenticated,
-    currentPage,
-    currentUserHasListings,
-    currentUserListing,
-    currentUserListingFetched,
     currentUser,
+    currentUserHasListings,
+    currentUserListingFetched,
+    currentUserListing,
     notificationCount,
+    currentPage,
     onLogout,
+    mobileMenuId,
+    mobileMoreAnchorEl,
+    isMobileMenuOpen,
+    handleMobileMenuClose,
+    handleMobileMenuOpen
   } = props;
 
   const user = ensureCurrentUser(currentUser);
 
   if (!isAuthenticated) {
     const signup = (
-      <NamedLink name="SignupPage" className={css.signupLink}>
+      <NamedLink name="SignupPage">
         <FormattedMessage id="TopbarMobileMenu.signupLink" />
       </NamedLink>
     );
 
     const login = (
-      <NamedLink name="LoginPage" className={css.loginLink}>
+      <NamedLink name="LoginPage">
         <FormattedMessage id="TopbarMobileMenu.loginLink" />
       </NamedLink>
     );
 
     const signupOrLogin = (
-      <span className={css.authenticationLinks}>
+      <span>
         <FormattedMessage id="TopbarMobileMenu.signupOrLogin" values={{ signup, login }} />
       </span>
     );
@@ -83,47 +82,30 @@ const TopbarMobileMenu = props => {
   };
 
   return (
-    <div className={css.root}>
-      <AvatarLarge className={css.avatar} user={currentUser} />
-      <div className={css.content}>
-        <span className={css.greeting}>
-          <FormattedMessage id="TopbarMobileMenu.greeting" values={{ displayName }} />
-        </span>
-        <InlineTextButton rootClassName={css.logoutButton} onClick={onLogout}>
-          <FormattedMessage id="TopbarMobileMenu.logoutLink" />
-        </InlineTextButton>
-        <NamedLink
-          className={classNames(css.inbox, currentPageClass('InboxPage'))}
-          name="InboxPage"
-          params={{ tab: currentUserHasListings ? 'sales' : 'orders' }}
-        >
-          <FormattedMessage id="TopbarMobileMenu.inboxLink" />
-          {notificationCountBadge}
-        </NamedLink>
-        <OwnListingLink
-          listing={currentUserListing}
-          listingFetched={currentUserListingFetched}
-          className={css.navigationLink}
-        />
-        <NamedLink
-          className={classNames(css.navigationLink, currentPageClass('ProfileSettingsPage'))}
-          name="ProfileSettingsPage"
-        >
-          <FormattedMessage id="TopbarMobileMenu.profileSettingsLink" />
-        </NamedLink>
-        <NamedLink
-          className={classNames(css.navigationLink, currentPageClass('AccountSettingsPage'))}
-          name="AccountSettingsPage"
-        >
-          <FormattedMessage id="TopbarMobileMenu.accountSettingsLink" />
-        </NamedLink>
-      </div>
-      <div className={css.footer}>
-        <NamedLink className={css.createNewListingLink} name="NewListingPage">
-          <FormattedMessage id="TopbarMobileMenu.newListingLink" />
-        </NamedLink>
-      </div>
-    </div>
+    <>
+      <Menu
+        keepMounted
+        id={ mobileMenuId }
+        open={ isMobileMenuOpen }
+        onClose={ handleMobileMenuClose }
+        anchorEl={ mobileMoreAnchorEl }
+        anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
+        transformOrigin={ { vertical: 'top', horizontal: 'right' } }
+      >
+        <MenuItem>
+          <IconButton
+            aria-label='account of current user'
+            aria-controls='primary-search-account-menu'
+            aria-haspopup='true'
+            color='inherit'
+          >
+            <AccountCircle />
+          </IconButton>
+          Profile
+        </MenuItem>
+        <Divider />
+      </Menu>
+    </>
   );
 };
 

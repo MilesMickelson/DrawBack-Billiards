@@ -18,7 +18,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   Page,
@@ -145,7 +145,7 @@ export const StripePayoutPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-        <TopbarDesktop
+        <Topbar
           currentPage="StripePayoutPage"
           desktopClassName={css.desktopTopbar}
           mobileClassName={css.mobileTopbar}

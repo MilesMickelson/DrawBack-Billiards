@@ -11,7 +11,7 @@ import {
   PaginationLinks,
   UserNav,
   LayoutSingleColumn,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -112,7 +112,7 @@ export class ManageListingsPageComponent extends Component {
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled}>
         <LayoutSingleColumn>
-          <TopbarDesktop currentPage="ManageListingsPage" />
+          <Topbar currentPage="ManageListingsPage" />
           <UserNav selectedPageName="ManageListingsPage" />
           <LayoutWrapperMain>
             {queryInProgress ? loadingResults : null}

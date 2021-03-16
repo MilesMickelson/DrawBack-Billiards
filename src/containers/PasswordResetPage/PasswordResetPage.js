@@ -13,7 +13,7 @@ import {
   IconKeys,
   IconKeysSuccess,
   LayoutSingleColumn,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -123,7 +123,7 @@ export class PasswordResetPageComponent extends Component {
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
         <LayoutSingleColumn>
-          <TopbarDesktop />
+          <Topbar />
           <LayoutWrapperMain className={css.layoutWrapperMain}>
             <div className={css.root}>{content}</div>
           </LayoutWrapperMain>

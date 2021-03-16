@@ -3,9 +3,9 @@ import React, {
   useEffect,
 } from 'react';
 
-import { array, bool, func, number, shape, string } from 'prop-types';
+import { array, bool, func, number, shape } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
+import { intlShape, injectIntl } from '../../util/reactIntl';
 import pickBy from 'lodash/pickBy';
 import classNames from 'classnames';
 import config from '../../config';
@@ -14,6 +14,7 @@ import { withViewport } from '../../util/contextHelpers';
 import { parse, stringify } from '../../util/urlHelpers';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
 import { propTypes } from '../../util/types';
+import PropTypes from 'prop-types';
 
 import {
   fade,
@@ -44,45 +45,44 @@ import {
   Modal,
   ModalMissingInformation,
   NamedLink,
-  TopbarDesktop,
-  TopbarMobileMenu,
 } from '../../components';
 import MainDrawer from '../MainDrawer/MainDrawer';
 import AccountDrawer from '../AccountDrawer/AccountDrawer';
 
-const redirectToURLWithModalState = (props, modalStateParam) => {
-  const { history, location } = props;
-  const { pathname, search, state } = location;
-  const searchString = `?${stringify({ [modalStateParam]: 'open', ...parse(search) })}`;
-  history.push(`${pathname}${searchString}`, state);
-};
+// ? ShareTribe
+// const redirectToURLWithModalState = (props, modalStateParam) => {
+//   const { history, location } = props;
+//   const { pathname, search, state } = location;
+//   const searchString = `?${stringify({ [modalStateParam]: 'open', ...parse(search) })}`;
+//   history.push(`${pathname}${searchString}`, state);
+// };
 
-const redirectToURLWithoutModalState = (props, modalStateParam) => {
-  const { history, location } = props;
-  const { pathname, search, state } = location;
-  const queryParams = pickBy(parse(search), (v, k) => {
-    return k !== modalStateParam;
-  });
-  const stringified = stringify(queryParams);
-  const searchString = stringified ? `?${stringified}` : '';
-  history.push(`${pathname}${searchString}`, state);
-};
+// const redirectToURLWithoutModalState = (props, modalStateParam) => {
+//   const { history, location } = props;
+//   const { pathname, search, state } = location;
+//   const queryParams = pickBy(parse(search), (v, k) => {
+//     return k !== modalStateParam;
+//   });
+//   const stringified = stringify(queryParams);
+//   const searchString = stringified ? `?${stringified}` : '';
+//   history.push(`${pathname}${searchString}`, state);
+// };
 
-const GenericError = props => {
-  const { show } = props;
-  const classes = classNames(css.genericError, {
-    [css.genericErrorVisible]: show,
-  });
-  return (
-    <div className={classes}>
-      <div className={css.genericErrorContent}>
-        <p className={css.genericErrorText}>
-          <FormattedMessage id="Topbar.genericError" />
-        </p>
-      </div>
-    </div>
-  );
-};
+// const GenericError = props => {
+//   const { show } = props;
+//   const classes = classNames(css.genericError, {
+//     [css.genericErrorVisible]: show,
+//   });
+//   return (
+//     <div className={classes}>
+//       <div className={css.genericErrorContent}>
+//         <p className={css.genericErrorText}>
+//           <FormattedMessage id="Topbar.genericError" />
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -149,6 +149,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Topbar = (props) => {
+  const classes = useStyles();
   const {
     className,
     rootClassName,
@@ -174,7 +175,6 @@ const Topbar = (props) => {
     sendVerificationEmailError,
     showGenericError,
   } = props;
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [mounted, setMounted] = useState(false);
@@ -183,34 +183,26 @@ const Topbar = (props) => {
     setMounted(true);
   }, []);
 
-  const handleProfileMenuOpen = (event) => {
+  const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+    redirectToURLWithModalState(props, 'mobilemenu');
   };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
+    redirectToURLWithoutModalState(props, 'mobilemenu');
+  };
+  const handleMobileSearchOpen = () => {
+    redirectToURLWithModalState(props, 'mobilesearch');
+  };
+  const handleMobileSearchClose = () => {
+    redirectToURLWithoutModalState(props, 'mobilesearch');
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = () => {
-    redirectToURLWithModalState(props, 'mobilemenu');
-  };
-
-  const handleMobileMenuClose = () => {
-    redirectToURLWithoutModalState(props, 'mobilemenu');
-  };
-
-  const handleMobileSearchOpen = () => {
-    redirectToURLWithModalState(props, 'mobilesearch');
-  };
-
-  const handleMobileSearchClose = () => {
-    redirectToURLWithoutModalState(props, 'mobilesearch');
   };
 
   const handleSubmit = (values) => {
@@ -243,39 +235,39 @@ const Topbar = (props) => {
     });
   };
 
-  const { mobilemenu, mobilesearch, address, origin, bounds } = parse(location.search, {
-    latlng: ['origin'],
-    latlngBounds: ['bounds'],
-  });
+  // const { mobilemenu, mobilesearch, address, origin, bounds } = parse(location.search, {
+  //   latlng: ['origin'],
+  //   latlngBounds: ['bounds'],
+  // });
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const authenticatedOnClientSide = mounted && isAuthenticated;
   const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
 
-  const signupLink = isAuthenticatedOrJustHydrated ? null : (
+  const SignupLink = isAuthenticatedOrJustHydrated ? null : (
     <div name="SignupPage">
       <span>
-        <div id="TopbarDesktop.signup" />
+        <div id="Topbar.signup" />
       </span>
     </div>
   );
 
-  const loginLink = isAuthenticatedOrJustHydrated ? null : (
+  const LoginLink = isAuthenticatedOrJustHydrated ? null : (
     <NamedLink name="SignupPage">
-      <Button id="TopbarDesktop.signup">
-      Sign up
+      <Button id="Topbar.signup">
+        Sign up
       </Button>
     </NamedLink>
   );
 
-  const listingLink =
+  const ListingLink =
     authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
       <div
         listing={currentUserListing}
         children={
           <span>
-            <div id="TopbarDesktop.viewListing" />
+            <div id="Topbar.viewListing" />
           </span>
         }
       />
@@ -288,55 +280,80 @@ const Topbar = (props) => {
       </Button>
     );
 
-  // ! Mobile Menu
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
+  // ! Notification Menu
+  const menuId = 'primary-search-account-menu';
+  const notificationMenu = (
     <Menu
-      anchorEl={ mobileMoreAnchorEl }
-      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
-      id={ mobileMenuId }
       keepMounted
+      id={ menuId }
+      open={ isMenuOpen }
+      onClose={ handleMenuClose }
+      anchorEl={ anchorEl }
       transformOrigin={ { vertical: 'top', horizontal: 'right' } }
-      open={ isMobileMenuOpen }
-      onClose={ handleMobileMenuClose }
+      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
     >
-      <MenuItem onClick={ handleProfileMenuOpen }>
-        <IconButton
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <Divider />
-      <Divider />
+      <MenuItem onClick={ handleMenuClose }>Offers</MenuItem>
+      <MenuItem onClick={ handleMenuClose }>Messages</MenuItem>
     </Menu>
   );
 
   return (
-    <>
-      <TopbarDesktop
-        className={desktopClassName}
-        currentUserHasListings={currentUserHasListings}
-        currentUserListing={currentUserListing}
-        currentUserListingFetched={currentUserListingFetched}
-        currentUser={currentUser}
-        currentPage={currentPage}
-        initialSearchFormValues={initialSearchFormValues}
-        intl={intl}
-        isAuthenticated={isAuthenticated}
-        notificationCount={notificationCount}
-        onLogout={handleLogout}
-        onSearchSubmit={handleSubmit}
-      />
-        {renderMobileMenu}
+    <div className='blue-bg-wrap'>
+      <div className='appbar-wrap'>
+        <AppBar position='static' elevation={ 0 }>
+          <Toolbar id='back-to-top-anchor'>
+            <MainDrawer />
+            <Typography variant='h1' nowrap='true'>
+              DrawBack Billiards
+            </Typography>
+            <div className={ classes.search }>
+              <div className={ classes.searchIcon }>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={ {
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                } }
+                inputProps={ { 'aria-label': 'search' } }
+              />
+            </div>
+            <div className={ classes.grow } />
+            <div className={ classes.sectionDesktop }>
+              {CreateListing}
+              <IconButton aria-label='My feed' color='inherit'>
+                <ExploreIcon />
+              </IconButton>
+              <IconButton aria-label='favorites' color='inherit'>
+                <TrackChangesIcon />
+              </IconButton>
+              <IconButton aria-label='shopping cart' color='inherit'>
+                <ShoppingCartIcon />
+              </IconButton>
+              <IconButton
+                aria-label='notifications icon'
+                color='inherit'
+              >
+                <Badge badgeContent={ 7 } color='secondary'>
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </div>
+              {LoginLink}
+              <AccountDrawer />
+            <div className={ classes.sectionMobile }>
+              <AccountDrawer />
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
       <div id='blue-appbar2' />
-    </>
+    </div>
   );
 };
+
+export default Topbar;
 
 Topbar.defaultProps = {
   rootClassName: null,
@@ -349,12 +366,11 @@ Topbar.defaultProps = {
   currentUserListingFetched: false,
 };
 
-const { node, string } = PropTypes;
+const { node } = PropTypes;
 
 Topbar.propTypes = {
   children: node.isRequired,
-  className: string,
-  rootClassName: string,
+  // className: string,
+  // rootClassName: string,
 };
 
-export default Topbar;

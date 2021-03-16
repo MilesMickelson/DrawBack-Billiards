@@ -35,7 +35,7 @@ import {
   NamedLink,
   NamedRedirect,
   LayoutSingleColumn,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -275,7 +275,7 @@ export class ListingPageComponent extends Component {
       return (
         <Page title={errorTitle} scrollingDisabled={scrollingDisabled}>
           <LayoutSingleColumn className={css.pageRoot}>
-            <TopbarDesktop />
+            <Topbar />
             <LayoutWrapperMain>
               <p className={css.errorText}>
                 <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
@@ -297,7 +297,7 @@ export class ListingPageComponent extends Component {
       return (
         <Page title={loadingTitle} scrollingDisabled={scrollingDisabled}>
           <LayoutSingleColumn className={css.pageRoot}>
-            <TopbarDesktop />
+            <Topbar />
             <LayoutWrapperMain>
               <p className={css.loadingText}>
                 <FormattedMessage id="ListingPage.loadingListingMessage" />
@@ -400,7 +400,7 @@ export class ListingPageComponent extends Component {
         }}
       >
         <LayoutSingleColumn className={css.pageRoot}>
-          <TopbarDesktop />
+          <Topbar />
           <LayoutWrapperMain>
             <div>
               <SectionImages

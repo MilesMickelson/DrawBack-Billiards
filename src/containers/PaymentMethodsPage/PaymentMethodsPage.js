@@ -13,7 +13,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   Page,
@@ -147,7 +147,7 @@ const PaymentMethodsPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-        <TopbarDesktop
+        <Topbar
           currentPage="PaymentMethodsPage"
           desktopClassName={css.desktopTopbar}
           mobileClassName={css.mobileTopbar}

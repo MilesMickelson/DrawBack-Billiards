@@ -10,7 +10,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperSideNav,
-  TopbarDesktop,
+  Topbar,
   LayoutWrapperFooter,
   Footer,
   TermsOfService,
