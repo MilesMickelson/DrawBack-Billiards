@@ -157,6 +157,7 @@ const MainDrawer = () => {
             </MenuIcon>
           </IconButton>
           <SwipeableDrawer
+            // variant='permanent'
             anchor={ anchor }
             open={ state[anchor] }
             onClose={ toggleDrawer(anchor, false) }

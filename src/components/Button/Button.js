@@ -15,14 +15,17 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 
 class ButtonWrap extends Component {
   constructor(props) {
-    super(props);
-    this.state = { mounted: false };
-  }
-  componentDidMount() {
-    this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
-  }
-
-  render() {
+      super(props);
+      this.state = { mounted: false };
+    }
+    componentDidMount() {
+        this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
+      }
+  // const [mounted, setMounted] = useState(false);
+  // useEffect(() => {
+  //   setMounted(! mounted);
+  // }, []);
+  render () {
     const {
       children,
       className,
