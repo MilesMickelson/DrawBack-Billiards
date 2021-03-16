@@ -9,7 +9,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperFooter,
   Footer,
   Page,
@@ -57,14 +57,12 @@ export const PasswordChangePageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-        <LayoutWrapperTopbar>
-          <TopbarContainer
-            currentPage="PasswordChangePage"
-            desktopClassName={css.desktopTopbar}
-            mobileClassName={css.mobileTopbar}
-          />
-          <UserNav selectedPageName="PasswordChangePage" />
-        </LayoutWrapperTopbar>
+        <TopbarDesktop
+          currentPage="PasswordChangePage"
+          desktopClassName={css.desktopTopbar}
+          mobileClassName={css.mobileTopbar}
+        />
+        <UserNav selectedPageName="PasswordChangePage" />
         <LayoutWrapperAccountSettingsSideNav currentTab="PasswordChangePage" />
         <LayoutWrapperMain>
           <div className={css.content}>

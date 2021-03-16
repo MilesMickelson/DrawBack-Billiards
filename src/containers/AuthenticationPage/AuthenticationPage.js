@@ -36,7 +36,7 @@ import {
   InlineTextButton,
   SocialLoginButton,
   IconClose,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Modal,
@@ -359,7 +359,7 @@ const AuthenticationPageComponent = (props) => {
         name: schemaTitle,
       }}
     >
-        <LayoutWrapperTopbar />
+        <TopbarDesktop />
         <div>
           {showEmailVerification ? emailVerificationContent : formContent}
         </div>

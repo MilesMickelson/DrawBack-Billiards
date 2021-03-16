@@ -3,7 +3,7 @@ import config from '../../config';
 import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage } from '../../containers';
 import {
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperFooter,
   ExternalLink,
 } from '../../components';
@@ -36,7 +36,7 @@ const AboutPage = () => {
         name: 'About page',
       }}
     >
-      <LayoutWrapperTopbar />
+      <TopbarDesktop />
         <div className='nine-sixty-max flex-col-center'>
           <Typography variant='h2'>About DrawBack Billiards</Typography>
           <img src={ image } alt='' className={ classes.image } />

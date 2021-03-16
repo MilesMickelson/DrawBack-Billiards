@@ -10,7 +10,7 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
   Page,
   LayoutSingleColumn,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -49,9 +49,7 @@ export class NotFoundPageComponent extends Component {
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled}>
         <LayoutSingleColumn>
-          <LayoutWrapperTopbar>
-            <TopbarContainer />
-          </LayoutWrapperTopbar>
+          <TopbarDesktop />
           <LayoutWrapperMain>
             <div className={css.root}>
               <div className={css.content}>

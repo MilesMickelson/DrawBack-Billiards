@@ -33,8 +33,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AppleIcon from '@material-ui/icons/Apple';
 import ShopIcon from '@material-ui/icons/Shop';
 
-import MainDrawer from '../../hooks/main-drawer';
-import AccountDrawer from '../../hooks/account-drawer';
+import MainDrawer from '../MainDrawer/MainDrawer';
+import AccountDrawer from '../AccountDrawer/AccountDrawer';
 import Fab from './fab';
 
 const useStyles = makeStyles((theme) => ({

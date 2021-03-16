@@ -13,7 +13,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperFooter,
   Footer,
   Page,
@@ -147,14 +147,12 @@ const PaymentMethodsPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSideNavigation>
-        <LayoutWrapperTopbar>
-          <TopbarContainer
-            currentPage="PaymentMethodsPage"
-            desktopClassName={css.desktopTopbar}
-            mobileClassName={css.mobileTopbar}
-          />
-          <UserNav selectedPageName="PaymentMethodsPage" />
-        </LayoutWrapperTopbar>
+        <TopbarDesktop
+          currentPage="PaymentMethodsPage"
+          desktopClassName={css.desktopTopbar}
+          mobileClassName={css.mobileTopbar}
+        />
+        <UserNav selectedPageName="PaymentMethodsPage" />
         <LayoutWrapperAccountSettingsSideNav currentTab="PaymentMethodsPage" />
         <LayoutWrapperMain>
           <div className={css.content}>

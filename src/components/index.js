@@ -58,6 +58,8 @@ export { default as StaffPicks } from './MainPageCategories/staffPicks';
 export { default as Articles } from './MainPageCategories/articles';
 export { default as Collections } from './MainPageCategories/collections';
 export { default as Guides } from './MainPageCategories/guides';
+export { default as MainDrawer } from './MainDrawer/MainDrawer';
+export { default as AccountDrawer } from './AccountDrawer/AccountDrawer';
 
 /**
  * Composite components
@@ -80,7 +82,6 @@ export { default as ReviewRating } from './ReviewRating/ReviewRating';
 export { default as LayoutWrapperFooter } from './LayoutWrapperFooter/LayoutWrapperFooter';
 export { default as LayoutWrapperMain } from './LayoutWrapperMain/LayoutWrapperMain';
 export { default as LayoutWrapperSideNav } from './LayoutWrapperSideNav/LayoutWrapperSideNav';
-export { default as LayoutWrapperTopbar } from './LayoutWrapperTopbar/LayoutWrapperTopbar';
 export { default as LayoutSideNavigation } from './LayoutSideNavigation/LayoutSideNavigation';
 export { default as LayoutSingleColumn } from './LayoutSingleColumn/LayoutSingleColumn';
 
@@ -182,7 +183,7 @@ export { default as SectionHero } from './SectionHero/SectionHero';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';
 export { default as SectionThumbnailLinks } from './SectionThumbnailLinks/SectionThumbnailLinks';
-export { default as Topbar } from '../ShareTribe-Ex-Temps/Topbar/Topbar';
+export { default as Topbar } from './Topbar/Topbar';
 export { default as TopbarDesktop } from './TopbarDesktop/TopbarDesktop';
 export { default as TopbarMobileMenu } from './TopbarMobileMenu/TopbarMobileMenu';
 export { default as TransactionPanel } from './TransactionPanel/TransactionPanel';

@@ -11,7 +11,7 @@ import config from '../../config';
 // SectionLocations,
 import {
   Page,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   TopCategoryBar,
   SectionHero,
   MainTopCategories,
@@ -67,7 +67,7 @@ export const LandingPageComponent = props => {
         image: [schemaImage],
       }}
     >
-        <LayoutWrapperTopbar />
+        <TopbarDesktop />
         <TopCategoryBar />
         <SectionHero history={ history } location={ location } />
         <MainTopCategories />

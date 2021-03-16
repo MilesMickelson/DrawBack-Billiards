@@ -35,7 +35,7 @@ import {
   NamedLink,
   NamedRedirect,
   LayoutSingleColumn,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -263,8 +263,6 @@ export class ListingPageComponent extends Component {
       <FormattedMessage id="ListingPage.bookingTitle" values={{ title: richTitle }} />
     );
 
-    const topbar = <TopbarContainer />;
-
     if (showListingError && showListingError.status === 404) {
       // 404 listing not found
       return <NotFoundPage />;
@@ -277,7 +275,7 @@ export class ListingPageComponent extends Component {
       return (
         <Page title={errorTitle} scrollingDisabled={scrollingDisabled}>
           <LayoutSingleColumn className={css.pageRoot}>
-            <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
+            <TopbarDesktop />
             <LayoutWrapperMain>
               <p className={css.errorText}>
                 <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
@@ -299,7 +297,7 @@ export class ListingPageComponent extends Component {
       return (
         <Page title={loadingTitle} scrollingDisabled={scrollingDisabled}>
           <LayoutSingleColumn className={css.pageRoot}>
-            <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
+            <TopbarDesktop />
             <LayoutWrapperMain>
               <p className={css.loadingText}>
                 <FormattedMessage id="ListingPage.loadingListingMessage" />
@@ -402,7 +400,7 @@ export class ListingPageComponent extends Component {
         }}
       >
         <LayoutSingleColumn className={css.pageRoot}>
-          <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
+          <TopbarDesktop />
           <LayoutWrapperMain>
             <div>
               <SectionImages

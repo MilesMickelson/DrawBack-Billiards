@@ -10,7 +10,7 @@ import {
   LayoutSideNavigation,
   LayoutWrapperMain,
   LayoutWrapperSideNav,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperFooter,
   Footer,
   TermsOfService,
@@ -48,9 +48,7 @@ const TermsOfServicePageComponent = props => {
   return (
     <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
       <LayoutSideNavigation>
-        <LayoutWrapperTopbar>
-          <TopbarContainer currentPage="TermsOfServicePage" />
-        </LayoutWrapperTopbar>
+        <TopbarContainer currentPage="TermsOfServicePage" />
         <LayoutWrapperSideNav tabs={tabs} />
         <LayoutWrapperMain>
           <div className={css.content}>

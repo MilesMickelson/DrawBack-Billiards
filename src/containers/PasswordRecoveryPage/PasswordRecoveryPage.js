@@ -12,7 +12,7 @@ import {
   IconKeys,
   LayoutSingleColumn,
   LayoutWrapperMain,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperFooter,
   Footer,
 } from '../../components';
@@ -137,9 +137,7 @@ export const PasswordRecoveryPageComponent = props => {
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
       <LayoutSingleColumn>
-        <LayoutWrapperTopbar>
-          <TopbarContainer />
-        </LayoutWrapperTopbar>
+        <TopbarDesktop />
         <LayoutWrapperMain className={css.layoutWrapperMain}>
           <div className={css.root}>{content}</div>
         </LayoutWrapperMain>

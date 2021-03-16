@@ -1,6 +1,6 @@
 /**
  * LayoutSideNavigation needs to have 3-4 children:
- * LayoutWrapperTopbar, LayoutWrapperSideNav, LayoutWrapperMain, and possibly LayoutWrapperFooter.
+ * LayoutWrapperSideNav, LayoutWrapperMain, and possibly LayoutWrapperFooter.
  * SideNavWrapper will be shown aside on Desktop layout and
  * as a sub bar under Topbar on mobile screens.
  */
@@ -8,7 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-  LayoutWrapperTopbar,
   LayoutWrapperSideNav,
   LayoutWrapperAccountSettingsSideNav,
   LayoutWrapperMain,
@@ -22,34 +21,34 @@ const prepareChildren = children => {
   if (!(childrenCount === 3 || childrenCount === 4)) {
     throw new Error(
       `Menu needs to have 3 - 4 children:
-      LayoutWrapperTopbar, LayoutWrapperSideNav, and LayoutWrapperMain,
+      TopbarDesktop, LayoutWrapperSideNav, and LayoutWrapperMain,
       and optionally LayoutWrapperFooter.`
     );
   }
 
-  const childrenMap = {};
+  // const childrenMap = {};
 
-  React.Children.forEach(children, child => {
-    if (child.type === LayoutWrapperTopbar) {
-      childrenMap.layoutWrapperTopbar = child;
-    } else if ([LayoutWrapperSideNav, LayoutWrapperAccountSettingsSideNav].includes(child.type)) {
-      childrenMap.layoutWrapperSideNav = child;
-    } else if (child.type === LayoutWrapperMain) {
-      // LayoutWrapperMain needs different rootClassName
-      const childWithAddedCSS = React.cloneElement(child, {
-        rootClassName: css.layoutWrapperMain,
-      });
-      childrenMap.layoutWrapperMain = childWithAddedCSS;
-    } else if (child.type === LayoutWrapperFooter) {
-      childrenMap.layoutWrapperFooter = child;
-    } else {
-      throw new Error(
-        `LayoutSideNavigation has an unknown child.
-      Only LayoutWrapperTopbar, LayoutWrapperSideNav, LayoutWrapperMain, LayoutWrapperFooter are allowed.`
-      );
-    }
-  });
-  return childrenMap;
+  // React.Children.forEach(children, child => {
+  //   if (child.type === TopbarDesktop) {
+  //     childrenMap.TopbarDesktop = child;
+  //   } else if ([LayoutWrapperSideNav, LayoutWrapperAccountSettingsSideNav].includes(child.type)) {
+  //     childrenMap.layoutWrapperSideNav = child;
+  //   } else if (child.type === LayoutWrapperMain) {
+  //     // LayoutWrapperMain needs different rootClassName
+  //     const childWithAddedCSS = React.cloneElement(child, {
+  //       rootClassName: css.layoutWrapperMain,
+  //     });
+  //     childrenMap.layoutWrapperMain = childWithAddedCSS;
+  //   } else if (child.type === LayoutWrapperFooter) {
+  //     childrenMap.layoutWrapperFooter = child;
+  //   } else {
+  //     throw new Error(
+  //       `LayoutSideNavigation has an unknown child.
+  //     Only TopbarDesktop, LayoutWrapperSideNav, LayoutWrapperMain, LayoutWrapperFooter are allowed.`
+  //     );
+  //   }
+  // });
+  // return childrenMap;
 };
 
 const LayoutSideNavigation = props => {
@@ -63,7 +62,7 @@ const LayoutSideNavigation = props => {
 
   return (
     <div className={classes}>
-      {preparedChildren.layoutWrapperTopbar}
+      {preparedChildren.TopbarDesktop}
       <div className={containerClasses}>
         {preparedChildren.layoutWrapperSideNav}
         {preparedChildren.layoutWrapperMain}

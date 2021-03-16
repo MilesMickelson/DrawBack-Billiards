@@ -1,11 +1,11 @@
 /**
  * LayoutSingleColumn needs to have 3-4 children:
- * LayoutWrapperTopbar, LayoutWrapperSideNav, LayoutWrapperMain, and possibly LayoutWrapperFooter.
+ * LayoutWrapperSideNav, LayoutWrapperMain, and possibly LayoutWrapperFooter.
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { LayoutWrapperTopbar, LayoutWrapperMain, LayoutWrapperFooter } from '../../components';
+import { TopbarDesktop, LayoutWrapperMain, LayoutWrapperFooter } from '../../components';
 
 import css from './LayoutSingleColumn.module.css';
 
@@ -14,7 +14,7 @@ const prepareChildren = children => {
   if (!(childrenCount === 3 || childrenCount === 4)) {
     throw new Error(
       `Menu needs to have 2 - 3 children:
-      LayoutWrapperTopbar, and LayoutWrapperMain,
+      TopbarDesktop, and LayoutWrapperMain,
       and optionally LayoutWrapperFooter.`
     );
   }
@@ -22,8 +22,8 @@ const prepareChildren = children => {
   const childrenMap = {};
 
   React.Children.forEach(children, child => {
-    if (child.type === LayoutWrapperTopbar) {
-      childrenMap.layoutWrapperTopbar = child;
+    if (child.type === TopbarDesktop) {
+      childrenMap.TopbarDesktop = child;
     } else if (child.type === LayoutWrapperMain) {
       // LayoutWrapperMain needs different rootClassName
       const childWithAddedCSS = React.cloneElement(child, {
@@ -35,7 +35,7 @@ const prepareChildren = children => {
     } else {
       throw new Error(
         `LayoutSingleColumn has an unknown child.
-      Only LayoutWrapperTopbar, LayoutWrapperMain, LayoutWrapperFooter are allowed.`
+      Only TopbarDesktop, LayoutWrapperMain, LayoutWrapperFooter are allowed.`
       );
     }
   });
@@ -50,7 +50,7 @@ const LayoutSingleColumn = props => {
 
   return (
     <div className={classes}>
-      {preparedChildren.layoutWrapperTopbar}
+      {preparedChildren.TopbarDesktop}
       {preparedChildren.layoutWrapperMain}
       {maybeFooter}
     </div>

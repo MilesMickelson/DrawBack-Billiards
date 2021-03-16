@@ -20,7 +20,7 @@ import {
   TransactionPanel,
   Page,
   LayoutSingleColumn,
-  LayoutWrapperTopbar,
+  TopbarDesktop,
   LayoutWrapperMain,
   LayoutWrapperFooter,
   Footer,
@@ -269,9 +269,7 @@ export const TransactionPageComponent = props => {
       scrollingDisabled={scrollingDisabled}
     >
       <LayoutSingleColumn>
-        <LayoutWrapperTopbar>
-          <TopbarContainer />
-        </LayoutWrapperTopbar>
+        <TopbarDesktop />
         <LayoutWrapperMain>
           <div className={css.root}>{panel}</div>
         </LayoutWrapperMain>
