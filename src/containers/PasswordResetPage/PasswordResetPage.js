@@ -15,7 +15,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
 } from '../../components';
 import { PasswordResetForm } from '../../forms';
@@ -127,9 +126,7 @@ export class PasswordResetPageComponent extends Component {
           <LayoutWrapperMain className={css.layoutWrapperMain}>
             <div className={css.root}>{content}</div>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
             <Footer />
-          </LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );

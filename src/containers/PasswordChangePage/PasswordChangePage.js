@@ -10,7 +10,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   Page,
   UserNav,
@@ -72,9 +71,7 @@ export const PasswordChangePageComponent = props => {
             {changePasswordForm}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

@@ -31,7 +31,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   IconSpinner,
   UserDisplayName,
@@ -412,9 +411,7 @@ export const InboxPageComponent = props => {
           </ul>
           {pagingLinks}
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

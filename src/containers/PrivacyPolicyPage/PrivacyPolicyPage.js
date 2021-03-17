@@ -11,7 +11,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperSideNav,
   Topbar,
-  LayoutWrapperFooter,
   PrivacyPolicy,
   Footer,
 } from '../../components';
@@ -58,9 +57,7 @@ const PrivacyPolicyPageComponent = props => {
             <PrivacyPolicy />
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

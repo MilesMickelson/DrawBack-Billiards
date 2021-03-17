@@ -14,7 +14,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   Page,
   UserNav,
@@ -189,9 +188,7 @@ const PaymentMethodsPageComponent = props => {
             )}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

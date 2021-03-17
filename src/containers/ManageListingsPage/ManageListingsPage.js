@@ -13,7 +13,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
@@ -139,9 +138,7 @@ export class ManageListingsPageComponent extends Component {
               {paginationLinks}
             </div>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
             <Footer />
-          </LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );

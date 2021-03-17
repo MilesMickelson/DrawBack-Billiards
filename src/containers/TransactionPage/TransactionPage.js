@@ -22,7 +22,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
@@ -273,9 +272,7 @@ export const TransactionPageComponent = props => {
         <LayoutWrapperMain>
           <div className={css.root}>{panel}</div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter className={css.footer}>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSingleColumn>
     </Page>
   );

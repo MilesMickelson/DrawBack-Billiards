@@ -5,7 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Topbar, LayoutWrapperMain, LayoutWrapperFooter } from '../../components';
+import { Topbar, LayoutWrapperMain } from '../../components';
 
 import css from './LayoutSingleColumn.module.css';
 

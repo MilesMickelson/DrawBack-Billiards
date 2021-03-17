@@ -1,19 +1,18 @@
-import React from 'react';
+// import React from 'react';
 import { string } from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { twitterPageURL } from '../../util/urlHelpers';
 import config from '../../config';
-import {
-  IconSocialMediaFacebook,
-  IconSocialMediaInstagram,
-  IconSocialMediaTwitter,
-  Logo,
-  ExternalLink,
-  NamedLink,
-} from '../../components';
-
-import css from './Footer.module.css';
+// import {
+//   IconSocialMediaFacebook,
+//   IconSocialMediaInstagram,
+//   IconSocialMediaTwitter,
+//   Logo,
+//   ExternalLink,
+//   NamedLink,
+// } from '../../components';
+// import css from './Footer.module.css';
 
 const renderSocialMediaLinks = intl => {
   const { siteFacebookPage, siteInstagramPage, siteTwitterHandle } = config;

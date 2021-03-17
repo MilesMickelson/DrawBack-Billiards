@@ -4,7 +4,7 @@ import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage } from '../../containers';
 import {
   Topbar,
-  LayoutWrapperFooter,
+  Footer,
   ExternalLink,
 } from '../../components';
 
@@ -53,7 +53,7 @@ const AboutPage = () => {
               <ExternalLink href={siteTwitterPage}>Twitter</ExternalLink>.
             </Typography>
           </div>
-        <LayoutWrapperFooter />
+        <Footer />
     </StaticPage>
   );
 };

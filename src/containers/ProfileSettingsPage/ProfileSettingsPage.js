@@ -12,7 +12,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
   NamedLink,
 } from '../../components';
@@ -113,9 +112,7 @@ export class ProfileSettingsPageComponent extends Component {
               {profileSettingsForm}
             </div>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
             <Footer />
-          </LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );

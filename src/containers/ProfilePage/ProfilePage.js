@@ -10,18 +10,14 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import {
   Page,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   AvatarLarge,
   NamedLink,
   Reviews,
   ButtonTabNavHorizontal,
 } from '../../components';
-import { TopbarContainer, NotFoundPage } from '../../containers';
+import { NotFoundPage } from '../../containers';
 import config from '../../config';
 
 import css from './ProfilePage.module.css';
@@ -158,9 +154,7 @@ export class ProfilePageComponent extends Component {
     const desktopReviews = (
       <div className={css.desktopReviews}>
         <ButtonTabNavHorizontal className={css.desktopReviewsTabNav} tabs={desktopReviewTabs} />
-
         {queryReviewsError ? reviewsError : null}
-
         {this.state.showReviewsType === REVIEW_TYPE_OF_PROVIDER ? (
           <Reviews reviews={reviewsOfProvider} />
         ) : (
@@ -213,14 +207,9 @@ export class ProfilePageComponent extends Component {
           name: schemaTitle,
         }}
       >
-        <LayoutSideNavigation>
-          <Topbar currentPage="ProfilePage" />
-          <LayoutWrapperSideNav className={css.aside}>{asideContent}</LayoutWrapperSideNav>
-          <LayoutWrapperMain>{content}</LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
-        </LayoutSideNavigation>
+        <Topbar currentPage="ProfilePage" />
+          {content}
+        <Footer />
       </Page>
     );
   }

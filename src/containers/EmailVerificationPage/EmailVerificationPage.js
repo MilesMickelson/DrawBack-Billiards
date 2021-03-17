@@ -14,7 +14,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
   NamedRedirect,
 } from '../../components';
@@ -93,9 +92,7 @@ export const EmailVerificationPageComponent = props => {
             </div>
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <Footer />
       </LayoutSingleColumn>
     </Page>
   );

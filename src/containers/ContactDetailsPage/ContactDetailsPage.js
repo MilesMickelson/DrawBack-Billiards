@@ -11,7 +11,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   Page,
   UserNav,
@@ -91,9 +90,7 @@ export const ContactDetailsPageComponent = props => {
             {contactInfoForm}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
-          <Footer />
-        </LayoutWrapperFooter>
+        <Footer />
       </LayoutSideNavigation>
     </Page>
   );

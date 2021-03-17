@@ -13,7 +13,6 @@ import {
   LayoutSingleColumn,
   LayoutWrapperMain,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
 } from '../../components';
 import { PasswordRecoveryForm } from '../../forms';
@@ -141,9 +140,7 @@ export const PasswordRecoveryPageComponent = props => {
         <LayoutWrapperMain className={css.layoutWrapperMain}>
           <div className={css.root}>{content}</div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSingleColumn>
     </Page>
   );

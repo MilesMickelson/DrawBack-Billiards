@@ -37,12 +37,11 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
   BookingPanel,
 } from '../../components';
 import { EnquiryForm } from '../../forms';
-import { TopbarContainer, NotFoundPage } from '../../containers';
+import { NotFoundPage } from '../../containers';
 
 import {
   sendEnquiry,
@@ -281,9 +280,7 @@ export class ListingPageComponent extends Component {
                 <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
               </p>
             </LayoutWrapperMain>
-            <LayoutWrapperFooter>
               <Footer />
-            </LayoutWrapperFooter>
           </LayoutSingleColumn>
         </Page>
       );
@@ -303,9 +300,7 @@ export class ListingPageComponent extends Component {
                 <FormattedMessage id="ListingPage.loadingListingMessage" />
               </p>
             </LayoutWrapperMain>
-            <LayoutWrapperFooter>
               <Footer />
-            </LayoutWrapperFooter>
           </LayoutSingleColumn>
         </Page>
       );
@@ -476,9 +471,7 @@ export class ListingPageComponent extends Component {
               />
             </Modal>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
-            <Footer />
-          </LayoutWrapperFooter>
+          <Footer />
         </LayoutSingleColumn>
       </Page>
     );

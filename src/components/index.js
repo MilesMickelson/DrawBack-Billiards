@@ -79,7 +79,7 @@ export { default as PaginationLinks } from './PaginationLinks/PaginationLinks';
 export { default as ReviewRating } from './ReviewRating/ReviewRating';
 
 // Layout helpers
-export { default as LayoutWrapperFooter } from './LayoutWrapperFooter/LayoutWrapperFooter';
+export { default as Footer } from './Footer/Footer';
 export { default as LayoutWrapperMain } from './LayoutWrapperMain/LayoutWrapperMain';
 export { default as LayoutWrapperSideNav } from './LayoutWrapperSideNav/LayoutWrapperSideNav';
 export { default as LayoutSideNavigation } from './LayoutSideNavigation/LayoutSideNavigation';
@@ -178,7 +178,6 @@ export { default as EditListingPhotosPanel } from './EditListingPhotosPanel/Edit
 export { default as EditListingPoliciesPanel } from './EditListingPoliciesPanel/EditListingPoliciesPanel';
 export { default as EditListingPricingPanel } from './EditListingPricingPanel/EditListingPricingPanel';
 export { default as EditListingWizard } from './EditListingWizard/EditListingWizard';
-export { default as Footer } from '../ShareTribe-Ex-Temps/Footer/Footer';
 export { default as SectionHero } from './SectionHero/SectionHero';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';

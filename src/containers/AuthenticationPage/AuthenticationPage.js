@@ -38,7 +38,7 @@ import {
   IconClose,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
+  Footer,
   Modal,
   TermsOfService,
 } from '../../components';
@@ -372,7 +372,7 @@ const AuthenticationPageComponent = (props) => {
         >
           <TermsOfService />
         </Modal>
-        <LayoutWrapperFooter />
+        <Footer />
     </Page>
   );
 };

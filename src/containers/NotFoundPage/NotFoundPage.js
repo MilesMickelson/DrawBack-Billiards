@@ -12,7 +12,6 @@ import {
   LayoutSingleColumn,
   Topbar,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
   Footer,
 } from '../../components';
 import { LocationSearchForm } from '../../forms';
@@ -63,9 +62,7 @@ export class NotFoundPageComponent extends Component {
               </div>
             </div>
           </LayoutWrapperMain>
-          <LayoutWrapperFooter>
             <Footer />
-          </LayoutWrapperFooter>
         </LayoutSingleColumn>
       </Page>
     );

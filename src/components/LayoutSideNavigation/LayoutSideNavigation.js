@@ -11,7 +11,6 @@ import {
   LayoutWrapperSideNav,
   LayoutWrapperAccountSettingsSideNav,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
 } from '../../components';
 
 import css from './LayoutSideNavigation.module.css';
@@ -58,16 +57,16 @@ const LayoutSideNavigation = props => {
   const classes = classNames(rootClassName || css.root, className);
   const containerClasses = containerClassName || css.container;
 
-  const maybeFooter = preparedChildren.layoutWrapperFooter || null;
+  // const maybeFooter = preparedChildren.layoutWrapperFooter || null;
 
   return (
     <div className={classes}>
       {/* {preparedChildren.TopbarDesktop} */}
       <div className={containerClasses}>
-        {preparedChildren.layoutWrapperSideNav}
-        {preparedChildren.layoutWrapperMain}
+        {/* {preparedChildren.layoutWrapperSideNav}
+        {preparedChildren.layoutWrapperMain} */}
       </div>
-      {maybeFooter}
+      {/* {maybeFooter} */}
     </div>
   );
 };

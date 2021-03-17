@@ -2,6 +2,20 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
+import {
+  FormattedMessage,
+  injectIntl,
+  intlShape
+} from '../../util/reactIntl';
+import { twitterPageURL } from '../../util/urlHelpers';
+import {
+  IconSocialMediaFacebook,
+  IconSocialMediaInstagram,
+  IconSocialMediaTwitter,
+  Logo,
+  ExternalLink,
+  NamedLink,
+} from '..';
 
 import {
   fade,
@@ -36,6 +50,44 @@ import ShopIcon from '@material-ui/icons/Shop';
 import MainDrawer from '../MainDrawer/MainDrawer';
 import AccountDrawer from '../AccountDrawer/AccountDrawer';
 import Fab from './fab';
+
+// const renderSocialMediaLinks = intl => {
+//   const { siteFacebookPage, siteInstagramPage, siteTwitterHandle } = config;
+//   const siteTwitterPage = twitterPageURL(siteTwitterHandle);
+
+//   const goToFb = intl.formatMessage({ id: 'Footer.goToFacebook' });
+//   const goToInsta = intl.formatMessage({ id: 'Footer.goToInstagram' });
+//   const goToTwitter = intl.formatMessage({ id: 'Footer.goToTwitter' });
+
+//   const fbLink = siteFacebookPage ? (
+//     <ExternalLink key="linkToFacebook" href={siteFacebookPage} className={css.icon} title={goToFb}>
+//       <IconSocialMediaFacebook />
+//     </ExternalLink>
+//   ) : null;
+
+//   const twitterLink = siteTwitterPage ? (
+//     <ExternalLink
+//       key="linkToTwitter"
+//       href={siteTwitterPage}
+//       className={css.icon}
+//       title={goToTwitter}
+//     >
+//       <IconSocialMediaTwitter />
+//     </ExternalLink>
+//   ) : null;
+
+//   const instragramLink = siteInstagramPage ? (
+//     <ExternalLink
+//       key="linkToInstagram"
+//       href={siteInstagramPage}
+//       className={css.icon}
+//       title={goToInsta}
+//     >
+//       <IconSocialMediaInstagram />
+//     </ExternalLink>
+//   ) : null;
+//   return [fbLink, twitterLink, instragramLink].filter(v => v != null);
+// };
 
 const useStyles = makeStyles((theme) => ({
   footerBg: {
@@ -138,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LayoutWrapperFooter = props => {
+const Footer = props => {
   // const { className, rootClassName, children } = props;
   // const classes = classNames(rootClassName || css.root, className);
   // <div className={classes}>{children}</div>;
@@ -425,17 +477,17 @@ const LayoutWrapperFooter = props => {
   );
 };
 
-LayoutWrapperFooter.defaultProps = {
+export default Footer;
+
+Footer.defaultProps = {
   className: null,
   rootClassName: null,
 };
 
 const { node, string } = PropTypes;
 
-LayoutWrapperFooter.propTypes = {
+Footer.propTypes = {
   children: node.isRequired,
   className: string,
   rootClassName: string,
 };
-
-export default LayoutWrapperFooter;

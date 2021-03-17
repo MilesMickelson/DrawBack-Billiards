@@ -22,7 +22,7 @@ import {
   Collections,
   Guides,
   LayoutWrapperMain,
-  LayoutWrapperFooter,
+  Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
 
@@ -82,7 +82,7 @@ export const LandingPageComponent = props => {
           currentUserListing={currentUserListing}
           currentUserListingFetched={currentUserListingFetched}
         /> */}
-        <LayoutWrapperFooter />
+        <Footer />
     </Page>
   );
 };

@@ -19,7 +19,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperAccountSettingsSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   Page,
   StripeConnectAccountStatusBox,
@@ -204,9 +203,7 @@ export const StripePayoutPageComponent = props => {
             )}
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

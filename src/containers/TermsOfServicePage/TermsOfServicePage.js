@@ -11,7 +11,6 @@ import {
   LayoutWrapperMain,
   LayoutWrapperSideNav,
   Topbar,
-  LayoutWrapperFooter,
   Footer,
   TermsOfService,
 } from '../../components';
@@ -58,9 +57,7 @@ const TermsOfServicePageComponent = props => {
             <TermsOfService />
           </div>
         </LayoutWrapperMain>
-        <LayoutWrapperFooter>
           <Footer />
-        </LayoutWrapperFooter>
       </LayoutSideNavigation>
     </Page>
   );

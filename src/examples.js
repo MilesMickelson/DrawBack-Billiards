@@ -25,7 +25,6 @@ import * as FieldTimeZoneSelect from './components/FieldTimeZoneSelect/FieldTime
 import * as FieldTextInput from './components/FieldTextInput/FieldTextInput.example';
 import * as FilterPlain from './components/FilterPlain/FilterPlain.example';
 import * as FilterPopup from './components/FilterPopup/FilterPopup.example';
-import * as Footer from './ShareTribe-Ex-Temps/Footer/Footer.example';
 import * as IconAdd from './components/IconAdd/IconAdd.example';
 import * as IconBannedUser from './components/IconBannedUser/IconBannedUser.example';
 import * as IconCheckmark from './components/IconCheckmark/IconCheckmark.example';
@@ -54,7 +53,6 @@ import * as Map from './components/Map/Map.example';
 import * as Menu from './components/Menu/Menu.example';
 import * as Modal from './components/Modal/Modal.example';
 import * as ModalInMobile from './components/ModalInMobile/ModalInMobile.example';
-import * as NamedLink from './components/NamedLink/NamedLink.example';
 import * as OutsideClickHandler from './components/OutsideClickHandler/OutsideClickHandler.example';
 import * as PaginationLinks from './components/PaginationLinks/PaginationLinks.example';
 import * as PriceFilter from './components/PriceFilter/PriceFilter.example';
@@ -141,7 +139,6 @@ export {
   FilterForm,
   FilterPlain,
   FilterPopup,
-  Footer,
   IconAdd,
   IconBannedUser,
   IconCheckmark,
@@ -171,7 +168,6 @@ export {
   Menu,
   Modal,
   ModalInMobile,
-  NamedLink,
   OutsideClickHandler,
   PaginationLinks,
   PasswordRecoveryForm,
