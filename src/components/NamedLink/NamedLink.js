@@ -18,15 +18,13 @@
  * the one in the generated pathname of the link.
  */
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName, findRouteByRouteName } from '../../util/routes';
-
-import Link from '@material-ui/core/Link';
 
 export const NamedLinkComponent = props => {
   const { name, params, title } = props;

@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import ClassNames from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -27,6 +31,11 @@ import GroupIcon from '@material-ui/icons/Group';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import routeConfiguration from '../../routeConfiguration';
+import {
+  NamedLink,
+} from '../../components';
+
 const useStyles = makeStyles((theme) => ({
   drawerMenu: {
     color: theme.palette.primary.main,
@@ -48,19 +57,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainDrawer = () => {
+const MainDrawer = (props) => {
+  const {
+    isAuthenticated,
+  } = props;
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [mounted, setMounted] = useState(false);
+  const [state, setState] = useState({
     left: false,
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
+
+  const onOverListingLink = () => {
+    // Enforce preloading of ListingPage (loadable component)
+    const { component: ProfilePage } = findRouteByRouteName('ProfilePage', routeConfiguration());
+    // Loadable Component has a "preload" function.
+    if (Page.preload) {
+      Page.preload();
+    }
+  };
+
+  // const authenticatedOnClientSide = mounted && isAuthenticated;
+  const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
+
+  const ProfileLink = isAuthenticatedOrJustHydrated ? null : (
+    <NamedLink
+      name='ProfileSettingsPage'
+      onMouseOver={onOverListingLink}
+      onTouchStart={onOverListingLink}
+    >
+      <ListItem button>
+          <ListItemIcon><LocalActivityIcon color='primary' /></ListItemIcon>
+          <ListItemText>Profile</ListItemText>
+      </ListItem>
+    </NamedLink>
+  );
 
   const list = (anchor) => (
     <div
@@ -70,6 +111,17 @@ const MainDrawer = () => {
       onKeyDown={ toggleDrawer(anchor, false) }
     >
       <List className={ classes.drawerMenu }>
+        {ProfileLink}
+        {/* <ListItem button>
+          <NamedLink
+            name='ProfilePage'
+            onMouseOver={onOverListingLink}
+            onTouchStart={onOverListingLink}
+          >
+            <ListItemIcon><LocalActivityIcon color='primary' /></ListItemIcon>
+            <ListItemText>Profile</ListItemText>
+          </NamedLink>
+        </ListItem> */}
         <ListItem button>
           <ListItemIcon><LocalActivityIcon color='primary' /></ListItemIcon>
           <ListItemText>Local League</ListItemText>

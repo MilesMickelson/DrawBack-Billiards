@@ -3,11 +3,11 @@ import React, {
   useEffect,
 } from 'react';
 
-import { array, bool, func, number, shape } from 'prop-types';
+import { array, bool, func, number, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { intlShape, injectIntl } from '../../util/reactIntl';
 import pickBy from 'lodash/pickBy';
-import classNames from 'classnames';
+import ClassNames from 'classnames';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { withViewport } from '../../util/contextHelpers';
@@ -28,22 +28,15 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Typography from '@material-ui/core/Typography';
-import { Divider } from '@material-ui/core';
 
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import ExploreIcon from '@material-ui/icons/Explore';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import {
-  LimitedAccessBanner,
-  Logo,
-  Modal,
-  ModalMissingInformation,
   NamedLink,
 } from '../../components';
 import MainDrawer from '../MainDrawer/MainDrawer';
@@ -83,6 +76,9 @@ import AccountDrawer from '../AccountDrawer/AccountDrawer';
 //     </div>
 //   );
 // };
+// GenericError.propTypes = {
+//   show: bool.isRequired,
+// };
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -119,25 +115,14 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 300,
   },
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
   sellButton: {
     height: '75%',
-    color: '#ffffff',
-    borderColor: '#ffffff',
+    color: theme.palette.white,
+    borderColor: theme.palette.white,
     borderRadius: 8,
     alignSelf: 'center',
     marginRight: 15,
@@ -151,16 +136,7 @@ const useStyles = makeStyles((theme) => ({
 const Topbar = (props) => {
   const classes = useStyles();
   const {
-    className,
-    rootClassName,
-    desktopClassName,
-    mobileRootClassName,
-    mobileClassName,
     isAuthenticated,
-    authScopes,
-    authInProgress,
-    currentUser,
-    currentUserHasListings,
     currentUserListing,
     currentUserListingFetched,
     currentUserHasOrders,
@@ -246,14 +222,6 @@ const Topbar = (props) => {
   const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
 
   const SignupLink = isAuthenticatedOrJustHydrated ? null : (
-    <div name="SignupPage">
-      <span>
-        <div id="Topbar.signup" />
-      </span>
-    </div>
-  );
-
-  const LoginLink = isAuthenticatedOrJustHydrated ? null : (
     <NamedLink name="SignupPage">
       <Button id="Topbar.signup">
         Sign up
@@ -275,9 +243,11 @@ const Topbar = (props) => {
 
   const CreateListing =
     isAuthenticatedOrJustHydrated && !(currentUserListingFetched && !currentUserListing) ? null : (
-      <Button variant='outlined' className={ classes.sellButton }>
-        Sell
-      </Button>
+      <NamedLink name='NewListingPage'>
+        <Button variant='outlined' className={ classes.sellButton }>
+          Sell
+        </Button>
+      </NamedLink>
     );
 
   // ! Notification Menu
@@ -320,7 +290,7 @@ const Topbar = (props) => {
               />
             </div>
             <div className={ classes.grow } />
-            <div className={ classes.sectionDesktop }>
+            <div className={ ClassNames(classes.sectionDesktop, 'flex-row-center-around')}>
               {CreateListing}
               <IconButton aria-label='My feed' color='inherit'>
                 <ExploreIcon />
@@ -339,12 +309,9 @@ const Topbar = (props) => {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
+              {SignupLink}
             </div>
-              {LoginLink}
               <AccountDrawer />
-            <div className={ classes.sectionMobile }>
-              <AccountDrawer />
-            </div>
           </Toolbar>
         </AppBar>
       </div>
@@ -370,7 +337,7 @@ const { node } = PropTypes;
 
 Topbar.propTypes = {
   children: node.isRequired,
-  // className: string,
-  // rootClassName: string,
+  className: string,
+  rootClassName: string,
 };
 
