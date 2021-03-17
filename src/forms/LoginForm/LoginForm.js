@@ -127,14 +127,16 @@ const LoginFormComponent = props => (
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              fullWidth
-              color='primary'
-              variant='contained'
-              className={ classes.submit }
-            >
-              Sign In
-            </Button>
+            <NamedLink name="LandingPage">
+              <Button
+                fullWidth
+                color='primary'
+                variant='contained'
+                className={ classes.submit }
+              >
+                Sign In
+              </Button>
+            </NamedLink>
             <Grid container>
               <Grid item xs>
                 <NamedLink name="PasswordRecoveryPage">

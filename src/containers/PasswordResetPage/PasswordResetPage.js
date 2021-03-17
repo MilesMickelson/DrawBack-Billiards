@@ -12,9 +12,7 @@ import {
   NamedLink,
   IconKeys,
   IconKeysSuccess,
-  LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
 } from '../../components';
 import { PasswordResetForm } from '../../forms';
@@ -121,13 +119,9 @@ export class PasswordResetPageComponent extends Component {
 
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
-        <LayoutSingleColumn>
-          <Topbar />
-          <LayoutWrapperMain className={css.layoutWrapperMain}>
-            <div className={css.root}>{content}</div>
-          </LayoutWrapperMain>
-            <Footer />
-        </LayoutSingleColumn>
+        <Topbar />
+          <div className={css.root}>{content}</div>
+        <Footer />
       </Page>
     );
   }

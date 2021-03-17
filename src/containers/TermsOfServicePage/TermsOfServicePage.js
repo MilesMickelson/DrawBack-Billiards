@@ -7,9 +7,6 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { TopbarContainer } from '../../containers';
 import {
   Page,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperSideNav,
   Topbar,
   Footer,
   TermsOfService,
@@ -20,7 +17,6 @@ import css from './TermsOfServicePage.module.css';
 
 const TermsOfServicePageComponent = props => {
   const { scrollingDisabled, intl } = props;
-
   const tabs = [
     {
       text: intl.formatMessage({ id: 'TermsOfServicePage.privacyTabTitle' }),
@@ -46,19 +42,14 @@ const TermsOfServicePageComponent = props => {
   };
   return (
     <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
-      <LayoutSideNavigation>
-        <TopbarContainer currentPage="TermsOfServicePage" />
-        <LayoutWrapperSideNav tabs={tabs} />
-        <LayoutWrapperMain>
-          <div className={css.content}>
-            <h1 className={css.heading}>
-              <FormattedMessage id="TermsOfServicePage.heading" />
-            </h1>
-            <TermsOfService />
-          </div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSideNavigation>
+      <TopbarContainer currentPage="TermsOfServicePage" />
+        <div className={css.content}>
+          <h1 className={css.heading}>
+            <FormattedMessage id="TermsOfServicePage.heading" />
+          </h1>
+          <TermsOfService />
+        </div>
+        <Footer />
     </Page>
   );
 };

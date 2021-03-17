@@ -11,9 +11,7 @@ import { parse } from '../../util/urlHelpers';
 import { ensureCurrentUser } from '../../util/data';
 import {
   Page,
-  LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
   NamedRedirect,
 } from '../../components';
@@ -73,27 +71,23 @@ export const EmailVerificationPageComponent = props => {
 
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
-      <LayoutSingleColumn>
-        <Topbar />
-        <LayoutWrapperMain className={css.layoutWrapperMain}>
-          <div className={css.root}>
-            <div className={css.content}>
-              {user.id ? (
-                <EmailVerificationForm
-                  initialValues={initialValues}
-                  onSubmit={submitVerification}
-                  currentUser={user}
-                  inProgress={emailVerificationInProgress}
-                  verificationError={verificationError}
-                />
-              ) : (
-                <FormattedMessage id="EmailVerificationPage.loadingUserInformation" />
-              )}
-            </div>
+      <Topbar />
+        <div className={css.root}>
+          <div className={css.content}>
+            {user.id ? (
+              <EmailVerificationForm
+                initialValues={initialValues}
+                onSubmit={submitVerification}
+                currentUser={user}
+                inProgress={emailVerificationInProgress}
+                verificationError={verificationError}
+              />
+            ) : (
+              <FormattedMessage id="EmailVerificationPage.loadingUserInformation" />
+            )}
           </div>
-        </LayoutWrapperMain>
-        <Footer />
-      </LayoutSingleColumn>
+        </div>
+      <Footer />
     </Page>
   );
 };

@@ -27,9 +27,6 @@ import {
   Page,
   PaginationLinks,
   TabNav,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperSideNav,
   Topbar,
   Footer,
   IconSpinner,
@@ -384,35 +381,29 @@ export const InboxPageComponent = props => {
 
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
-      <LayoutSideNavigation>
-        <Topbar
-          className={css.topbar}
-          mobileRootClassName={css.mobileTopbar}
-          desktopClassName={css.desktopTopbar}
-          currentPage="InboxPage"
-        />
-        <LayoutWrapperSideNav className={css.navigation}>
-          <h1 className={css.title}>
-            <FormattedMessage id="InboxPage.title" />
-          </h1>
-          {currentUserListing ? nav : <div className={css.navPlaceholder} />}
-        </LayoutWrapperSideNav>
-        <LayoutWrapperMain>
-          {error}
-          <ul className={css.itemList}>
-            {!fetchInProgress ? (
-              transactions.map(toTxItem)
-            ) : (
-              <li className={css.listItemsLoading}>
-                <IconSpinner />
-              </li>
-            )}
-            {noResults}
-          </ul>
-          {pagingLinks}
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSideNavigation>
+      <Topbar
+        className={css.topbar}
+        mobileRootClassName={css.mobileTopbar}
+        desktopClassName={css.desktopTopbar}
+        currentPage="InboxPage"
+      />
+        <h1 className={css.title}>
+          <FormattedMessage id="InboxPage.title" />
+        </h1>
+        {currentUserListing ? nav : <div className={css.navPlaceholder} />}
+        {error}
+        <ul className={css.itemList}>
+          {!fetchInProgress ? (
+            transactions.map(toTxItem)
+          ) : (
+            <li className={css.listItemsLoading}>
+              <IconSpinner />
+            </li>
+          )}
+          {noResults}
+        </ul>
+        {pagingLinks}
+        <Footer />
     </Page>
   );
 };

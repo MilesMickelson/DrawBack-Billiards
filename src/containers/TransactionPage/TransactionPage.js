@@ -19,9 +19,7 @@ import {
   NamedRedirect,
   TransactionPanel,
   Page,
-  LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
@@ -267,13 +265,9 @@ export const TransactionPageComponent = props => {
       title={intl.formatMessage({ id: 'TransactionPage.title' }, { title: listingTitle })}
       scrollingDisabled={scrollingDisabled}
     >
-      <LayoutSingleColumn>
-        <Topbar />
-        <LayoutWrapperMain>
-          <div className={css.root}>{panel}</div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSingleColumn>
+      <Topbar />
+        <div className={css.root}>{panel}</div>
+      <Footer />
     </Page>
   );
 };

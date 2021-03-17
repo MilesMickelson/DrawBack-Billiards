@@ -7,9 +7,6 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { TopbarContainer } from '../../containers';
 import {
   Page,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperSideNav,
   Topbar,
   PrivacyPolicy,
   Footer,
@@ -46,19 +43,14 @@ const PrivacyPolicyPageComponent = props => {
   };
   return (
     <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
-      <LayoutSideNavigation>
-        <Topbar currentPage="PrivacyPolicyPage" />
-        <LayoutWrapperSideNav tabs={tabs} />
-        <LayoutWrapperMain>
-          <div className={css.content}>
-            <h1 className={css.heading}>
-              <FormattedMessage id="PrivacyPolicyPage.heading" />
-            </h1>
-            <PrivacyPolicy />
-          </div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSideNavigation>
+      <Topbar currentPage="PrivacyPolicyPage" />
+      <div className={css.content}>
+        <h1 className={css.heading}>
+          <FormattedMessage id="PrivacyPolicyPage.heading" />
+        </h1>
+        <PrivacyPolicy />
+      </div>
+      <Footer />
     </Page>
   );
 };

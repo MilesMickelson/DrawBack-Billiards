@@ -6,9 +6,6 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperAccountSettingsSideNav,
   Topbar,
   Footer,
   Page,
@@ -55,24 +52,19 @@ export const PasswordChangePageComponent = props => {
 
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
-      <LayoutSideNavigation>
-        <Topbar
-          currentPage="PasswordChangePage"
-          desktopClassName={css.desktopTopbar}
-          mobileClassName={css.mobileTopbar}
-        />
-        <UserNav selectedPageName="PasswordChangePage" />
-        <LayoutWrapperAccountSettingsSideNav currentTab="PasswordChangePage" />
-        <LayoutWrapperMain>
-          <div className={css.content}>
-            <h1 className={css.title}>
-              <FormattedMessage id="PasswordChangePage.heading" />
-            </h1>
-            {changePasswordForm}
-          </div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSideNavigation>
+      <Topbar
+        currentPage="PasswordChangePage"
+        desktopClassName={css.desktopTopbar}
+        mobileClassName={css.mobileTopbar}
+      />
+      <UserNav selectedPageName="PasswordChangePage" />
+        <div className={css.content}>
+          <h1 className={css.title}>
+            <FormattedMessage id="PasswordChangePage.heading" />
+          </h1>
+          {changePasswordForm}
+        </div>
+        <Footer />
     </Page>
   );
 };

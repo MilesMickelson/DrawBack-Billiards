@@ -9,9 +9,7 @@ import { createResourceLocatorString } from '../../util/routes';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
   Page,
-  LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
 } from '../../components';
 import { LocationSearchForm } from '../../forms';
@@ -47,23 +45,19 @@ export class NotFoundPageComponent extends Component {
 
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled}>
-        <LayoutSingleColumn>
-          <Topbar />
-          <LayoutWrapperMain>
-            <div className={css.root}>
-              <div className={css.content}>
-                <div className={css.number}>404</div>
-                <h1 className={css.heading}>
-                  <FormattedMessage id="NotFoundPage.heading" />
-                </h1>
-                <p className={css.description}>
-                  <FormattedMessage id="NotFoundPage.description" />
-                </p>
-              </div>
+        <Topbar />
+          <div className={css.root}>
+            <div className={css.content}>
+              <div className={css.number}>404</div>
+              <h1 className={css.heading}>
+                <FormattedMessage id="NotFoundPage.heading" />
+              </h1>
+              <p className={css.description}>
+                <FormattedMessage id="NotFoundPage.description" />
+              </p>
             </div>
-          </LayoutWrapperMain>
-            <Footer />
-        </LayoutSingleColumn>
+          </div>
+          <Footer />
       </Page>
     );
   }

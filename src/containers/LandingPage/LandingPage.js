@@ -21,7 +21,6 @@ import {
   Articles,
   Collections,
   Guides,
-  LayoutWrapperMain,
   Footer,
 } from '../../components';
 import { TopbarContainer } from '../../containers';
@@ -77,7 +76,6 @@ export const LandingPageComponent = props => {
         <Articles />
         <Newest />
         <Collections />
-        <LayoutWrapperMain />
         {/* <SectionHowItWorks
           currentUserListing={currentUserListing}
           currentUserListingFetched={currentUserListingFetched}

@@ -10,9 +10,6 @@ import { handleCardSetup } from '../../ducks/stripe.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
 import {
   SavedCardDetails,
-  LayoutSideNavigation,
-  LayoutWrapperMain,
-  LayoutWrapperAccountSettingsSideNav,
   Topbar,
   Footer,
   Page,
@@ -145,51 +142,46 @@ const PaymentMethodsPageComponent = props => {
   const showCardDetails = !!hasDefaultPaymentMethod;
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
-      <LayoutSideNavigation>
-        <Topbar
-          currentPage="PaymentMethodsPage"
-          desktopClassName={css.desktopTopbar}
-          mobileClassName={css.mobileTopbar}
-        />
-        <UserNav selectedPageName="PaymentMethodsPage" />
-        <LayoutWrapperAccountSettingsSideNav currentTab="PaymentMethodsPage" />
-        <LayoutWrapperMain>
-          <div className={css.content}>
-            <h1 className={css.title}>
-              <FormattedMessage id="PaymentMethodsPage.heading" />
-            </h1>
-            {!stripeCustomerFetched ? null : (
-              <>
-                {showCardDetails ? (
-                  <SavedCardDetails
-                    card={card}
-                    onManageDisableScrolling={onManageDisableScrolling}
-                    onChange={setCardState}
-                    onDeleteCard={handleRemovePaymentMethod}
-                    deletePaymentMethodInProgress={deletePaymentMethodInProgress}
-                  />
-                ) : null}
-                {showForm ? (
-                  <PaymentMethodsForm
-                    className={css.paymentForm}
-                    formId="PaymentMethodsForm"
-                    initialValues={initalValuesForStripePayment}
-                    onSubmit={handleSubmit}
-                    handleRemovePaymentMethod={handleRemovePaymentMethod}
-                    hasDefaultPaymentMethod={hasDefaultPaymentMethod}
-                    addPaymentMethodError={addPaymentMethodError}
-                    deletePaymentMethodError={deletePaymentMethodError}
-                    createStripeCustomerError={createStripeCustomerError}
-                    handleCardSetupError={handleCardSetupError}
-                    inProgress={isSubmitting}
-                  />
-                ) : null}
-              </>
-            )}
-          </div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSideNavigation>
+      <Topbar
+        currentPage="PaymentMethodsPage"
+        desktopClassName={css.desktopTopbar}
+        mobileClassName={css.mobileTopbar}
+      />
+      <UserNav selectedPageName="PaymentMethodsPage" />
+        <div className={css.content}>
+          <h1 className={css.title}>
+            <FormattedMessage id="PaymentMethodsPage.heading" />
+          </h1>
+          {!stripeCustomerFetched ? null : (
+            <>
+              {showCardDetails ? (
+                <SavedCardDetails
+                  card={card}
+                  onManageDisableScrolling={onManageDisableScrolling}
+                  onChange={setCardState}
+                  onDeleteCard={handleRemovePaymentMethod}
+                  deletePaymentMethodInProgress={deletePaymentMethodInProgress}
+                />
+              ) : null}
+              {showForm ? (
+                <PaymentMethodsForm
+                  className={css.paymentForm}
+                  formId="PaymentMethodsForm"
+                  initialValues={initalValuesForStripePayment}
+                  onSubmit={handleSubmit}
+                  handleRemovePaymentMethod={handleRemovePaymentMethod}
+                  hasDefaultPaymentMethod={hasDefaultPaymentMethod}
+                  addPaymentMethodError={addPaymentMethodError}
+                  deletePaymentMethodError={deletePaymentMethodError}
+                  createStripeCustomerError={createStripeCustomerError}
+                  handleCardSetupError={handleCardSetupError}
+                  inProgress={isSubmitting}
+                />
+              ) : null}
+            </>
+          )}
+        </div>
+        <Footer />
     </Page>
   );
 };

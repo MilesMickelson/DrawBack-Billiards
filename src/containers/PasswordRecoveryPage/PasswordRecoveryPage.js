@@ -10,8 +10,6 @@ import {
   Page,
   InlineTextButton,
   IconKeys,
-  LayoutSingleColumn,
-  LayoutWrapperMain,
   Topbar,
   Footer,
 } from '../../components';
@@ -135,13 +133,9 @@ export const PasswordRecoveryPageComponent = props => {
 
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
-      <LayoutSingleColumn>
-        <Topbar />
-        <LayoutWrapperMain className={css.layoutWrapperMain}>
-          <div className={css.root}>{content}</div>
-        </LayoutWrapperMain>
-          <Footer />
-      </LayoutSingleColumn>
+      <Topbar />
+        <div className={css.root}>{content}</div>
+        <Footer />
     </Page>
   );
 };

@@ -41,6 +41,7 @@ import {
 } from '../../components';
 import MainDrawer from '../MainDrawer/MainDrawer';
 import AccountDrawer from '../AccountDrawer/AccountDrawer';
+import { unset } from 'lodash';
 
 // ? ShareTribe
 // const redirectToURLWithModalState = (props, modalStateParam) => {
@@ -81,6 +82,9 @@ import AccountDrawer from '../AccountDrawer/AccountDrawer';
 // };
 
 const useStyles = makeStyles((theme) => ({
+  // mainTitle: {
+  //   textDecoration: 'none',
+  // },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -273,9 +277,15 @@ const Topbar = (props) => {
         <AppBar position='static' elevation={ 0 }>
           <Toolbar id='back-to-top-anchor'>
             <MainDrawer />
-            <Typography variant='h1' nowrap='true'>
-              DrawBack Billiards
-            </Typography>
+            <NamedLink name='LandingPage'>
+              <Typography
+                className={ classes.maintitle }
+                variant='h1'
+                nowrap='true'
+              >
+                DrawBack Billiards
+              </Typography>
+            </NamedLink>
             <div className={ classes.search }>
               <div className={ classes.searchIcon }>
                 <SearchIcon />

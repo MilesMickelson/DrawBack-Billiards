@@ -9,9 +9,7 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
   Page,
   UserNav,
-  LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
   NamedLink,
 } from '../../components';
@@ -90,30 +88,26 @@ export class ProfileSettingsPageComponent extends Component {
 
     return (
       <Page className={css.root} title={title} scrollingDisabled={scrollingDisabled}>
-        <LayoutSingleColumn>
-          <Topbar currentPage="ProfileSettingsPage" />
-          <UserNav selectedPageName="ProfileSettingsPage" listing={currentUserListing} />
-          <LayoutWrapperMain>
-            <div className={css.content}>
-              <div className={css.headingContainer}>
-                <h1 className={css.heading}>
-                  <FormattedMessage id="ProfileSettingsPage.heading" />
-                </h1>
-                {user.id ? (
-                  <NamedLink
-                    className={css.profileLink}
-                    name="ProfilePage"
-                    params={{ id: user.id.uuid }}
-                  >
-                    <FormattedMessage id="ProfileSettingsPage.viewProfileLink" />
-                  </NamedLink>
-                ) : null}
-              </div>
-              {profileSettingsForm}
+        <Topbar currentPage="ProfileSettingsPage" />
+        <UserNav selectedPageName="ProfileSettingsPage" listing={currentUserListing} />
+          <div className={css.content}>
+            <div className={css.headingContainer}>
+              <h1 className={css.heading}>
+                <FormattedMessage id="ProfileSettingsPage.heading" />
+              </h1>
+              {user.id ? (
+                <NamedLink
+                  className={css.profileLink}
+                  name="ProfilePage"
+                  params={{ id: user.id.uuid }}
+                >
+                  <FormattedMessage id="ProfileSettingsPage.viewProfileLink" />
+                </NamedLink>
+              ) : null}
             </div>
-          </LayoutWrapperMain>
-            <Footer />
-        </LayoutSingleColumn>
+            {profileSettingsForm}
+          </div>
+          <Footer />
       </Page>
     );
   }

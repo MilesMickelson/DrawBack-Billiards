@@ -36,7 +36,6 @@ import {
   NamedRedirect,
   LayoutSingleColumn,
   Topbar,
-  LayoutWrapperMain,
   Footer,
   BookingPanel,
 } from '../../components';
@@ -273,15 +272,11 @@ export class ListingPageComponent extends Component {
 
       return (
         <Page title={errorTitle} scrollingDisabled={scrollingDisabled}>
-          <LayoutSingleColumn className={css.pageRoot}>
-            <Topbar />
-            <LayoutWrapperMain>
-              <p className={css.errorText}>
-                <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
-              </p>
-            </LayoutWrapperMain>
-              <Footer />
-          </LayoutSingleColumn>
+          <Topbar />
+            <p className={css.errorText}>
+              <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
+            </p>
+            <Footer />
         </Page>
       );
     } else if (!currentListing.id) {
@@ -293,15 +288,11 @@ export class ListingPageComponent extends Component {
 
       return (
         <Page title={loadingTitle} scrollingDisabled={scrollingDisabled}>
-          <LayoutSingleColumn className={css.pageRoot}>
-            <Topbar />
-            <LayoutWrapperMain>
-              <p className={css.loadingText}>
-                <FormattedMessage id="ListingPage.loadingListingMessage" />
-              </p>
-            </LayoutWrapperMain>
-              <Footer />
-          </LayoutSingleColumn>
+          <Topbar />
+            <p className={css.loadingText}>
+              <FormattedMessage id="ListingPage.loadingListingMessage" />
+            </p>
+            <Footer />
         </Page>
       );
     }
@@ -394,9 +385,7 @@ export class ListingPageComponent extends Component {
           image: schemaImages,
         }}
       >
-        <LayoutSingleColumn className={css.pageRoot}>
           <Topbar />
-          <LayoutWrapperMain>
             <div>
               <SectionImages
                 title={title}
@@ -470,9 +459,7 @@ export class ListingPageComponent extends Component {
                 inProgress={sendEnquiryInProgress}
               />
             </Modal>
-          </LayoutWrapperMain>
           <Footer />
-        </LayoutSingleColumn>
       </Page>
     );
   }
