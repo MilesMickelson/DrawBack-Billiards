@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { compose } from 'redux';
@@ -20,200 +20,202 @@ import {
 import { NotFoundPage } from '../../containers';
 import config from '../../config';
 
-import css from './ProfilePage.module.css';
+// constructor(props) {
+//   super(props);
+//   this.state = {
+//     // keep track of which reviews tab to show in desktop viewport
+//     showReviewsType: REVIEW_TYPE_OF_PROVIDER,
+//   };
+//   this.showOfProviderReviews = this.showOfProviderReviews.bind(this);
+//   this.showOfCustomerReviews = this.showOfCustomerReviews.bind(this);
+// }
+// showOfProviderReviews() {
+//   this.setState({
+//     showReviewsType: REVIEW_TYPE_OF_PROVIDER,
+//   });
+// }
 
-const MAX_MOBILE_SCREEN_WIDTH = 768;
+// showOfCustomerReviews() {
+//   this.setState({
+//     showReviewsType: REVIEW_TYPE_OF_CUSTOMER,
+//   });
+// }
+// const useStyles = makeStyles((theme) => ({
+//   thing: {
+//   },
+// }));
+const ProfilePageComponent = (props) => {
+  const {
+    scrollingDisabled,
+    currentUser,
+    user,
+    userShowError,
+    reviews,
+    queryReviewsError,
+    viewport,
+    intl,
+  } = props;
+  // const classes = useStyles();
+  const [showReviewsType, setShowReviewsType] = useState(REVIEW_TYPE_OF_PROVIDER);
+  const showOfProviderReviews = () => {
+    setShowReviewsType(REVIEW_TYPE_OF_PROVIDER);
+  };
+  const showOfCustomerReviews = () => {
+    setShowReviewsType(REVIEW_TYPE_OF_CUSTOMER);
+  };
+  const ensuredCurrentUser = ensureCurrentUser(currentUser);
+  const profileUser = ensureUser(user);
+  const isCurrentUser =
+    ensuredCurrentUser.id && profileUser.id && ensuredCurrentUser.id.uuid === profileUser.id.uuid;
+  const displayName = profileUser.attributes.profile.displayName;
+  const bio = profileUser.attributes.profile.bio;
+  const hasBio = !!bio;
+  // const isMobileLayout = viewport.width < MAX_MOBILE_SCREEN_WIDTH;
 
-export class ProfilePageComponent extends Component {
-  constructor(props) {
-    super(props);
+  // const editLinkMobile = isCurrentUser ? (
+  //   <NamedLink name="ProfileSettingsPage">
+  //     Edit Profile
+  //   </NamedLink>
+  // ) : null;
+  // const editLinkDesktop = isCurrentUser ? (
+  //   <NamedLink name="ProfileSettingsPage">
+  //     Edit Profile
+  //   </NamedLink>
+  // ) : null;
 
-    this.state = {
-      // keep track of which reviews tab to show in desktop viewport
-      showReviewsType: REVIEW_TYPE_OF_PROVIDER,
-    };
+  // const asideContent = (
+  //   <div className={css.asideContent}>
+  //     <AvatarLarge className={css.avatar} user={user} disableProfileLink />
+  //     <h1 className={css.mobileHeading}>
+  //       {displayName ? (
+  //         <FormattedMessage id="ProfilePage.mobileHeading" values={{ name: displayName }} />
+  //       ) : null}
+  //     </h1>
+  //     {editLinkMobile}
+  //     {editLinkDesktop}
+  //   </div>
+  // );
 
-    this.showOfProviderReviews = this.showOfProviderReviews.bind(this);
-    this.showOfCustomerReviews = this.showOfCustomerReviews.bind(this);
-  }
+  // const reviewsError = (
+  //   <p className={css.error}>
+  //     <FormattedMessage id="ProfilePage.loadingReviewsFailed" />
+  //   </p>
+  // );
 
-  showOfProviderReviews() {
-    this.setState({
-      showReviewsType: REVIEW_TYPE_OF_PROVIDER,
-    });
-  }
+  const reviewsOfProvider = reviews.filter(r => r.attributes.type === REVIEW_TYPE_OF_PROVIDER);
 
-  showOfCustomerReviews() {
-    this.setState({
-      showReviewsType: REVIEW_TYPE_OF_CUSTOMER,
-    });
-  }
+  const reviewsOfCustomer = reviews.filter(r => r.attributes.type === REVIEW_TYPE_OF_CUSTOMER);
 
-  render() {
-    const {
-      scrollingDisabled,
-      currentUser,
-      user,
-      userShowError,
-      reviews,
-      queryReviewsError,
-      viewport,
-      intl,
-    } = this.props;
-    const ensuredCurrentUser = ensureCurrentUser(currentUser);
-    const profileUser = ensureUser(user);
-    const isCurrentUser =
-      ensuredCurrentUser.id && profileUser.id && ensuredCurrentUser.id.uuid === profileUser.id.uuid;
-    const displayName = profileUser.attributes.profile.displayName;
-    const bio = profileUser.attributes.profile.bio;
-    const hasBio = !!bio;
-    const isMobileLayout = viewport.width < MAX_MOBILE_SCREEN_WIDTH;
+  // const mobileReviews = (
+  //   <div>
+  //     <h2>
+  //       <FormattedMessage
+  //         id="ProfilePage.reviewsOfProviderTitle"
+  //         values={{ count: reviewsOfProvider.length }}
+  //       />
+  //     </h2>
+  //     {queryReviewsError ? reviewsError : null}
+  //     <Reviews reviews={reviewsOfProvider} />
+  //     <h2>
+  //       <FormattedMessage
+  //         id="ProfilePage.reviewsOfCustomerTitle"
+  //         values={{ count: reviewsOfCustomer.length }}
+  //       />
+  //     </h2>
+  //     {queryReviewsError ? reviewsError : null}
+  //     <Reviews reviews={reviewsOfCustomer} />
+  //   </div>
+  // );
 
-    const editLinkMobile = isCurrentUser ? (
-      <NamedLink className={css.editLinkMobile} name="ProfileSettingsPage">
-        <FormattedMessage id="ProfilePage.editProfileLinkMobile" />
-      </NamedLink>
-    ) : null;
-    const editLinkDesktop = isCurrentUser ? (
-      <NamedLink className={css.editLinkDesktop} name="ProfileSettingsPage">
-        <FormattedMessage id="ProfilePage.editProfileLinkDesktop" />
-      </NamedLink>
-    ) : null;
-
-    const asideContent = (
-      <div className={css.asideContent}>
-        <AvatarLarge className={css.avatar} user={user} disableProfileLink />
-        <h1 className={css.mobileHeading}>
-          {displayName ? (
-            <FormattedMessage id="ProfilePage.mobileHeading" values={{ name: displayName }} />
-          ) : null}
-        </h1>
-        {editLinkMobile}
-        {editLinkDesktop}
-      </div>
-    );
-
-    const reviewsError = (
-      <p className={css.error}>
-        <FormattedMessage id="ProfilePage.loadingReviewsFailed" />
-      </p>
-    );
-
-    const reviewsOfProvider = reviews.filter(r => r.attributes.type === REVIEW_TYPE_OF_PROVIDER);
-
-    const reviewsOfCustomer = reviews.filter(r => r.attributes.type === REVIEW_TYPE_OF_CUSTOMER);
-
-    const mobileReviews = (
-      <div className={css.mobileReviews}>
-        <h2 className={css.mobileReviewsTitle}>
+  const desktopReviewTabs = [
+    {
+      text: (
+        <h3>
           <FormattedMessage
             id="ProfilePage.reviewsOfProviderTitle"
             values={{ count: reviewsOfProvider.length }}
           />
-        </h2>
-        {queryReviewsError ? reviewsError : null}
-        <Reviews reviews={reviewsOfProvider} />
-        <h2 className={css.mobileReviewsTitle}>
+        </h3>
+      ),
+      selected: showReviewsType === REVIEW_TYPE_OF_PROVIDER,
+      onClick: showOfProviderReviews,
+    },
+    {
+      text: (
+        <h3>
           <FormattedMessage
             id="ProfilePage.reviewsOfCustomerTitle"
             values={{ count: reviewsOfCustomer.length }}
           />
-        </h2>
-        {queryReviewsError ? reviewsError : null}
+        </h3>
+      ),
+      selected: showReviewsType === REVIEW_TYPE_OF_CUSTOMER,
+      onClick: showOfCustomerReviews,
+    },
+  ];
+
+  const desktopReviews = (
+    <div>
+      <ButtonTabNavHorizontal tabs={desktopReviewTabs} />
+      {queryReviewsError ? reviewsError : null}
+      {showReviewsType === REVIEW_TYPE_OF_PROVIDER ? (
+        <Reviews reviews={reviewsOfProvider} />
+      ) : (
         <Reviews reviews={reviewsOfCustomer} />
-      </div>
+      )}
+    </div>
+  );
+
+  const mainContent = (
+    <div>
+      <h1>
+        { displayName }
+      </h1>
+      {hasBio ? <p>{bio}</p> : null}
+      {/* {isMobileLayout ? mobileReviews : desktopReviews} */}
+    </div>
+  );
+
+  let content;
+
+  if (userShowError && userShowError.status === 404) {
+    return <NotFoundPage />;
+  } else if (userShowError) {
+    content = (
+      <p>
+        <FormattedMessage id="ProfilePage.loadingDataFailed" />
+      </p>
     );
-
-    const desktopReviewTabs = [
-      {
-        text: (
-          <h3 className={css.desktopReviewsTitle}>
-            <FormattedMessage
-              id="ProfilePage.reviewsOfProviderTitle"
-              values={{ count: reviewsOfProvider.length }}
-            />
-          </h3>
-        ),
-        selected: this.state.showReviewsType === REVIEW_TYPE_OF_PROVIDER,
-        onClick: this.showOfProviderReviews,
-      },
-      {
-        text: (
-          <h3 className={css.desktopReviewsTitle}>
-            <FormattedMessage
-              id="ProfilePage.reviewsOfCustomerTitle"
-              values={{ count: reviewsOfCustomer.length }}
-            />
-          </h3>
-        ),
-        selected: this.state.showReviewsType === REVIEW_TYPE_OF_CUSTOMER,
-        onClick: this.showOfCustomerReviews,
-      },
-    ];
-
-    const desktopReviews = (
-      <div className={css.desktopReviews}>
-        <ButtonTabNavHorizontal className={css.desktopReviewsTabNav} tabs={desktopReviewTabs} />
-        {queryReviewsError ? reviewsError : null}
-        {this.state.showReviewsType === REVIEW_TYPE_OF_PROVIDER ? (
-          <Reviews reviews={reviewsOfProvider} />
-        ) : (
-          <Reviews reviews={reviewsOfCustomer} />
-        )}
-      </div>
-    );
-
-    const mainContent = (
-      <div>
-        <h1 className={css.desktopHeading}>
-          <FormattedMessage id="ProfilePage.desktopHeading" values={{ name: displayName }} />
-        </h1>
-        {hasBio ? <p className={css.bio}>{bio}</p> : null}
-        {isMobileLayout ? mobileReviews : desktopReviews}
-      </div>
-    );
-
-    let content;
-
-    if (userShowError && userShowError.status === 404) {
-      return <NotFoundPage />;
-    } else if (userShowError) {
-      content = (
-        <p className={css.error}>
-          <FormattedMessage id="ProfilePage.loadingDataFailed" />
-        </p>
-      );
-    } else {
-      content = mainContent;
-    }
-
-    const schemaTitle = intl.formatMessage(
-      {
-        id: 'ProfilePage.schemaTitle',
-      },
-      {
-        name: displayName,
-        siteTitle: config.siteTitle,
-      }
-    );
-
-    return (
-      <Page
-        scrollingDisabled={scrollingDisabled}
-        title={schemaTitle}
-        schema={{
-          '@context': 'http://schema.org',
-          '@type': 'ProfilePage',
-          name: schemaTitle,
-        }}
-      >
-        <Topbar currentPage="ProfilePage" />
-          {content}
-        <Footer />
-      </Page>
-    );
+  } else {
+    content = mainContent;
   }
-}
+
+  const schemaTitle = intl.formatMessage(
+    {
+      id: 'ProfilePage.schemaTitle',
+    },
+    {
+      name: displayName,
+      siteTitle: config.siteTitle,
+    }
+  );
+
+  return (
+    <Page
+      scrollingDisabled={scrollingDisabled}
+      title={schemaTitle}
+      schema={{
+        '@context': 'http://schema.org',
+        '@type': 'ProfilePage',
+        name: schemaTitle,
+      }}
+    >
+      <Topbar currentPage="ProfilePage" />
+        {content}
+      <Footer />
+    </Page>
+  );
+};
 
 ProfilePageComponent.defaultProps = {
   currentUser: null,
