@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { array, arrayOf, bool, func, object, shape, string, oneOf } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
+import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import { array, arrayOf, bool, func, object, shape, string, oneOf } from 'prop-types';
+
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
+
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_PENDING_APPROVAL, LISTING_STATE_CLOSED, propTypes } from '../../util/types';
 import { types as sdkTypes } from '../../util/sdkLoader';
@@ -26,28 +29,28 @@ import {
 } from '../../util/data';
 import { timestampToDate, calculateQuantityFromHours } from '../../util/dates';
 import { richText } from '../../util/richText';
+
 import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
 import { initializeCardPaymentData } from '../../ducks/stripe.duck.js';
-import {
-  Page,
-  Modal,
-  NamedLink,
-  NamedRedirect,
-  LayoutSingleColumn,
-  Topbar,
-  Footer,
-  BookingPanel,
-} from '../../components';
-import { EnquiryForm } from '../../forms';
-import { NotFoundPage } from '../../containers';
-
 import {
   sendEnquiry,
   setInitialValues,
   fetchTimeSlots,
   fetchTransactionLineItems,
 } from './ListingPage.duck';
+
+import {
+  Page,
+  Modal,
+  NamedLink,
+  NamedRedirect,
+  Topbar,
+  Footer,
+  BookingPanel,
+} from '../../components';
+import { EnquiryForm } from '../../forms';
+import { NotFoundPage } from '../../containers';
 import SectionImages from './SectionImages';
 import SectionAvatar from './SectionAvatar';
 import SectionHeading from './SectionHeading';
@@ -55,9 +58,18 @@ import SectionDescriptionMaybe from './SectionDescriptionMaybe';
 import SectionFeaturesMaybe from './SectionFeaturesMaybe';
 import SectionReviews from './SectionReviews';
 import SectionMapMaybe from './SectionMapMaybe';
-import css from './ListingPage.module.css';
 
-const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
+
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+  },
+}));
+
+// const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
 
 const { UUID } = sdkTypes;
 
@@ -74,41 +86,59 @@ const priceData = (price, intl) => {
   return {};
 };
 
-export class ListingPageComponent extends Component {
-  constructor(props) {
-    super(props);
-    const { enquiryModalOpenForListingId, params } = props;
-    this.state = {
-      pageClassNames: [],
-      imageCarouselOpen: false,
-      enquiryModalOpen: enquiryModalOpenForListingId === params.id,
-    };
+// constructor(props) {
+//   super(props);
+//   const { enquiryModalOpenForListingId, params } = props;
+//   this.state = {
+//     pageClassNames: [],
+//     imageCarouselOpen: false,
+//     enquiryModalOpen: enquiryModalOpenForListingId === params.id,
+//   };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onContactUser = this.onContactUser.bind(this);
-    this.onSubmitEnquiry = this.onSubmitEnquiry.bind(this);
-  }
+//   this.handleSubmit = this.handleSubmit.bind(this);
+//   this.onContactUser = this.onContactUser.bind(this);
+//   this.onSubmitEnquiry = this.onSubmitEnquiry.bind(this);
+// }
+const ListingPageComponent = (props) => {
+  const {
+    enquiryModalOpenForListingId,
+    params,
+    getListing,
+    callSetInitialValues,
+    onInitializeCardPaymentData,
+    unitType,
+    isAuthenticated,
+    currentUser,
+    getOwnListing,
+    intl,
+    onManageDisableScrolling,
+    onFetchTimeSlots,
+    location,
+    scrollingDisabled,
+    showListingError,
+    reviews,
+    fetchReviewsError,
+    sendEnquiryInProgress,
+    sendEnquiryError,
+    monthlyTimeSlots,
+    filterConfig,
+    onFetchTransactionLineItems,
+    lineItems,
+    fetchLineItemsInProgress,
+    fetchLineItemsError,
+  } = props;
+  const classes = useStyles();
 
-  handleSubmit(values) {
-    const {
-      history,
-      getListing,
-      params,
-      callSetInitialValues,
-      onInitializeCardPaymentData,
-    } = this.props;
+  const handleSubmit = (values) => {
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
-
     const { bookingStartTime, bookingEndTime, ...restOfValues } = values;
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
-
     const bookingData = {
       quantity: calculateQuantityFromHours(bookingStart, bookingEnd),
       ...restOfValues,
     };
-
     const initialValues = {
       listing,
       bookingData,
@@ -118,18 +148,13 @@ export class ListingPageComponent extends Component {
       },
       confirmPaymentError: null,
     };
-
-    const saveToSessionStorage = !this.props.currentUser;
-
+    const saveToSessionStorage = !props.currentUser;
     const routes = routeConfiguration();
     // Customize checkout page state with current listing and selected bookingDates
     const { setInitialValues } = findRouteByRouteName('CheckoutPage', routes);
-
     callSetInitialValues(setInitialValues, initialValues, saveToSessionStorage);
-
     // Clear previous Stripe errors from store if there is any
     onInitializeCardPaymentData();
-
     // Redirect to CheckoutPage
     history.push(
       createResourceLocatorString(
@@ -139,35 +164,30 @@ export class ListingPageComponent extends Component {
         {}
       )
     );
-  }
+  };
 
-  onContactUser() {
-    const { currentUser, history, callSetInitialValues, params, location } = this.props;
-
+  const onContactUser = () => {
+    const { currentUser, history, callSetInitialValues, params, location } = props;
     if (!currentUser) {
       const state = { from: `${location.pathname}${location.search}${location.hash}` };
-
       // We need to log in before showing the modal, but first we need to ensure
       // that modal does open when user is redirected back to this listingpage
       callSetInitialValues(setInitialValues, { enquiryModalOpenForListingId: params.id });
-
       // signup and return back to listingPage.
       history.push(createResourceLocatorString('SignupPage', routeConfiguration(), {}, {}), state);
     } else {
       this.setState({ enquiryModalOpen: true });
     }
-  }
+  };
 
-  onSubmitEnquiry(values) {
-    const { history, params, onSendEnquiry } = this.props;
+  const onSubmitEnquiry = (values) => {
+    const { history, params, onSendEnquiry } = props;
     const routes = routeConfiguration();
     const listingId = new UUID(params.id);
     const { message } = values;
-
     onSendEnquiry(listingId, message.trim())
       .then(txId => {
         this.setState({ enquiryModalOpen: false });
-
         // Redirect to OrderDetailsPage
         history.push(
           createResourceLocatorString('OrderDetailsPage', routes, { id: txId.uuid }, {})
@@ -176,294 +196,251 @@ export class ListingPageComponent extends Component {
       .catch(() => {
         // Ignore, error handling in duck file
       });
+  };
+
+  const listingId = new UUID(params.id);
+  const isPendingApprovalVariant = params.variant === LISTING_PAGE_PENDING_APPROVAL_VARIANT;
+  const isDraftVariant = params.variant === LISTING_PAGE_DRAFT_VARIANT;
+  const currentListing =
+    isPendingApprovalVariant || isDraftVariant
+      ? ensureOwnListing(getOwnListing(listingId))
+      : ensureListing(getListing(listingId));
+
+  const listingSlug = params.slug || createSlug(currentListing.attributes.title || '');
+  const newParams = { slug: listingSlug, ...params };
+
+  const listingType = isDraftVariant
+    ? LISTING_PAGE_PARAM_TYPE_DRAFT
+    : LISTING_PAGE_PARAM_TYPE_EDIT;
+  const listingTab = isDraftVariant ? 'photos' : 'description';
+
+  const isApproved =
+    currentListing.id && currentListing.attributes.state !== LISTING_STATE_PENDING_APPROVAL;
+
+  const pendingIsApproved = isPendingApprovalVariant && isApproved;
+
+  // If a /pending-approval URL is shared, the UI requires
+  // authentication and attempts to fetch the listing from own
+  // listings. This will fail with 403 Forbidden if the author is
+  // another user. We use this information to try to fetch the
+  // public listing.
+  const pendingOtherUsersListing =
+    (isPendingApprovalVariant || isDraftVariant) &&
+    showListingError &&
+    showListingError.status === 403;
+  const shouldShowPublicListingPage = pendingIsApproved || pendingOtherUsersListing;
+
+  if (shouldShowPublicListingPage) {
+    return <NamedRedirect name="ListingPage" params={newParams} search={location.search} />;
   }
 
-  render() {
-    const {
-      unitType,
-      isAuthenticated,
-      currentUser,
-      getListing,
-      getOwnListing,
-      intl,
-      onManageDisableScrolling,
-      onFetchTimeSlots,
-      params: rawParams,
-      location,
-      scrollingDisabled,
-      showListingError,
-      reviews,
-      fetchReviewsError,
-      sendEnquiryInProgress,
-      sendEnquiryError,
-      monthlyTimeSlots,
-      filterConfig,
-      onFetchTransactionLineItems,
-      lineItems,
-      fetchLineItemsInProgress,
-      fetchLineItemsError,
-    } = this.props;
+  const {
+    description = '',
+    geolocation = null,
+    price = null,
+    title = '',
+    publicData,
+  } = currentListing.attributes;
 
-    const listingId = new UUID(rawParams.id);
-    const isPendingApprovalVariant = rawParams.variant === LISTING_PAGE_PENDING_APPROVAL_VARIANT;
-    const isDraftVariant = rawParams.variant === LISTING_PAGE_DRAFT_VARIANT;
-    const currentListing =
-      isPendingApprovalVariant || isDraftVariant
-        ? ensureOwnListing(getOwnListing(listingId))
-        : ensureListing(getListing(listingId));
+  const richTitle = (
+    <span>
+      {richText(title, {
+        longWordMinLength: 16,
+      })}
+    </span>
+  );
 
-    const listingSlug = rawParams.slug || createSlug(currentListing.attributes.title || '');
-    const params = { slug: listingSlug, ...rawParams };
+  const bookingTitle = (
+    // <FormattedMessage id="ListingPage.bookingTitle" values={{ title: richTitle }} />
+    <Typography variant='h5'>{ richTitle }</Typography>
+  );
 
-    const listingType = isDraftVariant
-      ? LISTING_PAGE_PARAM_TYPE_DRAFT
-      : LISTING_PAGE_PARAM_TYPE_EDIT;
-    const listingTab = isDraftVariant ? 'photos' : 'description';
-
-    const isApproved =
-      currentListing.id && currentListing.attributes.state !== LISTING_STATE_PENDING_APPROVAL;
-
-    const pendingIsApproved = isPendingApprovalVariant && isApproved;
-
-    // If a /pending-approval URL is shared, the UI requires
-    // authentication and attempts to fetch the listing from own
-    // listings. This will fail with 403 Forbidden if the author is
-    // another user. We use this information to try to fetch the
-    // public listing.
-    const pendingOtherUsersListing =
-      (isPendingApprovalVariant || isDraftVariant) &&
-      showListingError &&
-      showListingError.status === 403;
-    const shouldShowPublicListingPage = pendingIsApproved || pendingOtherUsersListing;
-
-    if (shouldShowPublicListingPage) {
-      return <NamedRedirect name="ListingPage" params={params} search={location.search} />;
-    }
-
-    const {
-      description = '',
-      geolocation = null,
-      price = null,
-      title = '',
-      publicData,
-    } = currentListing.attributes;
-
-    const richTitle = (
-      <span>
-        {richText(title, {
-          longWordMinLength: MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE,
-          longWordClass: css.longWord,
-        })}
-      </span>
-    );
-
-    const bookingTitle = (
-      <FormattedMessage id="ListingPage.bookingTitle" values={{ title: richTitle }} />
-    );
-
-    if (showListingError && showListingError.status === 404) {
-      // 404 listing not found
-      return <NotFoundPage />;
-    } else if (showListingError) {
-      // Other error in fetching listing
-      const errorTitle = intl.formatMessage({
-        id: 'ListingPage.errorLoadingListingTitle',
-      });
-
-      return (
-        <Page title={errorTitle} scrollingDisabled={scrollingDisabled}>
-          <Topbar />
-            <p className={css.errorText}>
-              <FormattedMessage id="ListingPage.errorLoadingListingMessage" />
-            </p>
-            <Footer />
-        </Page>
-      );
-    } else if (!currentListing.id) {
-      // Still loading the listing
-
-      const loadingTitle = intl.formatMessage({
-        id: 'ListingPage.loadingListingTitle',
-      });
-
-      return (
-        <Page title={loadingTitle} scrollingDisabled={scrollingDisabled}>
-          <Topbar />
-            <p className={css.loadingText}>
-              <FormattedMessage id="ListingPage.loadingListingMessage" />
-            </p>
-            <Footer />
-        </Page>
-      );
-    }
-
-    const handleViewPhotosClick = e => {
-      // Stop event from bubbling up to prevent image click handler
-      // trying to open the carousel as well.
-      e.stopPropagation();
-      this.setState({
-        imageCarouselOpen: true,
-      });
-    };
-    const authorAvailable = currentListing && currentListing.author;
-    const userAndListingAuthorAvailable = !!(currentUser && authorAvailable);
-    const isOwnListing =
-      userAndListingAuthorAvailable && currentListing.author.id.uuid === currentUser.id.uuid;
-    const showContactUser = authorAvailable && (!currentUser || (currentUser && !isOwnListing));
-
-    const currentAuthor = authorAvailable ? currentListing.author : null;
-    const ensuredAuthor = ensureUser(currentAuthor);
-
-    // When user is banned or deleted the listing is also deleted.
-    // Because listing can be never showed with banned or deleted user we don't have to provide
-    // banned or deleted display names for the function
-    const authorDisplayName = userDisplayNameAsString(ensuredAuthor, '');
-
-    const { formattedPrice, priceTitle } = priceData(price, intl);
-
-    const handleBookingSubmit = values => {
-      const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
-      if (isOwnListing || isCurrentlyClosed) {
-        window.scrollTo(0, 0);
-      } else {
-        this.handleSubmit(values);
-      }
-    };
-
-    const listingImages = (listing, variantName) =>
-      (listing.images || [])
-        .map(image => {
-          const variants = image.attributes.variants;
-          const variant = variants ? variants[variantName] : null;
-
-          // deprecated
-          // for backwards combatility only
-          const sizes = image.attributes.sizes;
-          const size = sizes ? sizes.find(i => i.name === variantName) : null;
-
-          return variant || size;
-        })
-        .filter(variant => variant != null);
-
-    const facebookImages = listingImages(currentListing, 'facebook');
-    const twitterImages = listingImages(currentListing, 'twitter');
-    const schemaImages = JSON.stringify(facebookImages.map(img => img.url));
-    const siteTitle = config.siteTitle;
-    const schemaTitle = intl.formatMessage(
-      { id: 'ListingPage.schemaTitle' },
-      { title, price: formattedPrice, siteTitle }
-    );
-
-    const hostLink = (
-      <NamedLink
-        className={css.authorNameLink}
-        name="ListingPage"
-        params={params}
-        to={{ hash: '#host' }}
-      >
-        {authorDisplayName}
-      </NamedLink>
-    );
-
-    const yogaStylesOptions = findOptionsForSelectFilter('yogaStyles', filterConfig);
-    const certificateOptions = findOptionsForSelectFilter('certificate', filterConfig);
-
+  if (showListingError && showListingError.status === 404) {
+    // 404 listing not found
+    return <NotFoundPage />;
+  } else if (showListingError) {
+    // Other error in fetching listing
     return (
-      <Page
-        title={schemaTitle}
-        scrollingDisabled={scrollingDisabled}
-        author={authorDisplayName}
-        contentType="website"
-        description={description}
-        facebookImages={facebookImages}
-        twitterImages={twitterImages}
-        schema={{
-          '@context': 'http://schema.org',
-          '@type': 'ItemPage',
-          description: description,
-          name: schemaTitle,
-          image: schemaImages,
-        }}
-      >
-          <Topbar />
-            <div>
-              <SectionImages
-                title={title}
-                listing={currentListing}
-                isOwnListing={isOwnListing}
-                editParams={{
-                  id: listingId.uuid,
-                  slug: listingSlug,
-                  type: listingType,
-                  tab: listingTab,
-                }}
-                imageCarouselOpen={this.state.imageCarouselOpen}
-                onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
-                handleViewPhotosClick={handleViewPhotosClick}
-                onManageDisableScrolling={onManageDisableScrolling}
-              />
-              <div className={css.contentContainer}>
-                <SectionAvatar user={currentAuthor} params={params} />
-                <div className={css.mainContent}>
-                  <SectionHeading
-                    priceTitle={priceTitle}
-                    formattedPrice={formattedPrice}
-                    richTitle={richTitle}
-                    listingCertificate={publicData ? publicData.certificate : null}
-                    certificateOptions={certificateOptions}
-                    hostLink={hostLink}
-                    showContactUser={showContactUser}
-                    onContactUser={this.onContactUser}
-                  />
-                  <SectionDescriptionMaybe description={description} />
-                  <SectionFeaturesMaybe options={yogaStylesOptions} publicData={publicData} />
-                  <SectionMapMaybe
-                    geolocation={geolocation}
-                    publicData={publicData}
-                    listingId={currentListing.id}
-                  />
-                  <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
-                </div>
-                <BookingPanel
-                  className={css.bookingPanel}
-                  listing={currentListing}
-                  isOwnListing={isOwnListing}
-                  unitType={unitType}
-                  onSubmit={handleBookingSubmit}
-                  title={bookingTitle}
-                  authorDisplayName={authorDisplayName}
-                  onManageDisableScrolling={onManageDisableScrolling}
-                  monthlyTimeSlots={monthlyTimeSlots}
-                  onFetchTimeSlots={onFetchTimeSlots}
-                  onFetchTransactionLineItems={onFetchTransactionLineItems}
-                  lineItems={lineItems}
-                  fetchLineItemsInProgress={fetchLineItemsInProgress}
-                  fetchLineItemsError={fetchLineItemsError}
-                />
-              </div>
-            </div>
-            <Modal
-              id="ListingPage.enquiry"
-              contentClassName={css.enquiryModalContent}
-              isOpen={isAuthenticated && this.state.enquiryModalOpen}
-              onClose={() => this.setState({ enquiryModalOpen: false })}
-              onManageDisableScrolling={onManageDisableScrolling}
-            >
-              <EnquiryForm
-                className={css.enquiryForm}
-                submitButtonWrapperClassName={css.enquirySubmitButtonWrapper}
-                listingTitle={title}
-                authorDisplayName={authorDisplayName}
-                sendEnquiryError={sendEnquiryError}
-                onSubmit={this.onSubmitEnquiry}
-                inProgress={sendEnquiryInProgress}
-              />
-            </Modal>
+      <Page scrollingDisabled={scrollingDisabled}>
+        <Topbar />
+          <Typography variant='body1'>
+            Sorry, we were unable to load the requested listing at this time. Please, try again later
+          </Typography>
+          <Footer />
+      </Page>
+    );
+  } else if (!currentListing.id) {
+    // Still loading the listing
+    return (
+      <Page scrollingDisabled={scrollingDisabled}>
+        <Topbar />
+          <Typography variant='body1'>
+            Retrieving the requested listing now...
+          </Typography>
           <Footer />
       </Page>
     );
   }
-}
+
+  const handleViewPhotosClick = e => {
+    // Stop event from bubbling up to prevent image click handler
+    // trying to open the carousel as well.
+    e.stopPropagation();
+    this.setState({
+      imageCarouselOpen: true,
+    });
+  };
+  const authorAvailable = currentListing && currentListing.author;
+  const userAndListingAuthorAvailable = !!(currentUser && authorAvailable);
+  const isOwnListing =
+    userAndListingAuthorAvailable && currentListing.author.id.uuid === currentUser.id.uuid;
+  const showContactUser = authorAvailable && (!currentUser || (currentUser && !isOwnListing));
+
+  const currentAuthor = authorAvailable ? currentListing.author : null;
+  const ensuredAuthor = ensureUser(currentAuthor);
+  // When user is banned or deleted the listing is also deleted.
+  // Because listing can be never showed with banned or deleted user we don't have to provide
+  // banned or deleted display names for the function
+  const authorDisplayName = userDisplayNameAsString(ensuredAuthor, '');
+
+  const { formattedPrice, priceTitle } = priceData(price, intl);
+
+  const handleBookingSubmit = values => {
+    const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
+    if (isOwnListing || isCurrentlyClosed) {
+      window.scrollTo(0, 0);
+    } else {
+      this.handleSubmit(values);
+    }
+  };
+
+  const listingImages = (listing, variantName) =>
+    (listing.images || [])
+      .map(image => {
+        const variants = image.attributes.variants;
+        const variant = variants ? variants[variantName] : null;
+        // deprecated
+        // for backwards combatility only
+        const sizes = image.attributes.sizes;
+        const size = sizes ? sizes.find(i => i.name === variantName) : null;
+        return variant || size;
+      })
+      .filter(variant => variant != null);
+
+  const facebookImages = listingImages(currentListing, 'facebook');
+  const twitterImages = listingImages(currentListing, 'twitter');
+  const schemaImages = JSON.stringify(facebookImages.map(img => img.url));
+  const siteTitle = config.siteTitle;
+  const schemaTitle = intl.formatMessage(
+    { id: 'ListingPage.schemaTitle' },
+    { title, price: formattedPrice, siteTitle }
+  );
+
+  const hostLink = (
+    <NamedLink
+      name="ListingPage"
+      params={newParams}
+      to={{ hash: '#host' }}
+    >
+      {authorDisplayName}
+    </NamedLink>
+  );
+
+  const yogaStylesOptions = findOptionsForSelectFilter('yogaStyles', filterConfig);
+  const certificateOptions = findOptionsForSelectFilter('certificate', filterConfig);
+
+  return (
+    <Page
+      title={schemaTitle}
+      scrollingDisabled={scrollingDisabled}
+      author={authorDisplayName}
+      contentType="website"
+      description={description}
+      facebookImages={facebookImages}
+      twitterImages={twitterImages}
+      schema={{
+        '@context': 'http://schema.org',
+        '@type': 'ItemPage',
+        description: description,
+        name: schemaTitle,
+        image: schemaImages,
+      }}
+    >
+        <Topbar />
+          <div>
+            <SectionImages
+              title={title}
+              listing={currentListing}
+              isOwnListing={isOwnListing}
+              editParams={{
+                id: listingId.uuid,
+                slug: listingSlug,
+                type: listingType,
+                tab: listingTab,
+              }}
+              imageCarouselOpen={imageCarouselOpen}
+              onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
+              handleViewPhotosClick={handleViewPhotosClick}
+              onManageDisableScrolling={onManageDisableScrolling}
+            />
+            <div>
+              <SectionAvatar user={currentAuthor} params={newParams} />
+              <div>
+                <SectionHeading
+                  priceTitle={priceTitle}
+                  formattedPrice={formattedPrice}
+                  richTitle={richTitle}
+                  listingCertificate={publicData ? publicData.certificate : null}
+                  certificateOptions={certificateOptions}
+                  hostLink={hostLink}
+                  showContactUser={showContactUser}
+                  onContactUser={onContactUser}
+                />
+                <SectionDescriptionMaybe description={description} />
+                <SectionFeaturesMaybe options={yogaStylesOptions} publicData={publicData} />
+                <SectionMapMaybe
+                  geolocation={geolocation}
+                  publicData={publicData}
+                  listingId={currentListing.id}
+                />
+                <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
+              </div>
+              <BookingPanel
+                listing={currentListing}
+                isOwnListing={isOwnListing}
+                unitType={unitType}
+                onSubmit={handleBookingSubmit}
+                title={bookingTitle}
+                authorDisplayName={authorDisplayName}
+                onManageDisableScrolling={onManageDisableScrolling}
+                monthlyTimeSlots={monthlyTimeSlots}
+                onFetchTimeSlots={onFetchTimeSlots}
+                onFetchTransactionLineItems={onFetchTransactionLineItems}
+                lineItems={lineItems}
+                fetchLineItemsInProgress={fetchLineItemsInProgress}
+                fetchLineItemsError={fetchLineItemsError}
+              />
+            </div>
+          </div>
+          <Modal
+            id="ListingPage.enquiry"
+            isOpen={isAuthenticated && enquiryModalOpen}
+            // onClose={() => this.setState({ enquiryModalOpen: false })}
+            onClose={() => setEnquiryModalOpen(false)}
+            onManageDisableScrolling={onManageDisableScrolling}
+          >
+            <EnquiryForm
+              listingTitle={title}
+              authorDisplayName={authorDisplayName}
+              sendEnquiryError={sendEnquiryError}
+              onSubmit={onSubmitEnquiry}
+              inProgress={sendEnquiryInProgress}
+            />
+          </Modal>
+        <Footer />
+    </Page>
+  );
+};
 
 ListingPageComponent.defaultProps = {
   unitType: config.bookingUnitType,

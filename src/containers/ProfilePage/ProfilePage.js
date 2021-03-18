@@ -20,30 +20,14 @@ import {
 import { NotFoundPage } from '../../containers';
 import config from '../../config';
 
-// constructor(props) {
-//   super(props);
-//   this.state = {
-//     // keep track of which reviews tab to show in desktop viewport
-//     showReviewsType: REVIEW_TYPE_OF_PROVIDER,
-//   };
-//   this.showOfProviderReviews = this.showOfProviderReviews.bind(this);
-//   this.showOfCustomerReviews = this.showOfCustomerReviews.bind(this);
-// }
-// showOfProviderReviews() {
-//   this.setState({
-//     showReviewsType: REVIEW_TYPE_OF_PROVIDER,
-//   });
-// }
+import {
+  makeStyles,
+} from '@material-ui/core/styles';
 
-// showOfCustomerReviews() {
-//   this.setState({
-//     showReviewsType: REVIEW_TYPE_OF_CUSTOMER,
-//   });
-// }
-// const useStyles = makeStyles((theme) => ({
-//   thing: {
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  // thing: {
+  // },
+}));
 const ProfilePageComponent = (props) => {
   const {
     scrollingDisabled,
@@ -55,7 +39,7 @@ const ProfilePageComponent = (props) => {
     viewport,
     intl,
   } = props;
-  // const classes = useStyles();
+  const classes = useStyles();
   const [showReviewsType, setShowReviewsType] = useState(REVIEW_TYPE_OF_PROVIDER);
   const showOfProviderReviews = () => {
     setShowReviewsType(REVIEW_TYPE_OF_PROVIDER);

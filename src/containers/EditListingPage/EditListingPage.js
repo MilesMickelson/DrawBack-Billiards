@@ -188,12 +188,7 @@ export const EditListingPageComponent = props => {
 
     return (
       <Page title={title} scrollingDisabled={scrollingDisabled}>
-        <TopbarContainer
-          className={css.topbar}
-          mobileRootClassName={css.mobileTopbar}
-          desktopClassName={css.desktopTopbar}
-          mobileClassName={css.mobileTopbar}
-        />
+        <Topbar />
         <UserNav
           selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
