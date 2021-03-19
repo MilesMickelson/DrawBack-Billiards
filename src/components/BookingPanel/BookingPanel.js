@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import config from '../../config';
 import omit from 'lodash/omit';
 import { array, bool, func, node, object, oneOfType, shape, string } from 'prop-types';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
+import { intlShape, injectIntl } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import { parse, stringify } from '../../util/urlHelpers';
 import {
@@ -20,8 +20,7 @@ import { BookingTimeForm } from '../../forms';
 
 import { Typography } from '@material-ui/core';
 
-// This defines when ModalInMobile shows content as Modal
-// const MODAL_BREAKPOINT = 1023;
+const MODAL_BREAKPOINT = 1023;
 const TODAY = new Date();
 
 const priceData = (price, intl) => {
@@ -54,9 +53,6 @@ const closeBookModal = (history, location) => {
 const dateFormattingOptions = { month: 'short', day: 'numeric', weekday: 'short' };
 const BookingPanel = (props) => {
   const {
-    rootClassName,
-    className,
-    titleClassName,
     listing,
     isOwnListing,
     unitType,
@@ -100,16 +96,13 @@ const BookingPanel = (props) => {
     ? 'BookingPanel.perDay'
     : 'BookingPanel.perUnit';
 
-  // const classes = classNames(rootClassName || css.root, className);
-  // const titleClasses = classNames(titleClassName || css.bookingTitle);
-
   return (
-    <div className='nine-sixty-max'>
+    <>
       <ModalInMobile
         id="BookingTimeFormInModal"
         isModalOpenOnMobile={isBook}
         onClose={() => closeBookModal(history, location)}
-        // showAsModalMaxWidth={MODAL_BREAKPOINT}
+        showAsModalMaxWidth={MODAL_BREAKPOINT}
         onManageDisableScrolling={onManageDisableScrolling}
       >
           <Typography variant='h4'>{title}</Typography>
@@ -143,13 +136,13 @@ const BookingPanel = (props) => {
       </Typography>
       {showBookingTimeForm ? (
         <Button onClick={() => openBookModal(isOwnListing, isClosed, history, location)}>
-          BookingPanel.ctaButtonMessage
+          Booking Time Form Button
         </Button>
       ) : isClosed ? (
-        <Typography variant='body1'>BookingPanel.closedListingButtonText</Typography>
+        <Typography variant='body1'>Booking Time Form Button Message</Typography>
       ) : null
       }
-    </div>
+    </>
   );
 };
 

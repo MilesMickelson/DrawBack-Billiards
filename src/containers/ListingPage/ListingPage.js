@@ -346,7 +346,7 @@ const ListingPageComponent = (props) => {
       }}
     >
         <Topbar />
-          <div>
+          <div className='nine-sixty-max'>
             <SectionImages
               title={title}
               listing={currentListing}
@@ -364,7 +364,7 @@ const ListingPageComponent = (props) => {
             />
             <div>
               <SectionAvatar user={currentAuthor} params={newParams} />
-              {/* <div>
+              <div>
                 <SectionHeading
                   priceTitle={priceTitle}
                   formattedPrice={formattedPrice}
@@ -383,7 +383,7 @@ const ListingPageComponent = (props) => {
                   listingId={currentListing.id}
                 />
                 <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
-              </div> */}
+              </div>
               <BookingPanel
                 listing={currentListing}
                 isOwnListing={isOwnListing}
