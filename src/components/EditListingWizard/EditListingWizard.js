@@ -32,8 +32,7 @@ import css from './EditListingWizard.module.css';
 // Show availability calendar only if environment variable availabilityEnabled is true
 const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 
-// Todo You need to change save button translations for new listing flow
-// Todo Ensure that draft listing is created after the first panel and listing publishing happens after last panel.
+// Todo 1 - You need to change save button translations for new listing flow and ensure that draft listing is created after the first panel. 2 - Listing publishing happens after last panel.
 // ? in FTW-hourly template we don't use the POLICY tab so it's commented out.
 export const TABS = [
   DESCRIPTION,

@@ -59,7 +59,6 @@ import SectionFeaturesMaybe from './SectionFeaturesMaybe';
 import SectionReviews from './SectionReviews';
 import SectionMapMaybe from './SectionMapMaybe';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
@@ -359,13 +358,13 @@ const ListingPageComponent = (props) => {
                 tab: listingTab,
               }}
               imageCarouselOpen={imageCarouselOpen}
-              onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
+              onImageCarouselClose={() => setImageCarouselOpen( false )}
               handleViewPhotosClick={handleViewPhotosClick}
               onManageDisableScrolling={onManageDisableScrolling}
             />
             <div>
               <SectionAvatar user={currentAuthor} params={newParams} />
-              <div>
+              {/* <div>
                 <SectionHeading
                   priceTitle={priceTitle}
                   formattedPrice={formattedPrice}
@@ -384,7 +383,7 @@ const ListingPageComponent = (props) => {
                   listingId={currentListing.id}
                 />
                 <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
-              </div>
+              </div> */}
               <BookingPanel
                 listing={currentListing}
                 isOwnListing={isOwnListing}

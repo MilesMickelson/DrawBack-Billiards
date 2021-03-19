@@ -1,21 +1,27 @@
 import React from 'react';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
-import { array, bool, func, node, object, oneOfType, shape, string } from 'prop-types';
-import classNames from 'classnames';
+
+import config from '../../config';
 import omit from 'lodash/omit';
-import { propTypes, LISTING_STATE_CLOSED, LINE_ITEM_NIGHT, LINE_ITEM_DAY } from '../../util/types';
+import { array, bool, func, node, object, oneOfType, shape, string } from 'prop-types';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import { parse, stringify } from '../../util/urlHelpers';
-import config from '../../config';
+import {
+  propTypes,
+  LISTING_STATE_CLOSED,
+  LINE_ITEM_NIGHT,
+  LINE_ITEM_DAY
+} from '../../util/types';
+
 import { ModalInMobile, Button } from '../../components';
 import { BookingTimeForm } from '../../forms';
 
-import css from './BookingPanel.module.css';
+import { Typography } from '@material-ui/core';
 
 // This defines when ModalInMobile shows content as Modal
-const MODAL_BREAKPOINT = 1023;
+// const MODAL_BREAKPOINT = 1023;
 const TODAY = new Date();
 
 const priceData = (price, intl) => {
@@ -30,7 +36,6 @@ const priceData = (price, intl) => {
   }
   return {};
 };
-
 const openBookModal = (isOwnListing, isClosed, history, location) => {
   if (isOwnListing || isClosed) {
     window.scrollTo(0, 0);
@@ -40,17 +45,14 @@ const openBookModal = (isOwnListing, isClosed, history, location) => {
     history.push(`${pathname}${searchString}`, state);
   }
 };
-
 const closeBookModal = (history, location) => {
   const { pathname, search, state } = location;
   const searchParams = omit(parse(search), 'book');
   const searchString = `?${stringify(searchParams)}`;
   history.push(`${pathname}${searchString}`, state);
 };
-
 const dateFormattingOptions = { month: 'short', day: 'numeric', weekday: 'short' };
-
-const BookingPanel = props => {
+const BookingPanel = (props) => {
   const {
     rootClassName,
     className,
@@ -98,42 +100,25 @@ const BookingPanel = props => {
     ? 'BookingPanel.perDay'
     : 'BookingPanel.perUnit';
 
-  const classes = classNames(rootClassName || css.root, className);
-  const titleClasses = classNames(titleClassName || css.bookingTitle);
+  // const classes = classNames(rootClassName || css.root, className);
+  // const titleClasses = classNames(titleClassName || css.bookingTitle);
 
   return (
-    <div className={classes}>
+    <div className='nine-sixty-max'>
       <ModalInMobile
-        containerClassName={css.modalContainer}
         id="BookingTimeFormInModal"
         isModalOpenOnMobile={isBook}
         onClose={() => closeBookModal(history, location)}
-        showAsModalMaxWidth={MODAL_BREAKPOINT}
+        // showAsModalMaxWidth={MODAL_BREAKPOINT}
         onManageDisableScrolling={onManageDisableScrolling}
       >
-        <div className={css.modalHeading}>
-          <h1 className={css.title}>{title}</h1>
-        </div>
-        <div className={css.bookingHeading}>
-          <div className={css.desktopPriceContainer}>
-            <div className={css.desktopPriceValue} title={priceTitle}>
-              {formattedPrice}
-            </div>
-            <div className={css.desktopPerUnit}>
-              <FormattedMessage id={unitTranslationKey} />
-            </div>
-          </div>
-          <div className={css.bookingHeadingContainer}>
-            <h2 className={titleClasses}>{title}</h2>
-            {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
-          </div>
-        </div>
-
+          <Typography variant='h4'>{title}</Typography>
+          {subTitleText ? <div>{subTitleText}</div> : null}
+          <Typography variant='body1'>{formattedPrice}</Typography>
+          <Typography variant='body1'>{unitTranslationKey}</Typography>
         {showBookingTimeForm ? (
           <BookingTimeForm
-            className={css.bookingForm}
             formId="BookingPanel"
-            submitButtonWrapperClassName={css.submitButtonWrapper}
             unitType={unitType}
             onSubmit={onSubmit}
             price={price}
@@ -151,29 +136,19 @@ const BookingPanel = props => {
           />
         ) : null}
       </ModalInMobile>
-      <div className={css.openBookingForm}>
-        <div className={css.priceContainer}>
-          <div className={css.priceValue} title={priceTitle}>
-            {formattedPrice}
-          </div>
-          <div className={css.perUnit}>
-            <FormattedMessage id={unitTranslationKey} />
-          </div>
-        </div>
-
-        {showBookingTimeForm ? (
-          <Button
-            rootClassName={css.bookButton}
-            onClick={() => openBookModal(isOwnListing, isClosed, history, location)}
-          >
-            <FormattedMessage id="BookingPanel.ctaButtonMessage" />
-          </Button>
-        ) : isClosed ? (
-          <div className={css.closedListingButton}>
-            <FormattedMessage id="BookingPanel.closedListingButtonText" />
-          </div>
-        ) : null}
-      </div>
+      <Typography variant='body1' id={unitTranslationKey}>
+        {formattedPrice}
+        {priceTitle}
+        {unitTranslationKey}
+      </Typography>
+      {showBookingTimeForm ? (
+        <Button onClick={() => openBookModal(isOwnListing, isClosed, history, location)}>
+          BookingPanel.ctaButtonMessage
+        </Button>
+      ) : isClosed ? (
+        <Typography variant='body1'>BookingPanel.closedListingButtonText</Typography>
+      ) : null
+      }
     </div>
   );
 };
