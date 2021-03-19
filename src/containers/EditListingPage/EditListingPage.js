@@ -37,7 +37,7 @@ import {
   savePayoutDetails,
 } from './EditListingPage.duck';
 
-import css from './EditListingPage.module.css';
+import { Typography } from '@material-ui/core';
 
 const STRIPE_ONBOARDING_RETURN_URL_SUCCESS = 'success';
 const STRIPE_ONBOARDING_RETURN_URL_FAILURE = 'failure';
@@ -49,7 +49,7 @@ const STRIPE_ONBOARDING_RETURN_URL_TYPES = [
 const { UUID } = sdkTypes;
 
 // N.B. All the presentational content needs to be extracted to their own components
-export const EditListingPageComponent = props => {
+const EditListingPageComponent = (props) => {
   const {
     currentUser,
     currentUserListing,
@@ -103,11 +103,9 @@ export const EditListingPageComponent = props => {
   if (shouldRedirect) {
     const isPendingApproval =
       currentListing && currentListingState === LISTING_STATE_PENDING_APPROVAL;
-
     // If page has already listingId (after submit) and current listings exist
     // redirect to listing page
     const listingSlug = currentListing ? createSlug(currentListing.attributes.title) : null;
-
     const redirectProps = isPendingApproval
       ? {
           name: 'ListingPageVariant',
@@ -124,7 +122,6 @@ export const EditListingPageComponent = props => {
             slug: listingSlug,
           },
         };
-
     return <NamedRedirect {...redirectProps} />;
   } else if (allowOnlyOneListing && isNewURI && currentUserListingFetched && currentUserListing) {
     // If we allow only one listing per provider, we need to redirect to correct listing.
@@ -195,7 +192,6 @@ export const EditListingPageComponent = props => {
         />
         <EditListingWizard
           id="EditListingWizard"
-          className={css.wizard}
           params={params}
           disabled={disableForm}
           errors={errors}
@@ -239,22 +235,15 @@ export const EditListingPageComponent = props => {
   } else {
     // If user has come to this page through a direct linkto edit existing listing,
     // we need to load it first.
-    const loadingPageMsg = {
-      id: 'EditListingPage.loadingListingData',
-    };
     return (
-      <Page title={intl.formatMessage(loadingPageMsg)} scrollingDisabled={scrollingDisabled}>
-        <TopbarContainer
-          className={css.topbar}
-          mobileRootClassName={css.mobileTopbar}
-          desktopClassName={css.desktopTopbar}
-          mobileClassName={css.mobileTopbar}
-        />
+      <Page scrollingDisabled={scrollingDisabled}>
+        <Topbar />
+        <Typography variant='body1'>Loading listing data to edit</Typography>
         <UserNav
           selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
         />
-        <div className={css.placeholderWhileLoading} />
+        {/* <div className={placeholderWhileLoading} /> */}
         <Footer />
       </Page>
     );

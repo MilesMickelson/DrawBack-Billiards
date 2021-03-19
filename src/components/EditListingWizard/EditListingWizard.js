@@ -32,12 +32,9 @@ import css from './EditListingWizard.module.css';
 // Show availability calendar only if environment variable availabilityEnabled is true
 const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 
-// You can reorder these panels.
-// Note 1: You need to change save button translations for new listing flow
-// Note 2: Ensure that draft listing is created after the first panel
-// and listing publishing happens after last panel.
-// Note 3: in FTW-hourly template we don't use the POLICY tab so it's commented out.
-// If you want to add a free text field to your listings you can enable the POLICY tab
+// Todo You need to change save button translations for new listing flow
+// Todo Ensure that draft listing is created after the first panel and listing publishing happens after last panel.
+// ? in FTW-hourly template we don't use the POLICY tab so it's commented out.
 export const TABS = [
   DESCRIPTION,
   FEATURES,

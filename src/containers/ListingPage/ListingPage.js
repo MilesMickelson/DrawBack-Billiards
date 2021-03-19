@@ -86,19 +86,6 @@ const priceData = (price, intl) => {
   return {};
 };
 
-// constructor(props) {
-//   super(props);
-//   const { enquiryModalOpenForListingId, params } = props;
-//   this.state = {
-//     pageClassNames: [],
-//     imageCarouselOpen: false,
-//     enquiryModalOpen: enquiryModalOpenForListingId === params.id,
-//   };
-
-//   this.handleSubmit = this.handleSubmit.bind(this);
-//   this.onContactUser = this.onContactUser.bind(this);
-//   this.onSubmitEnquiry = this.onSubmitEnquiry.bind(this);
-// }
 const ListingPageComponent = (props) => {
   const {
     enquiryModalOpenForListingId,
@@ -128,7 +115,8 @@ const ListingPageComponent = (props) => {
     fetchLineItemsError,
   } = props;
   const classes = useStyles();
-
+  const [imageCarouselOpen, setImageCarouselOpen] = useState(false);
+  const [enquiryModalOpen, setEnquiryModalOpen] = useState(enquiryModalOpenForListingId === params.id);
   const handleSubmit = (values) => {
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
@@ -255,6 +243,7 @@ const ListingPageComponent = (props) => {
     <Typography variant='h5'>{ richTitle }</Typography>
   );
 
+  const loadiingListing = () => { 
   if (showListingError && showListingError.status === 404) {
     // 404 listing not found
     return <NotFoundPage />;
@@ -281,14 +270,12 @@ const ListingPageComponent = (props) => {
       </Page>
     );
   }
+};
 
   const handleViewPhotosClick = e => {
-    // Stop event from bubbling up to prevent image click handler
-    // trying to open the carousel as well.
+    // Stop event from bubbling up to prevent image click handler trying to open the carousel as well.
     e.stopPropagation();
-    this.setState({
-      imageCarouselOpen: true,
-    });
+    setImageCarouselOpen(true);
   };
   const authorAvailable = currentListing && currentListing.author;
   const userAndListingAuthorAvailable = !!(currentUser && authorAvailable);
@@ -302,9 +289,7 @@ const ListingPageComponent = (props) => {
   // Because listing can be never showed with banned or deleted user we don't have to provide
   // banned or deleted display names for the function
   const authorDisplayName = userDisplayNameAsString(ensuredAuthor, '');
-
   const { formattedPrice, priceTitle } = priceData(price, intl);
-
   const handleBookingSubmit = values => {
     const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
     if (isOwnListing || isCurrentlyClosed) {
@@ -313,7 +298,6 @@ const ListingPageComponent = (props) => {
       this.handleSubmit(values);
     }
   };
-
   const listingImages = (listing, variantName) =>
     (listing.images || [])
       .map(image => {
@@ -326,7 +310,6 @@ const ListingPageComponent = (props) => {
         return variant || size;
       })
       .filter(variant => variant != null);
-
   const facebookImages = listingImages(currentListing, 'facebook');
   const twitterImages = listingImages(currentListing, 'twitter');
   const schemaImages = JSON.stringify(facebookImages.map(img => img.url));
@@ -335,7 +318,6 @@ const ListingPageComponent = (props) => {
     { id: 'ListingPage.schemaTitle' },
     { title, price: formattedPrice, siteTitle }
   );
-
   const hostLink = (
     <NamedLink
       name="ListingPage"
@@ -345,10 +327,8 @@ const ListingPageComponent = (props) => {
       {authorDisplayName}
     </NamedLink>
   );
-
   const yogaStylesOptions = findOptionsForSelectFilter('yogaStyles', filterConfig);
   const certificateOptions = findOptionsForSelectFilter('certificate', filterConfig);
-
   return (
     <Page
       title={schemaTitle}

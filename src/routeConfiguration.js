@@ -79,7 +79,7 @@ const routeConfiguration = () => {
       component: RedirectToLandingPage,
     },
     {
-      path: '/l/slug/:id',
+      path: '/l/:slug/:id',
       name: 'ListingPage',
       component: ListingPage,
       loadData: pageDataLoadingAPI.ListingPage.loadData,
