@@ -61,6 +61,7 @@ import SectionMapMaybe from './SectionMapMaybe';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -404,7 +405,6 @@ const ListingPageComponent = (props) => {
           <Modal
             id="ListingPage.enquiry"
             isOpen={isAuthenticated && enquiryModalOpen}
-            // onClose={() => this.setState({ enquiryModalOpen: false })}
             onClose={() => setEnquiryModalOpen(false)}
             onManageDisableScrolling={onManageDisableScrolling}
           >
@@ -443,17 +443,14 @@ ListingPageComponent.propTypes = {
   location: shape({
     search: string,
   }).isRequired,
-
   unitType: propTypes.bookingUnitType,
   // from injectIntl
   intl: intlShape.isRequired,
-
   params: shape({
     id: string.isRequired,
     slug: string,
     variant: oneOf([LISTING_PAGE_DRAFT_VARIANT, LISTING_PAGE_PENDING_APPROVAL_VARIANT]),
   }).isRequired,
-
   isAuthenticated: bool.isRequired,
   currentUser: propTypes.currentUser,
   getListing: func.isRequired,

@@ -35,7 +35,7 @@ const priceData = (price, intl) => {
   }
   return {};
 };
-const openBookModal = (isOwnListing, isClosed, history, location) => {
+const handleOpenBookModal = (isOwnListing, isClosed, history, location) => {
   if (isOwnListing || isClosed) {
     window.scrollTo(0, 0);
   } else {
@@ -44,7 +44,7 @@ const openBookModal = (isOwnListing, isClosed, history, location) => {
     history.push(`${pathname}${searchString}`, state);
   }
 };
-const closeBookModal = (history, location) => {
+const handleCloseBookModal = (history, location) => {
   const { pathname, search, state } = location;
   const searchParams = omit(parse(search), 'book');
   const searchString = `?${stringify(searchParams)}`;
@@ -101,47 +101,43 @@ const BookingPanel = (props) => {
       <ModalInMobile
         id="BookingTimeFormInModal"
         isModalOpenOnMobile={isBook}
-        onClose={() => closeBookModal(history, location)}
+        onClose={() => handleCloseBookModal(history, location)}
         showAsModalMaxWidth={MODAL_BREAKPOINT}
         onManageDisableScrolling={onManageDisableScrolling}
       >
-          <Typography variant='h4'>{title}</Typography>
-          {subTitleText ? <div>{subTitleText}</div> : null}
-          <Typography variant='body1'>{formattedPrice}</Typography>
-          <Typography variant='body1'>{unitTranslationKey}</Typography>
-        {showBookingTimeForm ? (
-          <BookingTimeForm
-            formId="BookingPanel"
-            unitType={unitType}
-            onSubmit={onSubmit}
-            price={price}
-            listingId={listing.id}
-            isOwnListing={isOwnListing}
-            monthlyTimeSlots={monthlyTimeSlots}
-            onFetchTimeSlots={onFetchTimeSlots}
-            startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
-            endDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
-            timeZone={timeZone}
-            onFetchTransactionLineItems={onFetchTransactionLineItems}
-            lineItems={lineItems}
-            fetchLineItemsInProgress={fetchLineItemsInProgress}
-            fetchLineItemsError={fetchLineItemsError}
-          />
-        ) : null}
+        <Typography variant='h4'>{title}</Typography>
+        {subTitleText ? <div>{subTitleText}</div> : null}
+        <Typography variant='body1'>{formattedPrice}</Typography>
+        <BookingTimeForm
+          formId="BookingPanel"
+          unitType={unitType}
+          onSubmit={onSubmit}
+          price={price}
+          listingId={listing.id}
+          isOwnListing={isOwnListing}
+          monthlyTimeSlots={monthlyTimeSlots}
+          onFetchTimeSlots={onFetchTimeSlots}
+          startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
+          endDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
+          timeZone={timeZone}
+          onFetchTransactionLineItems={onFetchTransactionLineItems}
+          lineItems={lineItems}
+          fetchLineItemsInProgress={fetchLineItemsInProgress}
+          fetchLineItemsError={fetchLineItemsError}
+        />
       </ModalInMobile>
       <Typography variant='body1' id={unitTranslationKey}>
         {formattedPrice}
         {priceTitle}
-        {unitTranslationKey}
       </Typography>
-      {showBookingTimeForm ? (
-        <Button onClick={() => openBookModal(isOwnListing, isClosed, history, location)}>
-          Booking Time Form Button
-        </Button>
-      ) : isClosed ? (
-        <Typography variant='body1'>Booking Time Form Button Message</Typography>
-      ) : null
-      }
+      <Button
+        color='primary'
+        variant=''
+        onClick={() => handleOpenBookModal(isOwnListing, isClosed, history, location)}
+      >
+        Booking Time Form Button
+      </Button>
+      <Typography variant='body1'>Booking Time Form Button Message</Typography>
     </>
   );
 };

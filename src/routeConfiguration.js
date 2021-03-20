@@ -14,6 +14,7 @@ const AboutPage = loadable(() => import(/* webpackChunkName: "AboutPage" */ './c
 const AuthenticationPage = loadable(() => import(/* webpackChunkName: "AuthenticationPage" */ './containers/AuthenticationPage/AuthenticationPage'));
 const CheckoutPage = loadable(() => import(/* webpackChunkName: "CheckoutPage" */ './containers/CheckoutPage/CheckoutPage'));
 const ContactDetailsPage = loadable(() => import(/* webpackChunkName: "ContactDetailsPage" */ './containers/ContactDetailsPage/ContactDetailsPage'));
+const DashboardPage = loadable(() => import(/* webpackChunkName: "DashboardPage" */ './containers/DashboardPage/DashboardPage'));
 const EditListingPage = loadable(() => import(/* webpackChunkName: "EditListingPage" */ './containers/EditListingPage/EditListingPage'));
 const EmailVerificationPage = loadable(() => import(/* webpackChunkName: "EmailVerificationPage" */ './containers/EmailVerificationPage/EmailVerificationPage'));
 const InboxPage = loadable(() => import(/* webpackChunkName: "InboxPage" */ './containers/InboxPage/InboxPage'));
@@ -231,9 +232,17 @@ const routeConfiguration = () => {
     {
       path: '/account',
       name: 'AccountSettingsPage',
-      auth: true,
-      authPage: 'LoginPage',
+      // auth: true,
+      // authPage: 'LoginPage',
       component: () => <NamedRedirect name="ContactDetailsPage" />,
+    },
+    {
+      path: '/account/dashboard',
+      name: 'DashboardPage',
+      // auth: true,
+      // authPage: 'LoginPage',
+      component: DashboardPage,
+      loadData: pageDataLoadingAPI.ContactDetailsPage.loadData,
     },
     {
       path: '/account/contact-details',
