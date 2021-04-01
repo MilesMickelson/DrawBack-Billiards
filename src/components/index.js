@@ -59,6 +59,8 @@ export { default as Collections } from './MainPageCategories/collections';
 export { default as Guides } from './MainPageCategories/guides';
 export { default as MainDrawer } from './MainDrawer/MainDrawer';
 export { default as AccountDrawer } from './AccountDrawer/AccountDrawer';
+export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as DashboardBar } from './DashboardBar/DashboardBar';
 
 /**
  * Composite components
@@ -152,6 +154,9 @@ export { default as SortBy } from './SortBy/SortBy';
 export { default as StripeConnectAccountStatusBox } from './StripeConnectAccountStatusBox/StripeConnectAccountStatusBox';
 export { default as StripePaymentAddress } from './StripePaymentAddress/StripePaymentAddress';
 export { default as UserCard } from './UserCard/UserCard';
+export { default as Topbar } from './Topbar/Topbar';
+export { default as Footer } from './Footer/Footer';
+export { default as TransactionPanel } from './TransactionPanel/TransactionPanel';
 
 //////////////////////////////////////////////
 // Page sections and modal content wrappers //
@@ -172,8 +177,3 @@ export { default as SectionHero } from './SectionHero/SectionHero';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';
 export { default as SectionThumbnailLinks } from './SectionThumbnailLinks/SectionThumbnailLinks';
-export { default as Topbar } from './Topbar/Topbar';
-export { default as Footer } from './Footer/Footer';
-// export { default as TopbarDesktop } from './TopbarDesktop/TopbarDesktop';
-// export { default as TopbarMobileMenu } from './TopbarMobileMenu/TopbarMobileMenu';
-export { default as TransactionPanel } from './TransactionPanel/TransactionPanel';

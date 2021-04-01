@@ -19,6 +19,7 @@ import Orders from './Orders';
 import {
   Topbar,
   Footer,
+  DashboardBar,
   ExternalLink,
 } from '../../components';
 
@@ -115,6 +116,7 @@ const Dashboard = () => {
     <>
       <Topbar />
       <div className='twelve-eighty-max'>
+        <DashboardBar />
         <Grid container spacing={ 3 }>
           <Grid item xs={ 12 } md={ 8 } lg={ 9 }>
             <Paper className={ fixedHeightPaper }>
