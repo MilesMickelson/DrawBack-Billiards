@@ -1,6 +1,6 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
-import ClassNames from 'classnames';
+
 import {
   BarChart,
   Bar,
@@ -11,8 +11,11 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import ClassNames from 'classnames';
+
+import { makeStyles } from '@material-ui/core/styles';
+
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -26,6 +29,7 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DoneOutlineRoundedIcon from '@material-ui/icons/DoneOutlineRounded';
 import DoubleArrowRoundedIcon from '@material-ui/icons/DoubleArrowRounded';
@@ -139,14 +143,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'start',
     marginTop: 15,
   },
-  customizeShop: {
-    marginBottom: 2,
-    borderTopRightRadius: 6,
-    borderTopLeftRadius: 6,
+  button: {
+    marginTop: 2,
+    width: '100%',
   },
-  promoteShop: {
-    borderBottomRightRadius: 6,
-    borderBottomLeftRadius: 6,
+  overviewButton: {
+    width: '100%',
+    marginTop: 2,
   },
   badge: {
     width: '32%',
@@ -252,10 +255,10 @@ const Dashboard = () => {
           </Typography>
           <ButtonGroup
             orientation='vertical'
-            color='primary'
-            aria-label='vertical contained primary button group'
             variant='text'
+            color='primary'
             className={ classes.verticalWrap }
+            aria-label='vertical contained primary button group'
           >
             <Button>
               <Typography variant='subtitle2'>
@@ -288,18 +291,40 @@ const Dashboard = () => {
               </Typography>
             </Button>
           </ButtonGroup>
-        </CardContent>
-        <CardActions className='buttons-wrap1'>
           <ButtonGroup
             orientation='vertical'
+            variant='contained'
             color='primary'
             aria-label='vertical contained primary button group'
-            variant='contained'
           >
-            <Button className={ classes.customizeShop }>Customize My Shop</Button>
-            <Button className={ classes.promoteShop }>Promote My Shop</Button>
+            <Button className={ classes.button }>
+              <Typography variant='button'>Drafts</Typography>
+              <div className='flex-grow-100' />
+              <Typography variant='button'>1</Typography>
+            </Button>
+            <Button className={ classes.button }>
+              <span>Live</span>
+              <span>17</span>
+            </Button>
+            <Button className={ classes.button }>
+              <span>Ended</span>
+              <span>3</span>
+            </Button>
+            <Button className={ classes.button }>
+              <span>Sold Out</span>
+              <span>0</span>
+            </Button>
           </ButtonGroup>
-        </CardActions>
+          <ButtonGroup
+            orientation='vertical'
+            variant='contained'
+            color='primary'
+            aria-label='vertical contained primary button group'
+          >
+            <Button className={ classes.button }>Customize My Shop</Button>
+            <Button className={ classes.button }>Promote My Shop</Button>
+          </ButtonGroup>
+        </CardContent>
       </Card>
       <Card className={ classes.badgeCard }>
         <CardActionArea>
@@ -476,25 +501,6 @@ const Dashboard = () => {
                 </Collapse>
               </Card>
             </div>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card className={ classes.fullCard } raised>
-        <CardActionArea>
-          <CardContent>
-            <Typography variant='h5'>Overview</Typography>
-            <hr />
-            <ButtonGroup
-              variant='contained'
-              color='primary'
-              aria-label='text primary button group'
-              className='overview-wrap'
-            >
-              <Button className='flex-grow'>1 Drafts</Button>
-              <Button className='flex-grow'>17 Live</Button>
-              <Button className='flex-grow'>3 Ended</Button>
-              <Button className='flex-grow'>0 Sold Out</Button>
-            </ButtonGroup>
           </CardContent>
         </CardActionArea>
       </Card>
